@@ -1,0 +1,72 @@
+name: 更新 Guideline 連結
+
+# 跟每日的活動抓取分開跑，刻意的：
+#   ・活動資料每天換，guideline 一年才換一版
+#   ・活動來源掛掉不該讓 guideline 按鍵跟著消失，反過來也是
+#
+# 🔴 **頻率的兩層意思，改 cron 之前先看懂**：
+#   ・**版本更新**實質是**年頻** —— 三個學會的指引一年才出一版
+#     （站主 2026-08-25：「每年更新就好」）。
+#   ・**連結健康檢查**設成**月頻** —— 因為「TUA 把公告網址換掉」這種事不挑時間發生，
+#     只在每年一月跑的話，按鍵可能 404 整整一年沒人知道。每月一次的成本是
+#     12 次執行 × 4 個請求 = 一年 48 個請求，對三個學會的網站等於沒有負擔。
+# 也可以到 Actions 頁面按 Run workflow 手動觸發。
+on:
+  schedule:
+    # 每月 1 號台灣時間 06:00（UTC 前一天 22:00）
+    - cron: "0 22 1 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-guidelines
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 安裝相依套件
+        run: pip install -r requirements.txt
+
+      - name: 解析規則自我測試
+        run: python scripts/selftest.py
+
+      # continue-on-error 的理由與 update.yml 那支相同：解析失敗時腳本仍然會把
+      # 「退回 fallback」的結果寫進 data/guidelines.json，站上要看得到那條提示。
+      # 這一步直接中斷 job 的話提交步驟就不會跑，提示永遠上不了站。
+      - name: 解析三個學會的 guideline 連結
+        id: resolve
+        continue-on-error: true
+        run: python scripts/build-guidelines.py
+
+      - name: 個資掃描
+        run: bash scripts/pii-scan.sh
+
+      - name: 有變動才提交
+        run: |
+          if [ -z "$(git status --porcelain data/guidelines.json)" ]; then
+            echo "guideline 連結無變動，跳過提交"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/guidelines.json
+          git commit -m "chore: 更新 guideline 連結 $(TZ=Asia/Taipei date +'%Y-%m-%d')"
+          git push
+
+      # 已經把 fallback 結果提交上去了，但這次執行仍然要是紅的 ——
+      # 否則沒人會發現某個學會的網站改版、按鍵已經指不到最新版
+      - name: 解析失敗就讓這次執行變紅
+        if: steps.resolve.outcome == 'failure'
+        run: |
+          echo "至少一顆 guideline 連結解析失敗；已退回上次驗證過的網址並把提示寫進 data/guidelines.json"
+          exit 1

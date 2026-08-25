@@ -47,37 +47,48 @@ body {
   font-size: .82rem;
 }
 
-/* ---------- 分頁（積分課程／學會會議） ---------- */
-.kinds {
-  display: flex;
-  gap: 8px;
+/* ---------- Guideline 區（置頂、常駐、不吃下面的分類篩選） ----------
+   刻意跟篩選器長得不一樣（實心底色 + 左側粗邊），因為它**不是**篩選器的一部分。
+   站主指定要「分開」，視覺上就得一眼看出是不同性質的東西。 */
+.guidelines {
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 13px 16px 15px;
   margin: 18px 0 0;
-  border-bottom: 2px solid var(--line);
 }
-.kind {
-  border: none;
-  background: none;
-  font-family: inherit;
-  font-size: .95rem;
+.guidelines-title {
+  margin: 0 0 9px;
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.guideline-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.guideline-link {
+  display: inline-block;
+  background: #fff;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+  font-size: .85rem;
   font-weight: 600;
-  color: var(--muted);
-  padding: 9px 14px;
-  cursor: pointer;
-  /* 底線壓在容器的 border 上，選中時才看得到 */
-  margin-bottom: -2px;
-  border-bottom: 2px solid transparent;
+  border-radius: 999px;
+  padding: 6px 15px;
+  transition: background .12s, color .12s;
 }
-.kind:hover { color: var(--accent); }
-.kind.on { color: var(--accent); border-bottom-color: var(--accent); }
-.kind .n {
-  font-size: .75em;
-  font-weight: 600;
-  opacity: .65;
-  margin-left: 3px;
+.guideline-link:hover { background: var(--accent); color: #fff; }
+.guideline-note {
+  margin: 10px 0 0;
+  font-size: .78rem;
+  color: var(--warn);
+  line-height: 1.5;
 }
-.kind-hint {
-  margin: 8px 0 0;
-  font-size: .8rem;
+
+.tag-hint {
+  margin: 2px 0 6px 54px;
+  font-size: .78rem;
   color: var(--muted);
   line-height: 1.5;
 }
@@ -280,7 +291,14 @@ body {
   .toggle { display: inline-flex; align-items: center; }
 
   /* 收合時只留搜尋列，讓活動清單能出現在第一屏 */
-  .filters.collapsed .filter-row:not(.search-row) { display: none; }
+  /* 手機收合時只留搜尋列與**分類列**。分類決定「你是哪種讀者」（住院醫師看上課／
+     主治醫師看開會），藏在「篩選」按鈕後面等於兩種人都得先摸索一次才找得到自己要的。
+     其他軸（地區／積分／主題／主辦／來源）收起來沒關係，那些是進階篩選。 */
+  .filters.collapsed .filter-row:not(.search-row):not(.tag-row) { display: none; }
+  .filters.collapsed .tag-hint { display: none; }
+  .guidelines { padding: 11px 13px 13px; }
+  .guideline-link { font-size: .8rem; padding: 6px 13px; }
+  .tag-hint { margin-left: 0; }
   .event { gap: 10px; padding: 11px 12px; }
   .date-badge { flex-basis: 56px; padding-right: 8px; }
   .event-title { font-size: .92rem; }

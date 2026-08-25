@@ -20,7 +20,7 @@
 <header class="site-header">
   <div class="wrap">
     <h1>泌尿科 繼續教育活動</h1>
-    <p class="tagline">積分課程 · 學會開會時間 · 每天自動更新</p>
+    <p class="tagline">上課（積分課程）· 開會（學會會議）· 每天自動更新</p>
     <div class="stats" id="stats">
       <span class="stat"><b id="stat-count">–</b> <span id="stat-count-label">場即將舉行</span></span>
       <span class="stat"><b id="stat-range">–</b></span>
@@ -32,10 +32,16 @@
 </header>
 
 <main class="wrap">
-  <!-- 兩種資料的切換。「積分課程」問這堂課給幾點，「學會會議」問他們什麼時候開會，
-       是兩個不同的問題，所以分頁而不是混在同一份清單裡多加一個篩選軸。 -->
-  <nav class="kinds" id="kinds" aria-label="資料類別"></nav>
-  <p class="kind-hint" id="kind-hint"></p>
+  <!-- Guideline 區（站主 2026-08-25 指定：「置頂在篩選器上面常駐 並且分開
+       就是一個guideline 區域」）。
+       🔴 這一區**不屬於下面那套分類篩選**，不管篩選器選什麼都常駐顯示 ——
+       它跟活動清單是不同性質的東西。按鍵由 data/guidelines.json render 出來，
+       不寫死在這裡：日後要多加一顆，加一筆資料就好。 -->
+  <section class="guidelines" id="guidelines" aria-label="治療指引" hidden>
+    <h2 class="guidelines-title">Guideline</h2>
+    <div class="guideline-links"></div>
+    <p class="guideline-note" id="guideline-note" hidden></p>
+  </section>
 
   <section class="filters" aria-label="篩選器">
     <div class="filter-row search-row">
@@ -43,6 +49,16 @@
       <button type="button" id="toggle" class="reset toggle" aria-expanded="false">篩選</button>
       <button type="button" id="reset" class="reset">清除</button>
     </div>
+
+    <!-- 分類：住院醫師篩「上課」、主治醫師篩「開會」，同一個頁面兩種受眾。
+         🔴 class 帶 tag-row 是為了**豁免手機版的收合**（見 style.css）——
+         其他篩選軸收起來沒關係，但這一軸決定「你是哪種讀者」，
+         藏在「篩選」按鈕後面等於兩種受眾都得先摸索才找得到自己要的東西。 -->
+    <div class="filter-row tag-row">
+      <span class="label">分類</span>
+      <div class="chips" id="f-tag"></div>
+    </div>
+    <p class="tag-hint" id="tag-hint" hidden></p>
 
     <div class="filter-row">
       <span class="label">時間</span>
@@ -54,7 +70,7 @@
       <div class="chips" id="f-region"></div>
     </div>
 
-    <!-- 積分軸只對「積分課程」有意義，切到「學會會議」時整列由 app.js 隱藏 -->
+    <!-- 積分軸只對「上課」有意義，單獨篩「開會」時整列由 app.js 隱藏 -->
     <div class="filter-row" id="row-credit">
       <span class="label">積分</span>
       <div class="chips" id="f-credit"></div>
@@ -90,7 +106,8 @@
   <div class="wrap">
     <p>資料直接取自各學會官方公告，僅作彙整索引；<strong>報名與積分認定請以主辦單位公告為準</strong>。</p>
     <p>標「積分申請中」的場次代表學會尚未核定點數，開課前請再確認一次。</p>
-    <p>「學會會議」分頁列的是各次專科學會的開會時間，<strong>不代表該場有泌尿科積分</strong>；學會官網多半在開會前一兩個月才更新，所以看得到的常是已結束的場次，年會的月份本身就是排行程的依據。</p>
+    <p>標「開會」的是各次專科學會的開會時間，<strong>不代表該場有泌尿科積分</strong>；學會官網多半在開會前一兩個月才更新，所以看得到的常是已結束的場次，年會的月份本身就是排行程的依據。</p>
+    <p>Guideline 區的連結每年自動確認一次是否有新版本，指向各學會官網的最新版。</p>
     <p>專科醫師證書更新需在六年內累積繼續教育積分 108 點以上（依<a href="https://www.tua.org.tw/tua/tw/specialist-of-urology/points" target="_blank" rel="noopener">學會繼續教育積分授予辦法</a>）。</p>
     <p>點選活動標題會連到學會的原始頁面。</p>
   </div>

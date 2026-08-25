@@ -35,6 +35,21 @@ TIMEOUT = 30
 KIND_CME = "cme"
 KIND_MEETING = "meeting"
 
+# 站上看得到的標籤名。**tag 是 kind 的投影，不是另一份資料** ——
+# 只有 kind 是權威，tags 由 to_dict() 當場算出來寫進 JSON。
+# 這樣寫的理由：站主要的是「篩選器上有『上課』『開會』兩個可選項」，那是**顯示層**的需求；
+# 若讓來源各自去填 tags，同一件事就有兩個真實來源，早晚會出現「kind 是會議但 tag 寫上課」
+# 這種對不起來又沒人發現的資料。投影法讓它不可能發生。
+#
+# 受眾對應（站主 2026-08-25 原話：「一個幫我用上課 一個幫我用開會的tag
+# 這樣住院醫師還有主治醫師都可以用同一個頁面」）：
+#   上課 → 住院醫師要的積分課程
+#   開會 → 主治醫師要的學會開會時間
+KIND_TAGS = {
+    KIND_CME: "上課",
+    KIND_MEETING: "開會",
+}
+
 
 @dataclass
 class Event:
@@ -58,7 +73,12 @@ class Event:
     badges: List[str] = field(default_factory=list)  # 來源標的小圖示，例如「有錄影」
 
     def to_dict(self) -> dict:
-        return asdict(self)
+        data = asdict(self)
+        # tags 是輸出時才長出來的欄位（見 KIND_TAGS 的註解）。前端的分類篩選器就是讀它，
+        # 所以「篩上課」的筆數必然等於 kind=cme 的總數 —— 不可能漏掉舊資料。
+        tag = KIND_TAGS.get(self.kind)
+        data["tags"] = [tag] if tag else []
+        return data
 
 
 # 這個站的「今天」一律是台灣的今天。

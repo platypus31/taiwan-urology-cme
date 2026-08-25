@@ -1,0 +1,33 @@
+{
+ "updated_at": "2026-08-25T22:03:54+08:00",
+ "errors": [],
+ "guidelines": [
+  {
+   "key": "tua",
+   "label": "TUA guideline",
+   "full_name": "台灣泌尿科醫學會 治療指引",
+   "url": "https://www.tua.org.tw/tua/tw/latest-news/announcement/2198-tua-guideline-2024",
+   "version": "2024",
+   "resolved": true,
+   "note": ""
+  },
+  {
+   "key": "aua",
+   "label": "AUA guideline",
+   "full_name": "American Urological Association 美國泌尿科醫學會 指引",
+   "url": "https://www.auanet.org/guidelines-and-quality/guidelines",
+   "version": "2026",
+   "resolved": true,
+   "note": ""
+  },
+  {
+   "key": "eau",
+   "label": "EAU guideline",
+   "full_name": "European Association of Urology 歐洲泌尿科醫學會 指引",
+   "url": "https://uroweb.org/guidelines",
+   "version": "2026",
+   "resolved": true,
+   "note": ""
+  }
+ ]
+}

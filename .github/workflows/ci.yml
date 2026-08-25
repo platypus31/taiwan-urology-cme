@@ -33,3 +33,16 @@ jobs:
 
       - name: events.json 必須是合法 JSON
         run: python -c "import json;d=json.load(open('data/events.json',encoding='utf-8'));print(d['count'],'筆')"
+
+      # guideline 按鍵是 render 出來的，這份壞掉整區就不見了，而且不會有任何錯誤訊息
+      - name: guidelines.json 必須是合法 JSON 且每顆都有網址
+        run: |
+          python -c "
+          import json
+          d = json.load(open('data/guidelines.json', encoding='utf-8'))
+          items = d['guidelines']
+          assert items, 'guidelines 是空的'
+          for g in items:
+              assert g.get('url', '').startswith('https://'), g
+          print(len(items), '顆 guideline 按鍵')
+          "

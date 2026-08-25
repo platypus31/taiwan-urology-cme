@@ -209,6 +209,67 @@ eschool._parse_rows(BeautifulSoup(FIXTURE, "html.parser"), 2026, 10)
 check("門檻濾掉-不誤報", len(drain_warnings()), 0)
 
 # --------------------------------------------------------------------------
+# tag：站主要的「上課／開會」兩個標籤。**它是 kind 的投影，不是另一份資料**，
+# 所以這裡驗的是「投影規則沒被改壞」——只要 kind 對，tag 必然對，
+# 不可能出現「新項目有 tag、舊項目沒有」這種漏掉舊資料的情況。
+# --------------------------------------------------------------------------
+from sources.base import Event as _Ev  # noqa: E402
+
+check("tag-積分課程", _Ev(date="2026-01-01", title="x", kind=KIND_CME).to_dict()["tags"], ["上課"])
+check("tag-學會會議", _Ev(date="2026-01-01", title="x", kind=KIND_MEETING).to_dict()["tags"], ["開會"])
+# 沒寫 kind 的預設是積分課程，一樣要有 tag（不能有「沒有標籤」的漏網之魚）
+check("tag-預設", _Ev(date="2026-01-01", title="x").to_dict()["tags"], ["上課"])
+
+# --------------------------------------------------------------------------
+# Guideline 連結解析（三個學會，三種網頁結構）
+# --------------------------------------------------------------------------
+from sources import guidelines as _gl  # noqa: E402
+
+# 每顆都要有一個實際驗證過的 fallback，否則解析失敗時按鍵會變空連結
+for _key in ("tua", "aua", "eau"):
+    check("guideline-fallback-{}".format(_key), _gl.FALLBACKS[_key].startswith("https://"), True)
+check("guideline-三顆", len(_gl.SPECS), 3)
+
+# 🔴 TUA 的年度規則必須**很窄**。這張公告列表裡有一堆「看起來像但不是」的項目，
+# 下面每一條都是 2026-08-25 全表掃描時真的撞到的干擾項。
+check("TUA年度-正版", bool(_gl._TUA_ALIAS.match("tua-guideline-2024")), True)
+check("TUA年度-複數形也認", bool(_gl._TUA_ALIAS.match("tua-guidelines-2030")), True)
+# 擂台賽的 alias 帶著更新的年份（2025 > 2024），寬鬆規則會直接指錯
+check("TUA年度-擂台賽不算", bool(_gl._TUA_ALIAS.match("tua-2025-guideline-contest")), False)
+check(
+    "TUA年度-共識不算",
+    bool(_gl._TUA_ALIAS.match("consensus-guideline-for-the-rechallenge-of-bcc")),
+    False,
+)
+check(
+    "TUA年度-審核辦法不算",
+    bool(_gl._TUA_ALIAS.match("guidelines-for-reviewing-robotic-urological-surgery-mentorship")),
+    False,
+)
+check("TUA標題-正版", _gl._TUA_TITLE.search("TUA治療指引 2024 電子版上線囉").group(1), "2024")
+check("TUA標題-擂台賽不算", _gl._TUA_TITLE.search("TUA2025泌尿科治療指引住院醫師擂台賽活動辦法"), None)
+
+# AUA 索引頁的寫法有兩種：單學會與合訂
+check("AUA年度-單學會", _gl._AUA_YEAR.findall("Vasectomy: AUA Guideline (2026)"), ["2026"])
+check(
+    "AUA年度-合訂",
+    _gl._AUA_YEAR.findall("Advanced Prostate Cancer: AUA/SUO Guideline (2026)"),
+    ["2026"],
+)
+# 頁尾的版權年份不是指引年度，不能誤抓
+check("AUA年度-版權年不算", _gl._AUA_YEAR.findall("©2026 American Urological Association"), [])
+
+# EAU 的年度寫在內頁正文，同一句還會提到上一版年份，必須錨在 This 後面第一個
+check(
+    "EAU年度-取新不取舊",
+    _gl._EAU_EDITION.search(
+        "This 2026 PCa Guidelines present a limited update of the 2025 publication."
+    ).group(1),
+    "2026",
+)
+check("EAU年度-無版本標示", _gl._EAU_EDITION.search("EAU Guidelines on Prostate Cancer"), None)
+
+# --------------------------------------------------------------------------
 # 會議來源（kind=meeting）：TEA 官網的「日期 標題」清單
 # --------------------------------------------------------------------------
 check("TEA-單日", tea._parse_item("2026.04.18 台灣泌尿內視鏡醫學會"), ("2026-04-18", "", "台灣泌尿內視鏡醫學會"))
