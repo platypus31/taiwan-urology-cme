@@ -30,7 +30,15 @@
   var state = {
     events: [],
     data: {},
+    // 「分頁 × 地區 → .ics 檔名」對照表，由 build 寫進 events.json。
+    // 前端刻意不自己維護一份地區清單 —— 抄一份的話，後端加了新地區而這裡沒跟上，
+    // 使用者會拿到 404 的訂閱網址，而且不會有任何錯誤訊息。
+    feeds: null,
     kind: KIND_CME,
+    // 訂閱範圍的地區。刻意跟 state.region（地區**篩選**）分成兩個獨立的值 ——
+    // 訂閱範圍只能由使用者在訂閱區塊裡明確選，不跟著瀏覽時的篩選動作改變。
+    // null＝該分頁全部。
+    subscribeRegion: null,
     q: "",
     time: "upcoming",
     region: null,
@@ -59,6 +67,7 @@
     statCountLabel: document.getElementById("stat-count-label"),
     statRange: document.getElementById("stat-range"),
     statSources: document.getElementById("stat-sources"),
+    subscribe: document.getElementById("subscribe"),
     subscribeLink: document.getElementById("subscribe-link"),
     subscribeCopy: document.getElementById("subscribe-copy"),
     subscribeNote: document.getElementById("subscribe-note")
@@ -710,33 +719,75 @@
     renderList(applyFilters());
   }
 
-  /* 訂閱按鈕。每個分頁各對應一份 build 產生的 .ics（data/cme.ics、data/meeting.ics）。
+  /* 訂閱按鈕。每個「分頁 × 地區」各對應一份 build 事先產好的 .ics
+   * （data/cme-north.ics、data/meeting-south.ics …），該分頁的「全部」是
+   * data/cme.ics ／ data/meeting.ics。檔名一律讀 events.json 的 feeds，
+   * 前端不自己拼檔名也不自己抄地區清單。
    *
-   * 🔴 **誠實標示訂閱範圍**：純靜態站沒有後端，不可能為任意的篩選組合即時產生 ics，
-   *    所以訂閱的粒度是**整個分頁**，不跟著地區／積分／時間那些篩選走。
-   *    這件事一定要在畫面上講清楚 —— 使用者篩完「南部」再按訂閱，
-   *    結果拿到全部場次卻以為只有南部，那比沒有這個功能更糟。
-   *    說明文字寫的是實際筆數（從資料算出來的，不是寫死的字串）。
+   * 🔴 **訂閱範圍是「當前分頁」×「使用者在這一區明確選的地區」，完全不跟著篩選器走。**
+   *    純靜態站沒有後端，不可能為任意的篩選組合即時產生 ics，只能事先產好幾份固定
+   *    的檔案。既然如此，範圍就必須是「明確選的」而不是「跟著瀏覽動作偷偷變的」——
+   *    使用者為了找課點了幾個篩選，回頭按訂閱卻拿到跟他以為的不一樣的東西，
+   *    比沒有這個功能更糟。所以 state.subscribeRegion 跟 state.region 是兩個獨立的值。
+   *
+   * 🔴 **分頁是例外，它本來就是訂閱範圍的一部分**：分頁不是篩選軸而是「你在看哪一批
+   *    資料」，而且積分課程與學會會議混進同一份行事曆正是站主不要的（訂了積分課程
+   *    卻收到一堆理監事會議）。所以地區檔留在分頁底下，不跨分頁合併。
+   *
+   * 🔴 **範圍一定要寫在畫面上**：說明文字寫出這份訂閱檔的實際筆數（從資料算出來的，
+   *    不是寫死的字串），並明講「不受下面的篩選條件影響」。
    *
    * webcal:// 是行事曆訂閱的慣例 scheme，Google/Apple/Outlook 都認得，
    * 會接成「訂閱」而不是「匯入一次」——匯入一次的話之後新增的課就再也不會進來了。
    * 另外附一顆「複製網址」，因為部分桌機環境沒有處理 webcal:// 的程式。 */
   function renderSubscribe() {
-    if (!el.subscribeLink) return;
+    if (!el.subscribe || !el.subscribeLink) return;
     var kind = KINDS.filter(function (k) { return k.key === state.kind; })[0] || KINDS[0];
-    var file = state.kind === KIND_MEETING ? "meeting.ics" : "cme.ics";
-    var httpsURL = new URL("data/" + file, location.href).href;
+    var feeds = (state.feeds && state.feeds[state.kind]) || null;
 
+    // 這個分頁連「全部」那份都沒有（該分頁這次沒有任何活動，build 不產空日曆）
+    // → 整區藏起來。硬給一顆按鈕只會連到 404，而且不會有任何錯誤訊息。
+    // 舊的 events.json 沒有 feeds 欄位時走的也是這條，不會拼出不存在的檔名。
+    if (!feeds || !feeds[""]) {
+      el.subscribe.hidden = true;
+      return;
+    }
+    el.subscribe.hidden = false;
+
+    // 選過的地區可能因為換分頁或資料更新而不再有活動（那份訂閱檔會被 build 刪掉）
+    // → 退回「全部」。選項列會照實顯示成「全部」，不是無聲改掉。
+    if (state.subscribeRegion && !feeds[state.subscribeRegion]) {
+      state.subscribeRegion = null;
+    }
+    var scope = state.subscribeRegion;
+
+    /* 這一排的數字是「訂閱下去會拿到幾場」，所以要數該分頁的全部資料，
+       **不能**用 applyFilters() —— 那是篩選器上的數字，跟訂閱到的內容是兩回事。 */
+    var countOf = function (region) {
+      return (state.events || []).filter(function (e) {
+        if ((e.kind || KIND_CME) !== state.kind) return false;
+        return !region || e.region === region;
+      }).length;
+    };
+    var options = [{ key: null, label: "全部", count: countOf(null) }];
+    REGION_ORDER.forEach(function (r) {
+      if (feeds[r]) options.push({ key: r, label: r, count: countOf(r) });
+    });
+    renderChips("f-subscribe", options,
+      function (i) { return scope === i.key; },
+      function (i) { state.subscribeRegion = i.key; });
+
+    var httpsURL = new URL("data/" + (scope ? feeds[scope] : feeds[""]), location.href).href;
     el.subscribeLink.href = httpsURL.replace(/^https?:/, "webcal:");
-    el.subscribeLink.textContent = "訂閱「" + kind.label + "」到行事曆";
+    el.subscribeLink.textContent =
+      "訂閱「" + kind.label + (scope ? "・" + scope : "") + "」到行事曆";
     el.subscribeCopy.setAttribute("data-url", httpsURL);
 
-    var total = (state.events || []).filter(function (e) {
-      return (e.kind || KIND_CME) === state.kind;
-    }).length;
     el.subscribeNote.textContent =
-      "訂閱的是「" + kind.label + "」整個分頁的 " + total + " 場，" +
-      "不受下面的篩選條件影響；資料每天更新，行事曆會自動跟著更新。";
+      "訂閱的是「" + kind.label + "」分頁" + (scope ? "「" + scope + "」的 " : "整份的 ") +
+      countOf(scope) + " 場，不受下面的篩選條件影響" +
+      "（地區／時間／積分／主題／主辦／來源與關鍵字搜尋都不影響）；" +
+      "資料每天更新，行事曆會自動跟著更新。";
   }
 
   /** 只做「跟分頁無關」的部分；會跟著分頁變的數字在 renderStats()。 */
@@ -824,6 +875,9 @@
     .then(function (data) {
       state.data = data;
       state.events = data.events || [];
+      // 沒有 feeds 欄位（舊版 events.json）時整個訂閱區塊會藏起來，
+      // 而不是拼出一個猜的檔名連到 404。
+      state.feeds = data.feeds || null;
       renderHeader(data);
       render();
     })

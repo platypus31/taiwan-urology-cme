@@ -45,7 +45,10 @@ jobs:
 
       - name: 有變動才提交
         run: |
-          if [ -z "$(git status --porcelain data/events.json)" ]; then
+          # 🔴 變動判斷要看整個 data/，不能只看 events.json：
+          # 訂閱檔可能單獨變動（例如只有 DTSTAMP 以外的欄位改了），
+          # 只看 events.json 會讓那次更新整個跳過提交。
+          if [ -z "$(git status --porcelain data/)" ]; then
             echo "資料無變動，跳過提交"
             exit 0
           fi
@@ -53,8 +56,11 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # 🔴 .ics 一定要跟著提交：訂閱端讀的是 repo 裡那份靜態檔，
           # 漏掉它的話網站每天更新、訂閱者的日曆卻永遠停在上一次手動提交的版本，
-          # 而且不會有任何錯誤訊息（訂閱的人只會覺得「新課程都沒出現」）
-          git add data/events.json data/cme.ics data/meeting.ics
+          # 而且不會有任何錯誤訊息（訂閱的人只會覺得「新課程都沒出現」）。
+          # 用 `-A data/` 而不是逐一列檔名：地區訂閱檔（data/cme-north.ics …）
+          # 會隨資料增減而新增／刪除，寫死檔名的話新地區永遠不會被提交，
+          # 而消失的地區會留下一份不再更新的舊檔繼續騙訂閱者。
+          git add -A data/
           # 日期用台灣時間：排程是 UTC 22:00（台灣隔天 06:00），
           # 用 UTC 日期會讓 commit 訊息永遠比台灣實際日期少一天
           git commit -m "chore: 自動更新活動資料 $(TZ=Asia/Taipei date +'%Y-%m-%d')"

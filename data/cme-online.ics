@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//platypusbot//taiwan-urology-cme//ZH-TW
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:泌尿科 積分課程（線上）
+X-WR-TIMEZONE:Asia/Taipei
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VTIMEZONE
+TZID:Asia/Taipei
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0800
+TZOFFSETTO:+0800
+TZNAME:CST
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:taiwan-urology-cme-441cb0c4e27ccc4646f7ac1d99af8ff8277d3ef8
+DTSTAMP:20260825T230540Z
+DTSTART;TZID=Asia/Taipei:20260917T190000
+DTEND;TZID=Asia/Taipei:20260917T202500
+SUMMARY:【🎬線上】泌尿癌實戰現場三部曲
+LOCATION:線上會議
+URL:https://eschool.tua.org.tw/conference/4045
+DESCRIPTION:主辦：臺灣阿斯特捷利康(AZ)\n積分：泌尿科(0.5
+ 點)\n簡章與報名：https://eschool.tua.org.tw/conference/4045
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-eb5c507df4b8143c169858c401bf2fdf17e2faf6
+DTSTAMP:20260825T230540Z
+DTSTART;TZID=Asia/Taipei:20260922T190000
+DTEND;TZID=Asia/Taipei:20260922T200000
+SUMMARY:【🎬線上】Maximizing Treatment Outcomes in Advanced Prostate 
+ Cancer: Strategies for Optimal Patient Care
+LOCATION:線上會議
+URL:https://eschool.tua.org.tw/conference/4048
+DESCRIPTION:主辦：安斯泰來\n積分：泌尿科(0.5點)\n簡章與報
+ 名：https://eschool.tua.org.tw/conference/4048
+END:VEVENT
+END:VCALENDAR

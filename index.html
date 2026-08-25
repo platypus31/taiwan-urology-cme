@@ -96,11 +96,19 @@
   <!-- 訂閱（站主 2026-08-25：「幫我添加一個訂閱制按鈕好了 … 讓他們選擇要不要去訂閱」）。
        🔴 刻意做成**選配**而不是預設推播：站主的顧慮是「值班不一定每堂課都上得到，
        不然就是單純的雜訊」，所以要不要進日曆由使用者自己按。
-       訂閱的粒度是**分頁**，說明文字由 app.js 照當前分頁寫上實際筆數，
-       不寫死在這裡也不含糊帶過（見 renderSubscribe 的註解）。 -->
-  <section class="subscribe" aria-label="訂閱行事曆">
+       🔴 訂閱範圍＝**當前分頁** ×「下面這一排自己選的地區」，跟篩選器完全無關 ——
+       純靜態站沒有後端，只能事先產好幾份固定的 .ics，不可能為任意篩選組合即時產生。
+       所以訂閱粒度必須是「使用者明確選的一份」，而不是跟著瀏覽動作偷偷改變
+       （篩了南部去看、卻在不知情的狀況下訂到別的範圍，比沒有這個功能更糟）。
+       說明文字由 app.js 寫上實際筆數，不寫死在這裡也不含糊帶過。
+       整區預設 hidden：這個分頁沒有任何訂閱檔時就不該出現一顆連到 404 的按鈕。 -->
+  <section class="subscribe" id="subscribe" aria-label="訂閱行事曆" hidden>
+    <div class="subscribe-scope">
+      <span class="label">訂閱</span>
+      <div class="chips" id="f-subscribe"></div>
+    </div>
     <div class="subscribe-main">
-      <a id="subscribe-link" class="subscribe-btn" href="#">訂閱這個分頁到行事曆</a>
+      <a id="subscribe-link" class="subscribe-btn" href="#">訂閱到行事曆</a>
       <button type="button" id="subscribe-copy" class="subscribe-copy">複製訂閱網址</button>
     </div>
     <p class="subscribe-note" id="subscribe-note"></p>

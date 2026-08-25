@@ -47,7 +47,8 @@ def _fold(line: str) -> str:
 
     🔴 必須以 **octet** 計算而不是字元 —— 中文一個字是 3 個 byte，
     用字元數折出來的行會超長，嚴格一點的訂閱端會整份拒收。
-    同時不能把一個多位元組字元從中間切開，所以是一個 byte 一個 byte 疊上去。
+    同時不能把一個多位元組字元從中間切開，所以是一個**字元**一個字元疊上去、
+    每次用它編碼後的 byte 數去頂上限。
     """
     raw = line.encode("utf-8")
     if len(raw) <= 75:
@@ -73,10 +74,14 @@ def _escape(text: str) -> str:
     """ics 的文字跳脫：反斜線、分號、逗號要跳脫，換行寫成 \\n。
 
     順序很重要 —— 反斜線一定要**先**換，不然後面補進去的跳脫符號會被二次跳脫。
+
+    ⚠️ 三種換行（CRLF／LF／單獨的 CR）要**先統一**再一起轉成跳脫符。
+    直接把單獨的 `\\r` 砍掉的話，用舊式 Mac 換行的來源會整個斷行語意消失
+    （兩行被黏成一行），而且不會有任何提示。
     """
     out = str(text or "")
     out = out.replace("\\", "\\\\")
-    out = out.replace("\n", "\\n").replace("\r", "")
+    out = out.replace("\r\n", "\n").replace("\r", "\n").replace("\n", "\\n")
     out = out.replace(";", "\\;").replace(",", "\\,")
     return out
 

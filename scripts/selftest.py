@@ -870,6 +870,137 @@ check(
     True,
 )
 
+
+# ⚠️ 三種換行都要統一成跳脫符再寫進去。單獨的 CR（舊式 Mac 換行）如果直接砍掉，
+#    兩行會被黏成一行、斷行語意整個消失，而且不會有任何提示。
+_crlf = _ics.render([_ev_ics(title="上排\r\n下排")], "x", dtstamp="20260825T000000Z")
+check("ics-CRLF換行轉跳脫", "SUMMARY:上排\\n下排" in _crlf, True)
+_barecr = _ics.render([_ev_ics(title="上排\r下排")], "x", dtstamp="20260825T000000Z")
+check("ics-單獨CR不被砍掉", "SUMMARY:上排\\n下排" in _barecr, True)
+
+# --------------------------------------------------------------------------
+# 訂閱檔的切法：分頁 × 地區（scripts/build.py 的 _write_feeds）
+#
+# 🔴 這一組守的是三件會**沉默失效**的事：
+#    ① 前端拿到的檔名對應不到磁碟上的檔 → 訂閱網址 404，零錯誤訊息
+#    ② 兩個分頁被混進同一份地區檔 → 訂了積分課程卻收到一堆理監事會議
+#    ③ 空的範圍留下上一輪的舊檔 → 訂閱者永遠收到不再更新的資料，毫無徵兆
+# --------------------------------------------------------------------------
+import importlib.util  # noqa: E402
+import tempfile  # noqa: E402
+
+from sources import base as _base  # noqa: E402
+from sources.base import REGION_SLUGS  # noqa: E402
+
+# 每個 detect_region() 產得出來的地區都要有檔名代號，否則那個地區永遠沒有專屬
+# 訂閱檔（會靜靜地被收進「全部」那份，使用者只會覺得「怎麼沒有我這區」）。
+# 直接讀 _REGION_MAP 而不是再抄一份地區清單 —— 抄一份的話，日後有人加了新地區
+# 卻沒補代號，這條測試會跟著漏掉，等於白守。
+_producible_regions = {detect_region(""), detect_region("線上會議")}
+_producible_regions.update(region for region, _ in _base._REGION_MAP)
+check("地區代號-涵蓋所有產得出的地區", sorted(_producible_regions - set(REGION_SLUGS)), [])
+check("地區代號-全是ASCII", all(s.isascii() and s.isalpha() for s in REGION_SLUGS.values()), True)
+check("地區代號-沒有重複", len(set(REGION_SLUGS.values())), len(REGION_SLUGS))
+
+# scripts/ 沒有 __init__.py（icsfeed 放在 sources/ 就是為了這個），
+# 所以這裡用檔案路徑載入 build.py。載入只會跑到 import 與常數，main() 有 __main__ 守著。
+_build_path = Path(__file__).resolve().parent / "build.py"
+_spec = importlib.util.spec_from_file_location("_build_under_test", _build_path)
+_build = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_build)
+
+
+def _feed_uids(path: Path):
+    """一份 .ics 裡的所有 UID。
+
+    ⚠️ 一定要 newline="" 讀。`read_text()` 走 universal newlines 會把 \\r\\n 翻成 \\n，
+    再用 "\\r\\n" 切就切不出任何行 —— 集合永遠是空的，而**空集合之間的比較全部成立**，
+    下面「兩個分頁不重疊」「地區檔聯集等於全部」那幾條會安靜地變成沒在測。
+    （這不是假想：第一版就是這樣寫的，靠一條數量比對才露出來。）
+    """
+    if not path.exists():
+        # 對照表指到不存在的檔（＝訂閱網址 404）。記成失敗而不是讓例外炸掉整支測試 ——
+        # 炸掉的話結尾那份失敗清單根本印不出來，其他真正的失敗會跟著被藏住。
+        FAILURES.append("{}：對照表指到這個檔，但它不在磁碟上".format(path.name))
+        return set()
+    with open(path, encoding="utf-8", newline="") as handle:
+        text = handle.read()
+    uids = {l[4:] for l in text.split("\r\n") if l.startswith("UID:")}
+    if not uids:
+        FAILURES.append("{}：讀不到任何 UID（測試本身失效了）".format(path.name))
+    return uids
+
+
+_rows = [
+    Event(date="2026-09-06", title="北部課", kind=KIND_CME, region="北部").to_dict(),
+    Event(date="2026-09-07", title="南部課", kind=KIND_CME, region="南部").to_dict(),
+    Event(date="2026-09-08", title="北部會", kind=KIND_MEETING, region="北部").to_dict(),
+]
+
+with tempfile.TemporaryDirectory() as _tmp:
+    _dir = Path(_tmp)
+    _build.OUTPUT = _dir / "events.json"
+
+    # 上一輪留下來的檔：這一輪沒有中部活動，它必須被刪掉而不是繼續留著騙訂閱者。
+    _stale = _dir / "cme-central.ics"
+    # 用 open 不用 write_text：後者在 3.9 沒有 newline 參數（build.py 同一個理由）
+    with open(_stale, "w", encoding="utf-8", newline="") as _h:
+        _h.write("BEGIN:VCALENDAR\r\nEND:VCALENDAR\r\n")
+
+    _feeds = _build._write_feeds(_rows, "2026-09-01T06:00:00+08:00")
+
+    check("訂閱檔-兩個分頁各有一份全部", [_feeds[KIND_CME][""], _feeds[KIND_MEETING][""]],
+          ["cme.ics", "meeting.ics"])
+    check("訂閱檔-地區檔跟著分頁走", _feeds[KIND_CME].get("北部"), "cme-north.ics")
+    check("訂閱檔-另一個分頁的地區檔是另一個檔名", _feeds[KIND_MEETING].get("北部"), "meeting-north.ics")
+    # 🔴 沒有活動的組合不可以有檔名（前端就不會顯示那個選項）
+    check("訂閱檔-沒活動的地區不進對照表", "南部" in _feeds[KIND_MEETING], False)
+    check("訂閱檔-沒活動的地區不產檔", (_dir / "meeting-south.ics").exists(), False)
+    # 🔴 上一輪的舊檔要刪掉，留著＝訂閱者永遠收到不再更新的資料
+    check("訂閱檔-上一輪的舊檔被刪掉", _stale.exists(), False)
+
+    # 🔴 對照表裡的每個檔名都必須真的在磁碟上，否則就是 404 訂閱網址
+    _missing = sorted(
+        name for per_kind in _feeds.values() for name in per_kind.values()
+        if not (_dir / name).exists()
+    )
+    check("訂閱檔-對照表的檔案都真的存在", _missing, [])
+
+    # 🔴 分頁不可以互相混進來 —— 訂了積分課程卻收到理監事會議正是站主不要的
+    _cme_all = _feed_uids(_dir / "cme.ics")
+    _meeting_all = _feed_uids(_dir / "meeting.ics")
+    check("訂閱檔-兩個分頁的事件完全不重疊", sorted(_cme_all & _meeting_all), [])
+    check("訂閱檔-地區檔不含另一個分頁的事件",
+          _feed_uids(_dir / "cme-north.ics") & _meeting_all, set())
+
+    # 地區檔的聯集要等於該分頁「全部」那份：少了＝有活動訂不到，多了＝重複
+    _union = set()
+    for _r, _name in _feeds[KIND_CME].items():
+        if _r:
+            _union |= _feed_uids(_dir / _name)
+    check("訂閱檔-地區檔聯集等於該分頁全部", _union, _cme_all)
+
+    # 寫檔用 newline=""，否則 CRLF 會被再翻譯成 \r\r\n（嚴格的訂閱端會拒收）
+    _raw = (_dir / "cme.ics").read_bytes()
+    check("訂閱檔-寫出來沒有變成CRCRLF", b"\r\r\n" in _raw, False)
+    check("訂閱檔-寫出來是CRLF", b"\r\n" in _raw, True)
+
+    # 地區沒收進 REGION_SLUGS 時：不產專屬檔，但仍然收在「全部」那份裡（不可以整筆消失）
+    _odd = _rows + [
+        Event(date="2026-09-09", title="外太空課", kind=KIND_CME, region="外太空").to_dict()
+    ]
+    _feeds2 = _build._write_feeds(_odd, "2026-09-01T06:00:00+08:00")
+    check("訂閱檔-未收錄地區不進對照表", "外太空" in _feeds2[KIND_CME], False)
+    check("訂閱檔-未收錄地區仍收在全部那份", len(_feed_uids(_dir / "cme.ics")), 3)
+
+    # 某個分頁整個沒資料：不產空日曆，並刪掉上一輪的檔；前端靠 feeds 缺 "" 藏整區
+    _feeds3 = _build._write_feeds(
+        [r for r in _rows if r["kind"] == KIND_CME], "2026-09-01T06:00:00+08:00"
+    )
+    check("訂閱檔-空分頁沒有全部那份", "" in _feeds3[KIND_MEETING], False)
+    check("訂閱檔-空分頁的檔被刪掉", (_dir / "meeting.ics").exists(), False)
+    check("訂閱檔-空分頁的地區檔也被刪掉", (_dir / "meeting-north.ics").exists(), False)
+
 if FAILURES:
     print("自我測試失敗 {} 項：".format(len(FAILURES)), file=sys.stderr)
     for line in FAILURES:

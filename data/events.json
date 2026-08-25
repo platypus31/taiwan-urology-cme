@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-08-26T06:16:01+08:00",
+ "updated_at": "2026-08-26T07:05:40+08:00",
  "count": 62,
  "counts": {
   "cme": 31,
@@ -36,6 +36,24 @@
   }
  },
  "errors": [],
+ "feeds": {
+  "cme": {
+   "": "cme.ics",
+   "北部": "cme-north.ics",
+   "中部": "cme-central.ics",
+   "南部": "cme-south.ics",
+   "東部": "cme-east.ics",
+   "線上": "cme-online.ics",
+   "其他": "cme-other.ics"
+  },
+  "meeting": {
+   "": "meeting.ics",
+   "北部": "meeting-north.ics",
+   "中部": "meeting-central.ics",
+   "南部": "meeting-south.ics",
+   "其他": "meeting-other.ics"
+  }
+ },
  "events": [
   {
    "date": "2024-12-21",
@@ -119,13 +137,13 @@
    "date": "2025-07-12",
    "title": "2025年 台灣泌尿內視鏡醫學會年會",
    "end_date": "2025-07-13",
-   "time": "",
+   "time": "13:50~17:50",
    "organizer": "台灣泌尿內視鏡醫學會",
-   "location": "",
+   "location": "嘉義長榮文苑 (二樓 A廳)",
    "credits": null,
    "credits_raw": "",
    "credits_pending": false,
-   "region": "其他",
+   "region": "南部",
    "kind": "meeting",
    "source": "台灣泌尿內視鏡醫學會",
    "url": "https://www.tea2024.org.tw/news/20250712.html",

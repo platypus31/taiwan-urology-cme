@@ -31,6 +31,7 @@ from sources import (  # noqa: E402
 from sources.base import (  # noqa: E402
     KIND_CME,
     KIND_MEETING,
+    REGION_SLUGS,
     TAIPEI,
     Event,
     cutoff_iso,
@@ -84,34 +85,114 @@ def _write(payload: dict) -> None:
     tmp.replace(OUTPUT)
 
 
-def _write_feeds(final: List[dict], updated_at: str) -> None:
-    """每個分頁各產一份 .ics 訂閱檔（站主 2026-08-25 要的「訂閱制按鈕」）。
+# 每個分頁「全部」那份訂閱檔的檔名與行事曆名稱。地區檔是 `<prefix>-<slug>.ics`。
+FEED_NAMES = {
+    KIND_CME: ("cme", "泌尿科 積分課程"),
+    KIND_MEETING: ("meeting", "泌尿科 學會會議"),
+}
 
-    🔴 **規則刻意最簡單：訂閱檔＝那個分頁的資料，不另外過濾。**
-    所以 `cme.ics` 只有未結束的課（events.json 裡本來就沒有過期的課），
-    `meeting.ics` 跟著會議線保留兩年份的已結束場次 —— 跟站上「學會會議」
-    分頁看到的是同一批資料。這樣使用者不必猜「訂閱到的跟我看到的一不一樣」。
+
+def _write_ics(target: Path, text: str) -> None:
+    """原子寫出一份 .ics。
+
+    newline="" 是必要的：ics 規範要求 CRLF 換行，`icsfeed.render()` 已經產好 \\r\\n，
+    用預設模式寫檔會被再翻譯一次變成 \\r\\r\\n（`Path.write_text` 在 3.9 沒有
+    newline 參數，所以這裡用 open）。
+    """
+    tmp = target.with_suffix(".ics.tmp")
+    with open(tmp, "w", encoding="utf-8", newline="") as handle:
+        handle.write(text)
+    tmp.replace(target)
+
+
+def _drop_feed(target: Path) -> None:
+    """刪掉這一輪沒有內容的訂閱檔。
+
+    ⚠️ 空的不是「產一份沒有事件的行事曆」而是**不產檔並刪掉舊的**：
+    零 VEVENT 的 ics 在訂閱端顯示成壞掉的行事曆而不是「這個範圍目前沒有活動」；
+    而留著上一輪的舊檔更糟 —— 已經訂閱的人會永遠收到那份不再更新的資料，
+    完全沒有徵兆。前端讀不到對應的 feeds 鍵時會把那個選項（或整區）藏起來。
+    """
+    if target.exists():
+        target.unlink()
+        print("已移除 {}（這次沒有活動）".format(target))
+
+
+def _write_feeds(final: List[dict], updated_at: str) -> Dict[str, Dict[str, str]]:
+    """產出 .ics 訂閱檔，回傳 {kind: {地區: 檔名}} 給前端用（""＝該分頁全部）。
+
+    站主 2026-08-25 要的「訂閱制按鈕」，2026-08-26 加上地區粒度。
+
+    🔴 **規則刻意最簡單：訂閱檔＝那個分頁的資料（可再切地區），不另外過濾。**
+    所以 `cme*.ics` 只有未結束的課（events.json 裡本來就沒有過期的課），
+    `meeting*.ics` 跟著會議線保留兩年份的已結束場次 —— 跟站上該分頁看到的是
+    同一批資料。這樣使用者不必猜「訂閱到的跟我看到的一不一樣」。
 
     ⚠️ 這裡**不能**做成「只收即將舉行」：三個學會的即將舉行目前是 0，
     那樣產出的會是一份空日曆，訂閱端只會顯示成壞掉的行事曆。
+
+    ── 為什麼是「分頁 × 地區」而不是別的切法 ──────────────────────
+
+    🔴 **地區檔一定要留在分頁底下，不可以把兩個分頁混進同一份地區檔。**
+    `dedupe()` 的 key 含 `kind`，所以同一場活動**可以同時是積分課程也是學會會議**
+    （見該函式註解，兩邊各留一份是刻意的）。真的發生時，兩筆的 UID 不同
+    （UID 也含 kind），混進同一份 .ics 就是同一場活動在使用者日曆上出現兩次，
+    而日曆 App 不會幫忙合併。更直接的理由是：兩個分頁問的是不同問題
+    （這堂課給幾點 vs 他們什麼時候開會），混一起就變成「以為只訂積分課程、
+    結果混進學會會議」—— 那比沒有這個功能更糟。
+
+    🔴 **只切「地區」這一軸，不再加第二軸。** 地區是唯一「一筆活動恰好落在一個值」
+    的軸，切成檔案不會讓同一場活動出現在兩份訂閱裡；主題（categories）可複標，
+    切下去同一場會同時進兩份檔。地區同時也是真正決定「去不去得成」的條件 ——
+    值班的人到不了外縣市，那正是要濾掉的雜訊。
+
+    檔案數是**有上限的常數不是組合爆炸**：只為「真的有資料的（分頁, 地區）組合」
+    產檔，上限 2 分頁 × 7 地區 + 2 份全部 = 16 份。會爆炸的是「多軸組合」
+    （時間 × 積分 × 主題 …），那才是這裡刻意不做的事。
     """
     stamp = icsfeed.utc_stamp(updated_at)
-    names = {
-        KIND_CME: ("cme.ics", "泌尿科 積分課程"),
-        KIND_MEETING: ("meeting.ics", "泌尿科 學會會議"),
-    }
-    for kind, (filename, calendar_name) in names.items():
+    data_dir = OUTPUT.parent
+    feeds: Dict[str, Dict[str, str]] = {}
+
+    for kind, (prefix, calendar_name) in FEED_NAMES.items():
         rows = [Event(**row) for row in final if row.get("kind", KIND_CME) == kind]
-        text = icsfeed.render(rows, calendar_name, dtstamp=stamp)
-        target = OUTPUT.parent / filename
-        tmp = target.with_suffix(".ics.tmp")
-        # newline="" 是必要的：ics 規範要求 CRLF 換行，render() 已經產好 \r\n，
-        # 用預設模式寫檔會被再翻譯一次變成 \r\r\n（Path.write_text 在 3.9 沒有
-        # newline 參數，所以這裡用 open）。
-        with open(tmp, "w", encoding="utf-8", newline="") as handle:
-            handle.write(text)
-        tmp.replace(target)
-        print("已寫入 {}（{} 筆）".format(target, len(rows)))
+        per_kind: Dict[str, str] = {}
+
+        # 該分頁「全部」那份也適用「空的不產檔」規則 —— 某一種 kind 整個抓不到
+        # 並非不可能（build 的 stale 保護會保留舊資料，但舊資料也可能是空的）。
+        all_target = data_dir / "{}.ics".format(prefix)
+        if rows:
+            _write_ics(all_target, icsfeed.render(rows, calendar_name, dtstamp=stamp))
+            per_kind[""] = all_target.name  # 空字串＝沒選地區（該分頁全部）
+            print("已寫入 {}（{} 筆）".format(all_target, len(rows)))
+        else:
+            _drop_feed(all_target)
+
+        for region, slug in REGION_SLUGS.items():
+            target = data_dir / "{}-{}.ics".format(prefix, slug)
+            subset = [e for e in rows if e.region == region]
+            if not subset:
+                _drop_feed(target)
+                continue
+            name = "{}（{}）".format(calendar_name, region)
+            _write_ics(target, icsfeed.render(subset, name, dtstamp=stamp))
+            per_kind[region] = target.name
+            print("已寫入 {}（{} 筆）".format(target, len(subset)))
+
+        feeds[kind] = per_kind
+
+    # 地區在資料裡但沒收進 REGION_SLUGS：不會有自己的訂閱檔（仍在該分頁「全部」
+    # 那份裡），前端也不會顯示那個選項。浮出來讓人看得見，不要默默發生。
+    missing = sorted(
+        {row.get("region") for row in final if row.get("region")} - set(REGION_SLUGS)
+    )
+    if missing:
+        print(
+            "[warn] 這些地區沒有對應的檔名代號，不會有專屬訂閱檔：{}"
+            "（請補進 sources/base.py 的 REGION_SLUGS）".format("、".join(missing)),
+            file=sys.stderr,
+        )
+    return feeds
 
 
 def _previous() -> dict:
@@ -258,6 +339,12 @@ def main() -> int:
     now = datetime.now(TAIPEI).isoformat(timespec="seconds")
     updated_at = previous.get("updated_at") or now if stale_kinds else now
 
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+
+    # 🔴 訂閱檔先寫、events.json 後寫：`feeds`（分頁×地區 → 檔名）要進 payload 給前端，
+    # 而且順序這樣排的話，前端讀到新的 feeds 時對應的 .ics 一定已經在磁碟上了。
+    feeds = _write_feeds(final, updated_at)
+
     payload = {
         "updated_at": updated_at,
         "count": len(final),
@@ -265,12 +352,12 @@ def main() -> int:
         # sources 一律換成這次的：某個來源這次抓到 0 筆就該顯示 0，不要沿用上一次的數字
         "sources": per_source,
         "errors": errors,
+        "feeds": feeds,
         "events": final,
     }
 
     _write(payload)
     print("已寫入 {}".format(OUTPUT))
-    _write_feeds(final, updated_at)
     return exit_code
 
 if __name__ == "__main__":
