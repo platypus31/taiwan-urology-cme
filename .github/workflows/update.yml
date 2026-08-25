@@ -51,7 +51,10 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/events.json
+          # 🔴 .ics 一定要跟著提交：訂閱端讀的是 repo 裡那份靜態檔，
+          # 漏掉它的話網站每天更新、訂閱者的日曆卻永遠停在上一次手動提交的版本，
+          # 而且不會有任何錯誤訊息（訂閱的人只會覺得「新課程都沒出現」）
+          git add data/events.json data/cme.ics data/meeting.ics
           # 日期用台灣時間：排程是 UTC 22:00（台灣隔天 06:00），
           # 用 UTC 日期會讓 commit 訊息永遠比台灣實際日期少一天
           git commit -m "chore: 自動更新活動資料 $(TZ=Asia/Taipei date +'%Y-%m-%d')"
