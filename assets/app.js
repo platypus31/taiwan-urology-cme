@@ -259,7 +259,22 @@
       return true;
     });
 
+    /* 已結束的一律沉到最底。
+       學會會議那一頁刻意帶著兩年份歷史（見 sources/base.py 的 MEETING_KEEP_PAST_DAYS），
+       時間選「全部」時純按日期升冪排會讓第一屏都是舊會議，把使用者真正要看的
+       「接下來有什麼」擠到看不見的地方。已結束的彼此之間用日期**降冪**
+       （最近剛結束的排前面）—— 往回看的時候，越近的越有參考價值。
+       今天三個學會的「即將舉行」剛好都是 0，看不出差別；等哪天公布了下一場就會有。 */
+    var ended = {};
+    rows.forEach(function (e) { ended[e.date + "|" + e.title] = lastDay(e) < today; });
+    var isEnded = function (e) { return ended[e.date + "|" + e.title]; };
+
     rows.sort(function (a, b) {
+      var ea = isEnded(a), eb = isEnded(b);
+      if (ea !== eb) return ea ? 1 : -1;
+      // 已結束那一段要排在所有排序模式**之前**處理：放在 credit-desc 分支後面的話，
+      // 選「積分高→低」時已結束的會改以積分排序，跟上面註解承諾的順序對不起來。
+      if (ea) return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
       if (state.sort === "credit-desc") {
         var ca = a.credits == null ? -1 : a.credits;
         var cb = b.credits == null ? -1 : b.credits;
@@ -530,6 +545,14 @@
     var sorts = SORTS.filter(function (s) {
       return !(state.kind === KIND_MEETING && s.key === "credit-desc");
     });
+    // 🔴 選項被拿掉時，**目前選中的值也要跟著回到預設**。分頁切換那邊雖然已經明寫了
+    // 一行 `state.sort = "date-asc"`，但那是「特判某一條路徑」；這裡是「不管怎麼走到
+    // 這個狀態都會自動回正」。少了它，只要有第二條路徑造成選中值落在被過濾掉的選項上，
+    // 排序就會照著一個畫面上看不到的值跑、使用者也無從取消
+    // （codex review 2026-08-25 修過一次，還原前端檔時被一起帶回來，這裡補回）。
+    if (sorts.length && !sorts.some(function (s) { return s.key === state.sort; })) {
+      state.sort = sorts[0].key;
+    }
     renderChips("f-sort", sorts, function (i) { return state.sort === i.key; },
       function (i) { state.sort = i.key; });
   }
