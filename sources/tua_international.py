@@ -117,8 +117,20 @@ def _split_title(text: str) -> Tuple[str, str]:
     return title, location
 
 
-def parse_page(html: str, year: int, page_url: str) -> List[Event]:
-    """把公告頁的「月/日 ｜ 議程」表格解析成 Event 清單（不連網，供 selftest 用）。"""
+def parse_table(
+    html: str,
+    year: int,
+    page_url: str,
+    keep=None,
+    source_name: str = NAME,
+) -> List[Event]:
+    """把 TUA 公告頁的「月/日 ｜ 議程」表格解析成 Event 清單（不連網，供 selftest 用）。
+
+    學會的年度國際會議頁與年度行事曆頁**用的是同一種表格**，所以解析共用這一支，
+    差別只在 `keep`：傳一個 `(標題, 地點) -> bool` 決定哪幾列要收
+    （`sources/tua_calendar.py` 用它只挑理監事會議）。
+    這是本 repo 既有的做法 —— `kaohsing.py` 也是這樣重用 `eschool.parse_month(accept=…)`。
+    """
     soup = BeautifulSoup(html, "html.parser")
     events: List[Event] = []
     seen = set()
@@ -136,6 +148,8 @@ def parse_page(html: str, year: int, page_url: str) -> List[Event]:
         raw_title = cells[1].get_text(" ", strip=True)
         title, location = _split_title(raw_title)
         if not title:
+            continue
+        if keep is not None and not keep(title, location):
             continue
 
         # 有外部連結就連過去（報名頁），沒有就連回學會公告頁 —— 不留空連結。
@@ -162,7 +176,7 @@ def parse_page(html: str, year: int, page_url: str) -> List[Event]:
                 region=detect_region(location),
                 online=detect_online(title, location),
                 kind=KIND_MEETING,
-                source=NAME,
+                source=source_name,
                 url=url,
             )
         )
@@ -170,9 +184,13 @@ def parse_page(html: str, year: int, page_url: str) -> List[Event]:
     return events
 
 
+# 舊名保留：selftest 與既有呼叫端用 parse_page
+parse_page = parse_table
+
+
 def fetch() -> List[Event]:
     page_url, year = _find_page()
-    events = parse_page(get(page_url).text, year, page_url)
+    events = parse_table(get(page_url).text, year, page_url)
     if not events:
         raise SourceError("國際會議公告頁 {} 解析不到任何場次（版面可能改了）".format(page_url))
 

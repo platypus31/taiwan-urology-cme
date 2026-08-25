@@ -1,9 +1,9 @@
 {
- "updated_at": "2026-08-25T23:43:19+08:00",
- "count": 58,
+ "updated_at": "2026-08-26T00:02:11+08:00",
+ "count": 62,
  "counts": {
   "cme": 31,
-  "meeting": 27
+  "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
@@ -17,6 +17,10 @@
   "台灣泌尿科醫學會 國際會議": {
    "kind": "meeting",
    "count": 9
+  },
+  "台灣泌尿科醫學會 理監事會議": {
+   "kind": "meeting",
+   "count": 4
   },
   "台灣泌尿內視鏡醫學會": {
    "kind": "meeting",
@@ -94,6 +98,24 @@
    "badges": []
   },
   {
+   "date": "2025-05-03",
+   "title": "第24屆第3次理監事會議",
+   "end_date": "",
+   "time": "",
+   "organizer": "台灣泌尿科醫學會",
+   "location": "IEAT松江會議中心",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "meeting",
+   "source": "台灣泌尿科醫學會 理監事會議",
+   "url": "https://www.tua.org.tw/tua/tw/latest-news/announcement/2348-2025-calendar",
+   "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
    "date": "2025-07-12",
    "title": "2025年 台灣泌尿內視鏡醫學會年會",
    "end_date": "2025-07-13",
@@ -127,6 +149,24 @@
    "kind": "meeting",
    "source": "台灣泌尿科醫學會 年會／半年會",
    "url": "https://eschool.tua.org.tw/p/2025_conference",
+   "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2025-08-17",
+   "title": "第24屆第4次理監事會議",
+   "end_date": "",
+   "time": "",
+   "organizer": "台灣泌尿科醫學會",
+   "location": "TICC台北國際會議中心",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "北部",
+   "kind": "meeting",
+   "source": "台灣泌尿科醫學會 理監事會議",
+   "url": "https://www.tua.org.tw/tua/tw/latest-news/announcement/2348-2025-calendar",
    "categories": [],
    "online": false,
    "badges": []
@@ -307,6 +347,24 @@
    "badges": []
   },
   {
+   "date": "2026-04-11",
+   "title": "第24屆第6次理監事會議",
+   "end_date": "",
+   "time": "",
+   "organizer": "台灣泌尿科醫學會",
+   "location": "IEAT會議中心",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "meeting",
+   "source": "台灣泌尿科醫學會 理監事會議",
+   "url": "https://www.tua.org.tw/tua/tw/latest-news/announcement/2599-2026-calendar",
+   "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
    "date": "2026-04-18",
    "title": "台灣泌尿內視鏡醫學會",
    "end_date": "",
@@ -477,6 +535,24 @@
    "kind": "meeting",
    "source": "台灣泌尿科醫學會 年會／半年會",
    "url": "https://eschool.tua.org.tw/p/2026_conference",
+   "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-08-23",
+   "title": "第25屆第1次理監事會議",
+   "end_date": "",
+   "time": "",
+   "organizer": "台灣泌尿科醫學會",
+   "location": "南港展覽館二館",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "meeting",
+   "source": "台灣泌尿科醫學會 理監事會議",
+   "url": "https://www.tua.org.tw/tua/tw/latest-news/announcement/2599-2026-calendar",
    "categories": [],
    "online": false,
    "badges": []

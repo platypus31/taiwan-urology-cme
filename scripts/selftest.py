@@ -726,6 +726,46 @@ check(
 )
 
 # --------------------------------------------------------------------------
+# 年度行事曆頁：只抽理監事會議（sources/tua_calendar.py）
+#
+# 🔴 這一頁的日期會漂移（實測 ±7～14 天），所以**只准拿來抽理監事會議** ——
+#    區域月會／季會 E-School 有更準的版本。測資取自 2026 行事曆的真實列。
+# --------------------------------------------------------------------------
+from sources import tua_calendar as _cal  # noqa: E402
+
+_CAL_FIXTURE = """
+<table><tbody>
+<tr><th>月/日</th><th>議程</th></tr>
+<tr><td>1/17</td><td>中區季會／中榮</td></tr>
+<tr><td>1/24</td><td>TUA半年會／光田</td></tr>
+<tr><td>4/11</td><td>第24屆第6次理監事會議／IEAT會議中心</td></tr>
+<tr><td>8/23</td><td>第25屆第1次理監事會議／南港展覽館二館</td></tr>
+<tr><td>2/28-3/3</td><td>USANZ 2026／澳洲墨爾本</td></tr>
+</tbody></table>
+"""
+
+_cal_rows = _intl.parse_table(
+    _CAL_FIXTURE, 2026, "https://www.tua.org.tw/cal", keep=_cal._keep, source_name=_cal.NAME
+)
+
+# 🔴 只收理監事：區域季會／半年會／國際年會都必須被擋掉
+#    （它們在別的來源有更準的版本，從這頁收會拿到漂移 ±7～14 天的日期）
+check("行事曆-只收理監事", len(_cal_rows), 2)
+check("行事曆-標題都含理監事", all("理監事" in e.title for e in _cal_rows), True)
+check("行事曆-區域季會被擋", any("季會" in e.title for e in _cal_rows), False)
+check("行事曆-半年會被擋", any("半年會" in e.title for e in _cal_rows), False)
+check("行事曆-國際年會被擋", any("USANZ" in e.title for e in _cal_rows), False)
+check("行事曆-日期", _cal_rows[0].date, "2026-04-11")
+check("行事曆-來源名", _cal_rows[0].source, "台灣泌尿科醫學會 理監事會議")
+check("行事曆-是會議線", {e.kind for e in _cal_rows}, {KIND_MEETING})
+# 屆次數字會變，所以認「理監事」三個字而不是整串
+check("行事曆-keep認關鍵字不認屆次", _cal._keep("第99屆第9次理監事會議", ""), True)
+check("行事曆-keep擋掉月會", _cal._keep("南區月會", ""), False)
+# slug 比對：公告區上千則，用「網址含 calendar」會掃到別的東西
+check("行事曆-slug命中", bool(_cal._SLUG.search("/2599-2026-calendar")), True)
+check("行事曆-slug不命中別的公告", bool(_cal._SLUG.search("/2198-tua-guideline-2024")), False)
+
+# --------------------------------------------------------------------------
 # .ics 訂閱檔（sources/icsfeed.py）
 #
 # 🔴 這一組最重要的是 **UID 穩定性**：同一場活動每次 build 都要算出相同的 UID，
