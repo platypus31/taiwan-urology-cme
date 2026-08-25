@@ -568,8 +568,11 @@
     // 但沒有任何 chip 是選中的，使用者看不出發生什麼事也無從取消
     // （codex review 2026-08-25 抓到）。用「不在可見清單裡就重設」寫，
     // 而不是在切換分類時特判 —— 這樣日後再拿掉別的選項也自動成立。
-    if (!sorts.some(function (s) { return s.key === state.sort; })) {
-      state.sort = SORTS[0].key;
+    // 退回的目標要取自**過濾後**的清單。寫成 SORTS[0] 現在剛好也對（date-asc 不會被濾掉），
+    // 但那等於把「日後再拿掉別的選項也自動成立」這句話變成假的 ——
+    // 哪天有人濾掉 date-asc，這行就會把值設回一個看不見的選項，正是它要防的事。
+    if (sorts.length && !sorts.some(function (s) { return s.key === state.sort; })) {
+      state.sort = sorts[0].key;
     }
     renderChips("f-sort", sorts, function (i) { return state.sort === i.key; },
       function (i) { state.sort = i.key; });
