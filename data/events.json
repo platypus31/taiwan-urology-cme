@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-08-25T22:35:30+08:00",
+ "updated_at": "2026-08-25T23:09:27+08:00",
  "count": 49,
  "counts": {
   "cme": 31,
@@ -22,7 +22,7 @@
    "kind": "meeting",
    "count": 3
   },
-  "高雄市高杏泌尿照護協會": {
+  "台灣泌尿科醫學會 高杏場次": {
    "kind": "meeting",
    "count": 3
   }
@@ -177,7 +177,7 @@
    "credits_pending": false,
    "region": "南部",
    "kind": "meeting",
-   "source": "高雄市高杏泌尿照護協會",
+   "source": "台灣泌尿科醫學會 高杏場次",
    "url": "https://eschool.tua.org.tw/conference/3494",
    "categories": [],
    "online": false,
@@ -218,7 +218,7 @@
    "credits_pending": false,
    "region": "南部",
    "kind": "meeting",
-   "source": "高雄市高杏泌尿照護協會",
+   "source": "台灣泌尿科醫學會 高杏場次",
    "url": "https://eschool.tua.org.tw/conference/3779",
    "categories": [
     "教育訓練與研究"
@@ -298,7 +298,7 @@
    "credits_pending": false,
    "region": "南部",
    "kind": "meeting",
-   "source": "高雄市高杏泌尿照護協會",
+   "source": "台灣泌尿科醫學會 高杏場次",
    "url": "https://eschool.tua.org.tw/conference/3998",
    "categories": [
     "男性學與性功能"
