@@ -19,7 +19,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from bs4 import BeautifulSoup
 
-from sources import eschool, kaohsing, tea, tuoa
+from sources import eschool, kaohsing, tea, tua_meetings, tuoa
 from sources.base import (
     KIND_CME,
     KIND_MEETING,
@@ -209,16 +209,70 @@ eschool._parse_rows(BeautifulSoup(FIXTURE, "html.parser"), 2026, 10)
 check("門檻濾掉-不誤報", len(drain_warnings()), 0)
 
 # --------------------------------------------------------------------------
-# tag：站主要的「上課／開會」兩個標籤。**它是 kind 的投影，不是另一份資料**，
-# 所以這裡驗的是「投影規則沒被改壞」——只要 kind 對，tag 必然對，
-# 不可能出現「新項目有 tag、舊項目沒有」這種漏掉舊資料的情況。
+# TUA 自己的年會／半年會：會議層級，不是議程層級
+#
+# 🔴 為什麼不從 conference/list 撈：年會在那張表上是攤成 88 筆個別議程，
+# 每一筆的「主辦」欄放的是**座長姓名**、積分欄是空的。現行的積分門檻正是靠這點
+# 把它們擋掉，同時擋著「把個人姓名登在公開網站上」。改用 E-School 首頁列出的
+# 「議程總表」頁（一場會議一頁，有名稱／起訖日／地點）。
 # --------------------------------------------------------------------------
-from sources.base import Event as _Ev  # noqa: E402
+check(
+    "TUA會議-首頁連結認得出年份",
+    tua_meetings._PAGE_HREF.search("https://eschool.tua.org.tw/p/2026_conference").group(2),
+    "2026",
+)
+check(
+    "TUA會議-半年會也認得",
+    tua_meetings._PAGE_HREF.search("/p/2026mid_conference").group(2),
+    "2026",
+)
+# 議程頁（/conference/3896）不是總表頁，不能誤收
+check("TUA會議-議程頁不算", tua_meetings._PAGE_HREF.search("/conference/3896"), None)
 
-check("tag-積分課程", _Ev(date="2026-01-01", title="x", kind=KIND_CME).to_dict()["tags"], ["上課"])
-check("tag-學會會議", _Ev(date="2026-01-01", title="x", kind=KIND_MEETING).to_dict()["tags"], ["開會"])
-# 沒寫 kind 的預設是積分課程，一樣要有 tag（不能有「沒有標籤」的漏網之魚）
-check("tag-預設", _Ev(date="2026-01-01", title="x").to_dict()["tags"], ["上課"])
+check(
+    "TUA會議-標題",
+    tua_meetings._HEADING.match("2026 TUA Annual Meeting Scientific Programs").group(1),
+    "2026 TUA Annual Meeting",
+)
+# 2025 那年官網寫的是單數 Program，少認一種寫法那年就整場抓不到
+check(
+    "TUA會議-標題單數也認",
+    tua_meetings._HEADING.match("2025 TUA x UAA Annual Meeting Scientific Program").group(1),
+    "2025 TUA x UAA Annual Meeting",
+)
+
+_d = list(tua_meetings._DAY.finditer(
+    "時間: 2026/08/22 (星期六) 09:00 - 17:30 地點: 台北南港展覽館2館 7F "
+    "時間: 2026/08/23 (星期日) 09:30 - 15:00 地點: 台北南港展覽館2館 7F"
+))
+check("TUA會議-多日抓到兩天", len(_d), 2)
+check("TUA會議-第一天", "-".join(g.zfill(2) for g in _d[0].groups()[:3]), "2026-08-22")
+check("TUA會議-時段", _d[0].group(4), "09:00 - 17:30")
+# 英文星期（實測 2026 半年會頁面用 (Sat)）也要認
+check(
+    "TUA會議-英文星期",
+    tua_meetings._DAY.search("時間: 2026/01/24 (Sat) 09:00-17:30").group(2),
+    "01",
+)
+
+# 🔴 地點必須有界。這一條是真的踩過：2025 那頁的邊界字樣是「時間 & 會場」而不是
+# 「last update」，第一版的寫法把整張議程表（含幾百個講者座長姓名）當成地點寫進輸出。
+check(
+    "TUA會議-地點-last update 邊界",
+    tua_meetings._VENUE.search("地點: 台北南港展覽館2館 7F last update: 07.19 TIME 701 A").group(1),
+    "台北南港展覽館2館 7F",
+)
+check(
+    "TUA會議-地點-時間&會場 邊界",
+    tua_meetings._VENUE.search("地點: 台北國際會議中心 (TICC) 時間 & 會場 3F 大會堂 某某醫師").group(1),
+    "台北國際會議中心 (TICC)",
+)
+# 邊界完全沒命中時**寧可留白也不要吐半截**：超過上限就整條不匹配
+check(
+    "TUA會議-地點-無邊界就放棄",
+    tua_meetings._VENUE.search("地點: " + "某" * 200),
+    None,
+)
 
 # --------------------------------------------------------------------------
 # Guideline 連結解析（三個學會，三種網頁結構）

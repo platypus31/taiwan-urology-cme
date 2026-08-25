@@ -1,14 +1,18 @@
 {
- "updated_at": "2026-08-25T22:07:49+08:00",
- "count": 46,
+ "updated_at": "2026-08-25T22:35:30+08:00",
+ "count": 49,
  "counts": {
   "cme": 31,
-  "meeting": 15
+  "meeting": 18
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
    "count": 31
+  },
+  "台灣泌尿科醫學會 年會／半年會": {
+   "kind": "meeting",
+   "count": 3
   },
   "台灣泌尿內視鏡醫學會": {
    "kind": "meeting",
@@ -43,10 +47,7 @@
     "結石與內視鏡"
    ],
    "online": false,
-   "badges": [],
-   "tags": [
-    "開會"
-   ]
+   "badges": []
   },
   {
    "date": "2025-02-22",
@@ -66,10 +67,7 @@
     "泌尿腫瘤"
    ],
    "online": false,
-   "badges": [],
-   "tags": [
-    "開會"
-   ]
+   "badges": []
   },
   {
    "date": "2025-03-08",
@@ -89,10 +87,7 @@
     "結石與內視鏡"
    ],
    "online": false,
-   "badges": [],
-   "tags": [
-    "開會"
-   ]
+   "badges": []
   },
   {
    "date": "2025-07-12",
@@ -112,10 +107,25 @@
     "結石與內視鏡"
    ],
    "online": false,
-   "badges": [],
-   "tags": [
-    "開會"
-   ]
+   "badges": []
+  },
+  {
+   "date": "2025-08-14",
+   "title": "2025 TUA x UAA Annual Meeting",
+   "end_date": "2025-08-17",
+   "time": "08:00 ~ 20:00",
+   "organizer": "台灣泌尿科醫學會",
+   "location": "Taipei International Convention Center 台北國際會議中心 (TICC) / TWTC世貿一館A區",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "北部",
+   "kind": "meeting",
+   "source": "台灣泌尿科醫學會 年會／半年會",
+   "url": "https://eschool.tua.org.tw/p/2025_conference",
+   "categories": [],
+   "online": false,
+   "badges": []
   },
   {
    "date": "2025-09-06",
@@ -133,10 +143,7 @@
    "url": "https://www.tea2024.org.tw/news/20250906.html",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "開會"
-   ]
+   "badges": []
   },
   {
    "date": "2025-09-20",
@@ -156,10 +163,7 @@
     "結石與內視鏡"
    ],
    "online": false,
-   "badges": [],
-   "tags": [
-    "開會"
-   ]
+   "badges": []
   },
   {
    "date": "2025-11-22",
@@ -179,9 +183,6 @@
    "online": false,
    "badges": [
     "高杏主辦"
-   ],
-   "tags": [
-    "開會"
    ]
   },
   {
@@ -203,10 +204,7 @@
     "機器手臂與微創"
    ],
    "online": false,
-   "badges": [],
-   "tags": [
-    "開會"
-   ]
+   "badges": []
   },
   {
    "date": "2025-12-20",
@@ -228,10 +226,25 @@
    "online": false,
    "badges": [
     "高杏協辦"
-   ],
-   "tags": [
-    "開會"
    ]
+  },
+  {
+   "date": "2026-01-24",
+   "title": "2026 TUA Mid-year Meeting",
+   "end_date": "",
+   "time": "09:00-17:30",
+   "organizer": "台灣泌尿科醫學會",
+   "location": "台中光田綜合醫院-向上院區 B棟",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "中部",
+   "kind": "meeting",
+   "source": "台灣泌尿科醫學會 年會／半年會",
+   "url": "https://eschool.tua.org.tw/p/2026mid_conference",
+   "categories": [],
+   "online": false,
+   "badges": []
   },
   {
    "date": "2026-01-31",
@@ -251,10 +264,7 @@
     "泌尿腫瘤"
    ],
    "online": false,
-   "badges": [],
-   "tags": [
-    "開會"
-   ]
+   "badges": []
   },
   {
    "date": "2026-04-18",
@@ -274,10 +284,7 @@
     "結石與內視鏡"
    ],
    "online": false,
-   "badges": [],
-   "tags": [
-    "開會"
-   ]
+   "badges": []
   },
   {
    "date": "2026-06-06",
@@ -300,9 +307,6 @@
    "badges": [
     "有錄影",
     "高杏協辦"
-   ],
-   "tags": [
-    "開會"
    ]
   },
   {
@@ -323,10 +327,7 @@
     "結石與內視鏡"
    ],
    "online": false,
-   "badges": [],
-   "tags": [
-    "開會"
-   ]
+   "badges": []
   },
   {
    "date": "2026-07-25",
@@ -346,10 +347,7 @@
     "泌尿腫瘤"
    ],
    "online": false,
-   "badges": [],
-   "tags": [
-    "開會"
-   ]
+   "badges": []
   },
   {
    "date": "2026-08-01",
@@ -369,10 +367,25 @@
     "泌尿腫瘤"
    ],
    "online": false,
-   "badges": [],
-   "tags": [
-    "開會"
-   ]
+   "badges": []
+  },
+  {
+   "date": "2026-08-22",
+   "title": "2026 TUA Annual Meeting",
+   "end_date": "2026-08-23",
+   "time": "09:00 - 17:30",
+   "organizer": "台灣泌尿科醫學會",
+   "location": "台北南港展覽館2館 7F",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "北部",
+   "kind": "meeting",
+   "source": "台灣泌尿科醫學會 年會／半年會",
+   "url": "https://eschool.tua.org.tw/p/2026_conference",
+   "categories": [],
+   "online": false,
+   "badges": []
   },
   {
    "date": "2026-08-29",
@@ -390,10 +403,7 @@
    "url": "https://eschool.tua.org.tw/conference/4022",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-08-30",
@@ -411,10 +421,7 @@
    "url": "https://eschool.tua.org.tw/conference/4042",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-09-05",
@@ -432,10 +439,7 @@
    "url": "https://eschool.tua.org.tw/conference/4016",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-09-05",
@@ -453,10 +457,7 @@
    "url": "https://eschool.tua.org.tw/conference/4040",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-09-05",
@@ -476,10 +477,7 @@
     "男性學與性功能"
    ],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-09-05",
@@ -497,10 +495,7 @@
    "url": "https://eschool.tua.org.tw/conference/3839",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-09-05",
@@ -520,10 +515,7 @@
     "結石與內視鏡"
    ],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-09-05",
@@ -543,10 +535,7 @@
     "感染與性傳染病"
    ],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-09-09",
@@ -566,10 +555,7 @@
     "排尿功能與婦女泌尿"
    ],
    "online": true,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-09-12",
@@ -587,10 +573,7 @@
    "url": "https://eschool.tua.org.tw/conference/3841",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-09-17",
@@ -608,10 +591,7 @@
    "url": "https://eschool.tua.org.tw/conference/4046",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-09-17",
@@ -631,10 +611,7 @@
     "泌尿腫瘤"
    ],
    "online": true,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-09-19",
@@ -652,10 +629,7 @@
    "url": "https://eschool.tua.org.tw/conference/4038",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-09-22",
@@ -675,10 +649,7 @@
     "泌尿腫瘤"
    ],
    "online": true,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-09-24",
@@ -696,10 +667,7 @@
    "url": "https://eschool.tua.org.tw/conference/4047",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-09-26",
@@ -717,10 +685,7 @@
    "url": "https://eschool.tua.org.tw/conference/3840",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-10-04",
@@ -740,10 +705,7 @@
     "男性學與性功能"
    ],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-10-04",
@@ -763,10 +725,7 @@
     "男性學與性功能"
    ],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-10-17",
@@ -786,10 +745,7 @@
     "機器手臂與微創"
    ],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-10-17",
@@ -807,10 +763,7 @@
    "url": "https://eschool.tua.org.tw/conference/3843",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-10-17",
@@ -830,10 +783,7 @@
     "排尿功能與婦女泌尿"
    ],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-10-31",
@@ -851,10 +801,7 @@
    "url": "https://eschool.tua.org.tw/conference/3844",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-11-19",
@@ -872,10 +819,7 @@
    "url": "https://eschool.tua.org.tw/conference/3847",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-11-21",
@@ -893,10 +837,7 @@
    "url": "https://eschool.tua.org.tw/conference/3845",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-11-21",
@@ -914,10 +855,7 @@
    "url": "https://eschool.tua.org.tw/conference/3846",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-12-01",
@@ -935,10 +873,7 @@
    "url": "https://eschool.tua.org.tw/conference/3851",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-12-10",
@@ -956,10 +891,7 @@
    "url": "https://eschool.tua.org.tw/conference/3852",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-12-12",
@@ -977,10 +909,7 @@
    "url": "https://eschool.tua.org.tw/conference/3848",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-12-19",
@@ -998,10 +927,7 @@
    "url": "https://eschool.tua.org.tw/conference/3850",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-12-19",
@@ -1019,10 +945,7 @@
    "url": "https://eschool.tua.org.tw/conference/3853",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   },
   {
    "date": "2026-12-27",
@@ -1040,10 +963,7 @@
    "url": "https://eschool.tua.org.tw/conference/3849",
    "categories": [],
    "online": false,
-   "badges": [],
-   "tags": [
-    "上課"
-   ]
+   "badges": []
   }
  ]
 }

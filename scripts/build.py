@@ -19,7 +19,7 @@ from typing import Dict, List
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from sources import eschool, kaohsing, tea, tuoa  # noqa: E402
+from sources import eschool, kaohsing, tea, tua_meetings, tuoa  # noqa: E402
 from sources.base import (  # noqa: E402
     KIND_CME,
     KIND_MEETING,
@@ -30,7 +30,7 @@ from sources.base import (  # noqa: E402
 )
 
 # 順序無所謂（輸出會重新排序），但積分來源放前面，讀 log 時比較好對。
-SOURCES = [eschool, tea, tuoa, kaohsing]
+SOURCES = [eschool, tua_meetings, tea, tuoa, kaohsing]
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / "data" / "events.json"
