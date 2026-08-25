@@ -201,7 +201,7 @@
   ];
 
   /* 學會會議這一軸不一樣：資料**刻意**保留兩年份的已結束場次
-     （見 sources/base.js 對應的 MEETING_KEEP_PAST_DAYS 說明）。
+     （見 sources/base.py 的 MEETING_KEEP_PAST_DAYS 說明）。
      學會官網多半在開會前一兩個月才更新，所以「即將舉行」常常真的是 0 筆；
      這時上一場的日期就是最有用的線索，必須有路可以按進去看。 */
   var MEETING_TIME_FILTERS = [
@@ -468,8 +468,10 @@
     // 時間軸的數字要算：「即將舉行 0」正是學會會議這一頁最需要一眼看到的事實
     var timeCounts = {};
     var today = todayISO();
+    // applyFilters("time") 在迴圈外算一次就好 —— 每個選項各叫一次等於全量掃描四遍
+    var timeBase = applyFilters("time");
     timeFilters().forEach(function (f) {
-      timeCounts[f.key] = applyFilters("time").filter(function (e) {
+      timeCounts[f.key] = timeBase.filter(function (e) {
         return f.test(e, today);
       }).length;
     });
