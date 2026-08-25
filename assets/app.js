@@ -267,13 +267,17 @@
     rows.sort(function (a, b) {
       var ea = isEnded(a), eb = isEnded(b);
       if (ea !== eb) return ea ? 1 : -1;
+      // 🔴 已結束的那一段要**排在所有排序模式之前**處理。放在 credit-desc 分支後面的話，
+      // 使用者選「積分高→低」時已結束的會改以積分排序，跟上面那段註解承諾的
+      // 「最近剛結束的排前面」對不起來（codex review 2026-08-25 抓到）。
+      if (ea) return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
       if (state.sort === "credit-desc") {
         var ca = a.credits == null ? -1 : a.credits;
         var cb = b.credits == null ? -1 : b.credits;
         if (cb !== ca) return cb - ca;
         return a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
       }
-      if (state.sort === "date-desc" || ea) return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
+      if (state.sort === "date-desc") return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
       return a.date < b.date ? -1 : a.date > b.date ? 1 : 0;
     });
 
@@ -553,11 +557,20 @@
       function (i) { return state.organizer === i.key; },
       function (i) { state.organizer = i.key; });
 
-    // 「積分高→低」在學會會議那頁排不出東西（那邊的 credits 一律是 null），
+    // 「積分高→低」單獨篩「開會」時排不出東西（那些來源的 credits 一律是 null），
     // 留著只是一顆按了沒反應的按鈕
     var sorts = SORTS.filter(function (s) {
       return !(state.tag === TAG_MEETING && s.key === "credit-desc");
     });
+    // 🔴 選項被拿掉時，**目前選中的值也要跟著回到預設**。少了這一步，
+    // 使用者在「上課」選了積分排序再切到「開會」，state.sort 會停在一個
+    // 畫面上根本看不到的選項：排序照著它跑、「篩選」按鈕的數字也照算，
+    // 但沒有任何 chip 是選中的，使用者看不出發生什麼事也無從取消
+    // （codex review 2026-08-25 抓到）。用「不在可見清單裡就重設」寫，
+    // 而不是在切換分類時特判 —— 這樣日後再拿掉別的選項也自動成立。
+    if (!sorts.some(function (s) { return s.key === state.sort; })) {
+      state.sort = SORTS[0].key;
+    }
     renderChips("f-sort", sorts, function (i) { return state.sort === i.key; },
       function (i) { state.sort = i.key; });
   }
