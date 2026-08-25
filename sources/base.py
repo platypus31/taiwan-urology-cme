@@ -10,7 +10,7 @@ import re
 import unicodedata
 from dataclasses import asdict, dataclass, field
 from datetime import date, datetime, timedelta, timezone
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 import requests
 
@@ -437,6 +437,24 @@ def cutoff_iso(kind: str = KIND_CME) -> str:
     """
     days = MEETING_KEEP_PAST_DAYS if kind == KIND_MEETING else KEEP_PAST_DAYS
     return (today_taipei() - timedelta(days=days)).isoformat()
+
+
+def is_current(event: "Event", cutoffs: Dict[str, str]) -> bool:
+    """這筆活動還該不該留在站上。
+
+    🔴 邊界：**活動當天仍算未結束**（比較用 >= 不是 >）。這條是站主明確指定的
+    —— 早上還沒上的課，不能因為「今天」就從站上消失。
+
+    🔴 多日活動看**結束日**：跨越今天的兩天課還在進行中，不該當成過期。
+    會議那一頁的多日活動不是特例，年會全都是多日的。
+
+    日期一律是台北的日期（cutoffs 由 cutoff_iso() 產出，走 today_taipei()）——
+    workflow 的 runner 跑在 UTC，用機器日期會整整差一天。
+
+    放在這裡而不是 build.py，是為了讓 scripts/selftest.py 測得到它：
+    scripts/ 沒有 __init__.py，selftest 的 sys.path 技巧 import 不到 scripts.build。
+    """
+    return (event.end_date or event.date) >= cutoffs.get(event.kind, cutoffs[KIND_CME])
 
 
 # --------------------------------------------------------------------------

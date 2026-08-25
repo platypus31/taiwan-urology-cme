@@ -23,6 +23,7 @@ from sources import eschool, kaohsing, tea, tua_meetings, tuoa
 from sources.base import (
     KIND_CME,
     KIND_MEETING,
+    Event,
     credits_pending,
     drain_warnings,
     detect_categories,
@@ -422,6 +423,59 @@ from sources.base import today_iso as _today  # noqa: E402
 # KEEP_PAST_DAYS=0：課的下界就是今天（過期就從站上消失）
 check("下界-課等於今天", _cutoff(KIND_CME), _today())
 check("下界-會議比課早", _cutoff(KIND_MEETING) < _cutoff(KIND_CME), True)
+
+# --------------------------------------------------------------------------
+# 台北日期邊界（站主 2026-08-25：「已經結束的會議還有課程就不應該顯示在上面了」）
+#
+# 🔴 上面兩條只測了「下界這個常數等於什麼」，測不到**真正在過濾活動的那個判準**。
+#    下面這幾條測的是 is_current() 本身 —— 少了它，把 >= 改成 > 這種一字之差
+#    （當天的課全部提早一天消失）能一路通過整份測試。
+# --------------------------------------------------------------------------
+from datetime import timedelta as _timedelta  # noqa: E402
+
+from sources.base import is_current as _is_current  # noqa: E402
+from sources.base import today_taipei as _today_taipei  # noqa: E402
+
+_CUTOFFS = {KIND_CME: _cutoff(KIND_CME), KIND_MEETING: _cutoff(KIND_MEETING)}
+
+
+def _offset_day(n: int) -> str:
+    """相對台北今天的第 n 天（負數是過去）。"""
+    return (_today_taipei() + _timedelta(days=n)).isoformat()
+
+
+def _dated(start: str, end: str = "", kind: str = KIND_CME) -> Event:
+    return Event(date=start, title="邊界測試", end_date=end, kind=kind)
+
+
+# 站主要的邊界就是這條：活動當天還沒過，不能從站上消失
+check("邊界-課-當天仍保留", _is_current(_dated(_offset_day(0)), _CUTOFFS), True)
+check("邊界-課-昨天要丟掉", _is_current(_dated(_offset_day(-1)), _CUTOFFS), False)
+check("邊界-課-明天保留", _is_current(_dated(_offset_day(1)), _CUTOFFS), True)
+# 多日活動看結束日：昨天開始、明天結束的課還在進行中
+check(
+    "邊界-課-跨過今天的多日活動保留",
+    _is_current(_dated(_offset_day(-3), end=_offset_day(1)), _CUTOFFS),
+    True,
+)
+# 多日活動整段都在過去 → 該丟
+check(
+    "邊界-課-整段在過去的多日活動要丟掉",
+    _is_current(_dated(_offset_day(-5), end=_offset_day(-2)), _CUTOFFS),
+    False,
+)
+# 會議留兩年份，所以昨天的會議**仍留在資料裡**（顯不顯示是前端的事）
+check(
+    "邊界-會議-昨天仍留在資料裡",
+    _is_current(_dated(_offset_day(-1), kind=KIND_MEETING), _CUTOFFS),
+    True,
+)
+# 但比保留下界更舊的會議一樣要丟，否則兩年份的界線形同虛設
+check(
+    "邊界-會議-超過兩年的要丟掉",
+    _is_current(_dated(_offset_day(-800), kind=KIND_MEETING), _CUTOFFS),
+    False,
+)
 
 # --------------------------------------------------------------------------
 # 個資防線：官網把承辦人電話／信箱寫在地點同一段，抽欄位時要挖掉

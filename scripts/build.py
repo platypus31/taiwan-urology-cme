@@ -27,6 +27,7 @@ from sources.base import (  # noqa: E402
     Event,
     cutoff_iso,
     drain_warnings,
+    is_current,
 )
 
 # 順序無所謂（輸出會重新排序），但積分來源放前面，讀 log 時比較好對。
@@ -129,12 +130,10 @@ def main() -> int:
             print("[FAIL] {} — {}".format(name, exc), file=sys.stderr)
             fetched = None
         else:
-            # 多日活動看結束日：跨越今天的兩天課還在進行中，不該當成過期
-            fresh = [
-                e
-                for e in fetched
-                if (e.end_date or e.date) >= cutoffs.get(e.kind, cutoffs[KIND_CME])
-            ]
+            # 判準本體在 sources/base.is_current()（放那裡才測得到 —— scripts/ 沒有
+            # __init__.py，selftest import 不到 scripts.build）。邊界規則見該函式註解：
+            # 活動當天仍算未結束、多日活動看結束日、日期一律是台北的日期。
+            fresh = [e for e in fetched if is_current(e, cutoffs)]
             collected.extend(fresh)
             per_source[name] = {"kind": kind, "count": len(fresh)}
             print("[ok] {} — {} 筆（原始 {}）".format(name, len(fresh), len(fetched)))
