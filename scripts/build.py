@@ -107,14 +107,18 @@ def main() -> int:
             errors.append("{}：{}".format(name, exc))
             per_source[name] = 0
             print("[FAIL] {} — {}".format(name, exc), file=sys.stderr)
-            continue
-        # 多日活動看結束日：跨越今天的兩天課還在進行中，不該當成過期
-        fresh = [e for e in fetched if (e.end_date or e.date) >= cutoff]
-        collected.extend(fresh)
-        per_source[name] = len(fresh)
-        print("[ok] {} — {} 筆（原始 {}）".format(name, len(fresh), len(fetched)))
+            fetched = None
+        else:
+            # 多日活動看結束日：跨越今天的兩天課還在進行中，不該當成過期
+            fresh = [e for e in fetched if (e.end_date or e.date) >= cutoff]
+            collected.extend(fresh)
+            per_source[name] = len(fresh)
+            print("[ok] {} — {} 筆（原始 {}）".format(name, len(fresh), len(fetched)))
 
-        # 抓到了但不完整（例如來源改版）也要浮出來，不能只有整個掛掉才報
+        # 抓到了但不完整（例如來源改版）也要浮出來，不能只有整個掛掉才報。
+        # 🔴 成功與失敗兩條路都要 drain：來源可能先發了幾個 warning 才拋例外，
+        # 只在成功分支 drain 的話那些訊息會卡在緩衝區裡消失
+        # （若它剛好是最後一個來源，就永遠沒人看得到）。
         for message in drain_warnings():
             errors.append(message)
             print("[warn] {}".format(message), file=sys.stderr)

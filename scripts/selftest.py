@@ -199,6 +199,48 @@ drain_warnings()
 eschool._parse_rows(BeautifulSoup(FIXTURE, "html.parser"), 2026, 10)
 check("門檻濾掉-不誤報", len(drain_warnings()), 0)
 
+# --------------------------------------------------------------------------
+# 彙整層：來源拋例外時，它在例外**之前**發的 warning 不能跟著消失
+# （只在成功分支 drain 的話，那些訊息會卡在緩衝區裡沒人看得到）
+# --------------------------------------------------------------------------
+import contextlib  # noqa: E402
+import io  # noqa: E402
+import importlib.util  # noqa: E402
+import tempfile  # noqa: E402
+
+_spec = importlib.util.spec_from_file_location(
+    "build", str(Path(__file__).resolve().parent / "build.py")
+)
+_build = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_build)
+
+
+class _FailingSource:
+    NAME = "測試用假來源"
+    __name__ = "failing_source"
+
+    @staticmethod
+    def fetch():
+        from sources.base import warn as _warn
+
+        _warn("測試用假來源：有列但一筆都解析不出來")
+        raise RuntimeError("連線失敗")
+
+
+_orig_sources, _orig_output = _build.SOURCES, _build.OUTPUT
+_build.SOURCES = [_FailingSource]
+_build.OUTPUT = Path(tempfile.mkdtemp()) / "events.json"
+_buf = io.StringIO()
+with contextlib.redirect_stdout(_buf), contextlib.redirect_stderr(_buf):
+    _rc = _build.main()
+_out = _buf.getvalue()
+_build.SOURCES, _build.OUTPUT = _orig_sources, _orig_output
+drain_warnings()
+
+check("來源全掛-退出碼", _rc, 1)
+check("來源全掛-例外訊息有出現", "連線失敗" in _out, True)
+check("來源全掛-例外前的警告沒消失", "一筆都解析不出來" in _out, True)
+
 if FAILURES:
     print("自我測試失敗 {} 項：".format(len(FAILURES)), file=sys.stderr)
     for line in FAILURES:

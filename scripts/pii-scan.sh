@@ -48,8 +48,19 @@ ALLOW='platypusbot@users\.noreply\.github\.com|41898282\+github-actions\[bot\]@u
 # 兩種前綴都要認：工作區是 `檔名:行號:內容`，git 歷史那段是 `行號:+內容`。
 SELF_DECL="^([^:]*:)?[0-9]+:[+ -]?(PII_PATTERNS|ALLOW|SELF_DECL|LOCAL_RULES)="
 
+# 白名單的處理方式是「把白名單值從命中行裡挖掉，再看剩下的還有沒有問題」，
+# 不是「整行丟掉」—— 後者會讓「同一行同時有匿名署名信箱與真 token」的情況漏網
+# （codex review 2026-08-25 指出）。原始行仍原樣印出，方便定位。
 drop_allowed() {
-  grep -vE "$ALLOW" | grep -vE "$SELF_DECL" || true
+  local line stripped
+  while IFS= read -r line; do
+    printf '%s' "$line" | grep -qE "$SELF_DECL" && continue
+    stripped=$(printf '%s' "$line" | sed -E "s/($ALLOW)//g")
+    if printf '%s' "$stripped" | grep -qE "$PII_PATTERNS"; then
+      printf '%s\n' "$line"
+    fi
+  done
+  return 0
 }
 
 fail=0
@@ -95,7 +106,10 @@ if [ "${1:-}" = "--all" ]; then
     msgs=$( { git log --format='%an|%ae|%s%n%b' --all 2>/dev/null || true; } \
             | grep -nE "$PII_PATTERNS" | drop_allowed || true)
     if [ -n "$hist$msgs" ]; then
-      { [ -n "$hist" ] && echo "$hist"; [ -n "$msgs" ] && echo "$msgs"; } | head -20
+      # 結尾一定要有 true：set -e 之下，`[ -n "$x" ] && echo` 當區塊最後一句
+      # 且 $x 為空時會回傳 1，整支腳本會在這裡提前中止 ——
+      # 退出碼變成 1 而不是約定的 2，下面那句 🛑 訊息也永遠印不出來。
+      { [ -n "$hist" ] && printf '%s\n' "$hist"; [ -n "$msgs" ] && printf '%s\n' "$msgs"; true; } | head -20
       echo "🛑 git 歷史或 commit 訊息含個資樣式（需清史後才能公開）"
       fail=1
     else

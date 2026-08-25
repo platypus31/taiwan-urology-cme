@@ -85,7 +85,19 @@ python3 -m http.server 8899       # 開 http://127.0.0.1:8899
 ```
 
 只想看抓到什麼、不想寫檔：`python3 scripts/build.py --dry-run`
-上架前的個資檢查：`bash scripts/pii-scan.sh --all`
+上架前的個資檢查：`bash scripts/pii-scan.sh --all`（連 git 歷史與 commit 訊息一起掃）
+
+### 個資閘門的設計（`scripts/pii-scan.sh`）
+
+這支腳本自己也會被公開，所以**裡面不寫任何人的真名或信箱** ——
+「掃描規則」本身就是一條外洩管道，而且它會通過自己的檢查。
+因此它只掃**形狀**：信箱樣式、家目錄絕對路徑、常見 API 金鑰與 token 前綴、授權標頭、身分證字號樣式、電話。
+實際的樣式清單直接看 `scripts/pii-scan.sh` 開頭的 `PII_PATTERNS`（**文件裡刻意不抄那些字面值** ——
+寫進 README 會讓 README 自己被閘門判成命中）。
+
+針對特定人名的規則放在 `.pii-local`（已列進 `.gitignore`，一行一個 regex）。
+本機跑會自動載入並提示；CI 上沒有那個檔，就只跑形狀規則。
+⚠️ 代價是**人名類個資 CI 擋不住**，上架或大改動前請務必本機跑一次 `--all`。
 
 ## 自動更新
 
