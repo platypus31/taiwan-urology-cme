@@ -1,0 +1,35 @@
+name: CI
+
+# 這條 CI 刻意**不連外網**：它驗的是「解析規則有沒有被改壞」與「有沒有夾帶個資」，
+# 兩件事都不需要真的去打學會網站。抓資料是 update.yml 的事，
+# 混在一起會讓 PR 的成敗取決於對方網站當下通不通。
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 安裝相依套件
+        run: pip install -r requirements.txt
+
+      - name: 語法檢查
+        run: python -m compileall -q scripts sources
+
+      - name: 解析規則自我測試
+        run: python scripts/selftest.py
+
+      - name: 個資掃描
+        run: bash scripts/pii-scan.sh
+
+      - name: events.json 必須是合法 JSON
+        run: python -c "import json;d=json.load(open('data/events.json',encoding='utf-8'));print(d['count'],'筆')"

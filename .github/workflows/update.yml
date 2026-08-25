@@ -1,0 +1,49 @@
+name: 更新活動資料
+
+on:
+  schedule:
+    # 每天台灣時間 06:00（UTC 22:00）—— public repo 的 Actions 免費無上限，
+    # 每次只打幾個請求，沒有理由讓臨時加開的課等一週才出現。
+    - cron: "0 22 * * *"
+  workflow_dispatch: {} # 也可以在 Actions 頁面手動按一下就更新
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-events
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 安裝相依套件
+        run: pip install -r requirements.txt
+
+      - name: 解析規則自我測試
+        run: python scripts/selftest.py
+
+      - name: 抓取學會活動
+        run: python scripts/build.py
+
+      - name: 個資掃描（抓回來的資料也要過）
+        run: bash scripts/pii-scan.sh
+
+      - name: 有變動才提交
+        run: |
+          if [ -z "$(git status --porcelain data/events.json)" ]; then
+            echo "資料無變動，跳過提交"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/events.json
+          git commit -m "chore: 自動更新活動資料 $(date -u +'%Y-%m-%d')"
+          git push
