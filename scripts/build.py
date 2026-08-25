@@ -207,17 +207,20 @@ def main() -> int:
     if stale_kinds:
         labels = {KIND_CME: "積分課程", KIND_MEETING: "學會會議"}
         stale_since = previous.get("updated_at", "未知時間")
+        # 先照迭代順序組好再一次插到最前面。逐條 insert(0, …) 會把順序反過來，
+        # 兩種都掛掉時 errors[0] 反而變成後處理的那一種（codex review 2026-08-25 第 3 輪）。
+        messages = []
         for kind in stale_kinds:
             if kept_counts.get(kind):
-                errors.insert(
-                    0,
+                messages.append(
                     "本次沒有抓到任何{}，{}顯示的是 {} 的舊資料".format(
                         labels[kind], labels[kind], stale_since
-                    ),
+                    )
                 )
             else:
-                errors.insert(0, "本次沒有抓到任何{}，而且沒有舊資料可以沿用".format(labels[kind]))
-            print("[stale] {}".format(errors[0]), file=sys.stderr)
+                messages.append("本次沒有抓到任何{}，而且沒有舊資料可以沿用".format(labels[kind]))
+            print("[stale] {}".format(messages[-1]), file=sys.stderr)
+        errors[:0] = messages
 
     # updated_at 的意思是「資料有多新」，所以只要有任何一種沿用了舊資料就不能往前推
     # —— 推了只會讓過期資料看起來是剛更新的。哪一部分是舊的寫在 errors 裡。

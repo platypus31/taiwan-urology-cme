@@ -474,6 +474,14 @@ check("正常-筆數", _written4["count"], 2)
 check("正常-updated_at 有更新", _written4["updated_at"] != _PREVIOUS_FILE["updated_at"], True)
 check("正常-沒有降級告警", _written4["errors"], [])
 
+# ④ 兩種同時掛掉：告警順序要照 (積分課程, 學會會議)，不能被逐條 insert(0) 反轉
+_rc5, _written5 = _run_build([_FailingSource])
+check("兩種全掛-退出碼", _rc5, 1)
+check("兩種全掛-告警兩條", len(_written5["errors"]) >= 2, True)
+check("兩種全掛-第一條是積分課程", "積分課程" in _written5["errors"][0], True)
+check("兩種全掛-第二條是學會會議", "學會會議" in _written5["errors"][1], True)
+check("兩種全掛-舊資料兩種都留著", len(_written5["events"]), 2)
+
 if FAILURES:
     print("自我測試失敗 {} 項：".format(len(FAILURES)), file=sys.stderr)
     for line in FAILURES:
