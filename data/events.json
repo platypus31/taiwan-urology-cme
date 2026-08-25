@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-08-26T00:02:11+08:00",
+ "updated_at": "2026-08-26T06:16:01+08:00",
  "count": 62,
  "counts": {
   "cme": 31,
@@ -119,13 +119,13 @@
    "date": "2025-07-12",
    "title": "2025年 台灣泌尿內視鏡醫學會年會",
    "end_date": "2025-07-13",
-   "time": "13:50~17:50",
+   "time": "",
    "organizer": "台灣泌尿內視鏡醫學會",
-   "location": "嘉義長榮文苑 (二樓 A廳)",
+   "location": "",
    "credits": null,
    "credits_raw": "",
    "credits_pending": false,
-   "region": "南部",
+   "region": "其他",
    "kind": "meeting",
    "source": "台灣泌尿內視鏡醫學會",
    "url": "https://www.tea2024.org.tw/news/20250712.html",
