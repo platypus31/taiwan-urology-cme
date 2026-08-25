@@ -439,6 +439,20 @@ def cutoff_iso(kind: str = KIND_CME) -> str:
     return (today_taipei() - timedelta(days=days)).isoformat()
 
 
+def norm_title(title: str) -> str:
+    """去掉積分／時數註記與所有空白標點，用來判斷兩筆是不是同一場活動。
+
+    🔴 **這支有兩個消費者，而且它們必須永遠一致**：
+      ・`scripts/build.py` 的 dedupe key —— 決定「兩筆是不是同一場」
+      ・`sources/icsfeed.py` 的 UID —— 決定「訂閱端會不會把它當成新事件」
+    兩邊若各寫一份，哪天有人只改了其中一份，訂閱端就會無聲地重複跳出同一場活動
+    （而且測試不會紅）。所以放在 base 讓兩邊共用，**不要再複製第三份出去**。
+    """
+    text = re.sub(r"[(（][^)）]*[)）]", "", title or "")
+    text = re.sub(r"[【\[][^】\]]*[】\]]", "", text)  # 【線上】這類前綴標記不算差異
+    return re.sub(r"[\s\-—－_、,，.。:：;；]", "", text).lower()
+
+
 def is_current(event: "Event", cutoffs: Dict[str, str]) -> bool:
     """這筆活動還該不該留在站上。
 

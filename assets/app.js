@@ -58,7 +58,10 @@
     statCount: document.getElementById("stat-count"),
     statCountLabel: document.getElementById("stat-count-label"),
     statRange: document.getElementById("stat-range"),
-    statSources: document.getElementById("stat-sources")
+    statSources: document.getElementById("stat-sources"),
+    subscribeLink: document.getElementById("subscribe-link"),
+    subscribeCopy: document.getElementById("subscribe-copy"),
+    subscribeNote: document.getElementById("subscribe-note")
   };
 
   // ---------- 工具 ----------
@@ -699,7 +702,37 @@
     renderStats();
     renderFilters();
     renderToggle();
+    renderSubscribe();
     renderList(applyFilters());
+  }
+
+  /* 訂閱按鈕。每個分頁各對應一份 build 產生的 .ics（data/cme.ics、data/meeting.ics）。
+   *
+   * 🔴 **誠實標示訂閱範圍**：純靜態站沒有後端，不可能為任意的篩選組合即時產生 ics，
+   *    所以訂閱的粒度是**整個分頁**，不跟著地區／積分／時間那些篩選走。
+   *    這件事一定要在畫面上講清楚 —— 使用者篩完「南部」再按訂閱，
+   *    結果拿到全部場次卻以為只有南部，那比沒有這個功能更糟。
+   *    說明文字寫的是實際筆數（從資料算出來的，不是寫死的字串）。
+   *
+   * webcal:// 是行事曆訂閱的慣例 scheme，Google/Apple/Outlook 都認得，
+   * 會接成「訂閱」而不是「匯入一次」——匯入一次的話之後新增的課就再也不會進來了。
+   * 另外附一顆「複製網址」，因為部分桌機環境沒有處理 webcal:// 的程式。 */
+  function renderSubscribe() {
+    if (!el.subscribeLink) return;
+    var kind = KINDS.filter(function (k) { return k.key === state.kind; })[0] || KINDS[0];
+    var file = state.kind === KIND_MEETING ? "meeting.ics" : "cme.ics";
+    var httpsURL = new URL("data/" + file, location.href).href;
+
+    el.subscribeLink.href = httpsURL.replace(/^https?:/, "webcal:");
+    el.subscribeLink.textContent = "訂閱「" + kind.label + "」到行事曆";
+    el.subscribeCopy.setAttribute("data-url", httpsURL);
+
+    var total = (state.events || []).filter(function (e) {
+      return (e.kind || KIND_CME) === state.kind;
+    }).length;
+    el.subscribeNote.textContent =
+      "訂閱的是「" + kind.label + "」整個分頁的 " + total + " 場，" +
+      "不受下面的篩選條件影響；資料每天更新，行事曆會自動跟著更新。";
   }
 
   /** 只做「跟分頁無關」的部分；會跟著分頁變的數字在 renderStats()。 */
@@ -727,6 +760,29 @@
     var collapsed = el.filters.classList.toggle("collapsed");
     el.toggle.setAttribute("aria-expanded", collapsed ? "false" : "true");
   });
+
+  /* 複製訂閱網址。webcal:// 在部分桌機環境沒有對應程式會開不起來，
+   * 這顆是那時候的退路：貼到日曆 App 的「訂閱行事曆」欄位一樣能用。
+   * clipboard API 在非 HTTPS 或使用者拒絕權限時會失敗，所以有 fallback，
+   * 兩條路都要給回饋 —— 按了沒反應會讓人以為壞了。 */
+  if (el.subscribeCopy) {
+    el.subscribeCopy.addEventListener("click", function () {
+      var url = el.subscribeCopy.getAttribute("data-url") || "";
+      var done = function (ok) {
+        el.subscribeCopy.textContent = ok ? "已複製 ✓" : "請手動複製";
+        if (!ok) window.prompt("訂閱網址：", url);
+        setTimeout(function () {
+          el.subscribeCopy.textContent = "複製訂閱網址";
+        }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () { done(true); },
+                                               function () { done(false); });
+      } else {
+        done(false);
+      }
+    });
+  }
 
   // 手機預設收合，讓活動清單出現在第一屏；桌面維持全部攤開
   if (window.matchMedia("(max-width: 560px)").matches) {

@@ -1,0 +1,237 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//platypusbot//taiwan-urology-cme//ZH-TW
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:泌尿科 學會會議
+X-WR-TIMEZONE:Asia/Taipei
+REFRESH-INTERVAL;VALUE=DURATION:PT12H
+X-PUBLISHED-TTL:PT12H
+BEGIN:VTIMEZONE
+TZID:Asia/Taipei
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:+0800
+TZOFFSETTO:+0800
+TZNAME:CST
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:taiwan-urology-cme-f29589e95a6569cdcab52bf5b987d7cb660b354f
+DTSTAMP:20260825T152842Z
+DTSTART;VALUE=DATE:20241221
+DTEND;VALUE=DATE:20241222
+SUMMARY:台灣泌尿內視鏡醫學會學術研討會
+LOCATION:台北JR東日本大飯店2F牡丹廳
+URL:https://www.tea2024.org.tw/news/20241221.html
+DESCRIPTION:主辦：台灣泌尿內視鏡醫學會\n簡章與報名：http
+ s://www.tea2024.org.tw/news/20241221.html\n（時間為整天，實際起
+ 訖請看主辦單位公告）
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-a11fdcfea948a61ed02930f216fd9c295d069a44
+DTSTAMP:20260825T152842Z
+DTSTART;VALUE=DATE:20250222
+DTEND;VALUE=DATE:20250224
+SUMMARY:台灣泌尿腫瘤醫學會年會暨學術演講及2nd PCUC
+LOCATION:高雄日航酒店3F宴會廳(高雄市前鎮區林森四路268號
+ 3F)
+URL:https://tuoa.org.tw/info_detail.php?p=17
+DESCRIPTION:主辦：台灣泌尿腫瘤醫學會\n簡章與報名：https:/
+ /tuoa.org.tw/info_detail.php?p=17\n（時間為整天，實際起訖請看
+ 主辦單位公告）
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-1b0f95f3a1e6fd78213cc299fe5d7ac6f7ce3445
+DTSTAMP:20260825T152842Z
+DTSTART;TZID=Asia/Taipei:20250308T133000
+DTEND;TZID=Asia/Taipei:20250308T180000
+SUMMARY:台灣泌尿內視鏡醫學會研討會
+LOCATION:台中林酒店 7F 上海廳
+URL:https://www.tea2024.org.tw/news/20250308.html
+DESCRIPTION:主辦：台灣泌尿內視鏡醫學會\n簡章與報名：http
+ s://www.tea2024.org.tw/news/20250308.html
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-f842fce55de7fb8bf23954afce27bbf1531402ea
+DTSTAMP:20260825T152842Z
+DTSTART;VALUE=DATE:20250712
+DTEND;VALUE=DATE:20250714
+SUMMARY:2025年 台灣泌尿內視鏡醫學會年會
+LOCATION:嘉義長榮文苑 (二樓 A廳)
+URL:https://www.tea2024.org.tw/news/20250712.html
+DESCRIPTION:主辦：台灣泌尿內視鏡醫學會\n簡章與報名：http
+ s://www.tea2024.org.tw/news/20250712.html\n（時間為整天，實際起
+ 訖請看主辦單位公告）
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-f584ba2346bafd3d016475a1362bdf2d45e03339
+DTSTAMP:20260825T152842Z
+DTSTART;VALUE=DATE:20250814
+DTEND;VALUE=DATE:20250818
+SUMMARY:2025 TUA x UAA Annual Meeting
+LOCATION:Taipei International Convention Center 台北國際會議中心 (T
+ ICC) / TWTC世貿一館A區
+URL:https://eschool.tua.org.tw/p/2025_conference
+DESCRIPTION:主辦：台灣泌尿科醫學會\n簡章與報名：https://es
+ chool.tua.org.tw/p/2025_conference\n（時間為整天，實際起訖請
+ 看主辦單位公告）
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-482c8c5bab693cab129234236f3f4ac5d5d63639
+DTSTAMP:20260825T152842Z
+DTSTART;VALUE=DATE:20250906
+DTEND;VALUE=DATE:20250907
+SUMMARY:2025年健康台灣 Health Taiw
+URL:https://www.tea2024.org.tw/news/20250906.html
+DESCRIPTION:主辦：台灣泌尿內視鏡醫學會\n簡章與報名：http
+ s://www.tea2024.org.tw/news/20250906.html\n（時間為整天，實際起
+ 訖請看主辦單位公告）
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-5506e29af7c1eb135d7b1575e85d67bff1611299
+DTSTAMP:20260825T152842Z
+DTSTART;TZID=Asia/Taipei:20250920T125000
+DTEND;TZID=Asia/Taipei:20250920T170000
+SUMMARY:台灣泌尿內視鏡暨尿路結石委員會秋季研討會
+LOCATION:台北六福萬怡酒店 7F 風光廳
+URL:https://www.tea2024.org.tw/news/20250920.html
+DESCRIPTION:主辦：台灣泌尿內視鏡醫學會、尿路結石委員會
+ \n簡章與報名：https://www.tea2024.org.tw/news/20250920.html
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-8dc44ef45ed5475bb18b4307900bd87dacba2a74
+DTSTAMP:20260825T152842Z
+DTSTART;TZID=Asia/Taipei:20251122T083000
+DTEND;TZID=Asia/Taipei:20251122T180000
+SUMMARY:2025 TUA南區月會暨高杏泌尿論壇
+LOCATION:高雄醫學大學附設高醫岡山醫院
+URL:https://eschool.tua.org.tw/conference/3494
+DESCRIPTION:主辦：高雄醫學大學附設高醫岡山醫院泌尿科、
+ 奇美醫院泌尿科、高杏泌尿照護協會\n積分：泌尿科(3點)
+ 、外科積分(申請中)\n簡章與報名：https://eschool.tua.org.tw/c
+ onference/3494
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-197231723eb7a8174fe544ef15b3a6ebc29f6119
+DTSTAMP:20260825T152842Z
+DTSTART;TZID=Asia/Taipei:20251213T085000
+DTEND;TZID=Asia/Taipei:20251213T183000
+SUMMARY:台灣泌尿內視鏡醫學會暨進階達文西腹腔鏡手術討
+ 論會
+LOCATION:高雄漢來大飯店 會展廳
+URL:https://www.tea2024.org.tw/news/20251213.html
+DESCRIPTION:主辦：台灣泌尿內視鏡醫學會\n簡章與報名：http
+ s://www.tea2024.org.tw/news/20251213.html
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-7fe73911849ca058ed9c5d4b0b1d1fffd8455992
+DTSTAMP:20260825T152842Z
+DTSTART;TZID=Asia/Taipei:20251220T133000
+DTEND;TZID=Asia/Taipei:20251220T164000
+SUMMARY:114年疝氣醫學會冬季研習會aiwan Hernia Society Summer Wor
+ kshop
+LOCATION:高雄醫學大學附設中和紀念醫院 第三講堂(80756高
+ 雄市三民區自由一路100號)
+URL:https://eschool.tua.org.tw/conference/3779
+DESCRIPTION:主辦：台灣疝氣醫學會、高雄醫學大學附設中和
+ 紀念醫院泌尿外科\n積分：泌尿科(1.5點)\n簡章與報名：ht
+ tps://eschool.tua.org.tw/conference/3779
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-3dd974afe7acf700365e7c76ed4567ae1aa3c15d
+DTSTAMP:20260825T152842Z
+DTSTART;TZID=Asia/Taipei:20260124T090000
+DTEND;TZID=Asia/Taipei:20260124T173000
+SUMMARY:2026 TUA Mid-year Meeting
+LOCATION:台中光田綜合醫院-向上院區 B棟
+URL:https://eschool.tua.org.tw/p/2026mid_conference
+DESCRIPTION:主辦：台灣泌尿科醫學會\n簡章與報名：https://es
+ chool.tua.org.tw/p/2026mid_conference
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-5f1d3edffaeb8fda3b742e49eeeaaffa4a1214ea
+DTSTAMP:20260825T152842Z
+DTSTART;VALUE=DATE:20260131
+DTEND;VALUE=DATE:20260202
+SUMMARY:台灣泌尿腫瘤醫學會年會暨3rd PCUC
+LOCATION:臺北文創大樓六樓多功能廳D+E
+URL:https://tuoa.org.tw/info_detail.php?p=18
+DESCRIPTION:主辦：台灣泌尿腫瘤醫學會\n簡章與報名：https:/
+ /tuoa.org.tw/info_detail.php?p=18\n（時間為整天，實際起訖請看
+ 主辦單位公告）
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-e89bd1f3f7ab4adfee8ee7c9fed911436508b383
+DTSTAMP:20260825T152842Z
+DTSTART;TZID=Asia/Taipei:20260418T130000
+DTEND;TZID=Asia/Taipei:20260418T180000
+SUMMARY:台灣泌尿內視鏡醫學會
+LOCATION:長庚國際會議中心2樓 討論室A、D
+URL:https://www.tea2024.org.tw/news/20260418.html
+DESCRIPTION:主辦：台灣泌尿內視鏡醫學會\n簡章與報名：http
+ s://www.tea2024.org.tw/news/20260418.html
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-fbab710b45652d3ca546627680096340c40f3eaf
+DTSTAMP:20260825T152842Z
+DTSTART;VALUE=DATE:20260606
+DTEND;VALUE=DATE:20260608
+SUMMARY:TAASM 115年度第十二屆第1次會員大會暨第57次學術演
+ 講會
+LOCATION:高雄醫學大學附設醫院啟川大樓六樓(高雄市三民
+ 區自由一路100號)
+URL:https://eschool.tua.org.tw/conference/3998
+DESCRIPTION:主辦：台灣男性學暨性醫學醫學會、高雄大學附
+ 設中和紀念醫院\n積分：泌尿科(5點)\n簡章與報名：https:/
+ /eschool.tua.org.tw/conference/3998\n（時間為整天，實際起訖請
+ 看主辦單位公告）
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-921286a7a1296190d9c4c3218ed4e23a671698bc
+DTSTAMP:20260825T152842Z
+DTSTART;VALUE=DATE:20260627
+DTEND;VALUE=DATE:20260628
+SUMMARY:台灣泌尿內視鏡醫學會年會
+URL:https://www.tea2024.org.tw/news/20260627.jpg
+DESCRIPTION:主辦：台灣泌尿內視鏡醫學會\n簡章與報名：http
+ s://www.tea2024.org.tw/news/20260627.jpg\n（時間為整天，實際起
+ 訖請看主辦單位公告）
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-30dfe185eef262616367d99d41bd5c27a36faa16
+DTSTAMP:20260825T152842Z
+DTSTART;VALUE=DATE:20260725
+DTEND;VALUE=DATE:20260727
+SUMMARY:泌尿腫瘤夏季研討會
+URL:https://www.tea2024.org.tw/news/0725-26.pdf
+DESCRIPTION:主辦：台灣泌尿內視鏡醫學會\n簡章與報名：http
+ s://www.tea2024.org.tw/news/0725-26.pdf\n（時間為整天，實際起訖
+ 請看主辦單位公告）
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-146d445c24ff63477eaf404bcf964ff75716f6da
+DTSTAMP:20260825T152842Z
+DTSTART;VALUE=DATE:20260801
+DTEND;VALUE=DATE:20260802
+SUMMARY:台灣泌尿腫瘤醫學會半年會暨學術研討會
+LOCATION:長庚國際會議中心3F國際會議廳 (桃園市龜山區復
+ 興街7號3樓)
+URL:https://tuoa.org.tw/info_detail.php?p=14
+DESCRIPTION:主辦：台灣泌尿腫瘤醫學會\n簡章與報名：https:/
+ /tuoa.org.tw/info_detail.php?p=14\n（時間為整天，實際起訖請看
+ 主辦單位公告）
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-577494736b436b3b4da9de8d00515d103b1f73af
+DTSTAMP:20260825T152842Z
+DTSTART;VALUE=DATE:20260822
+DTEND;VALUE=DATE:20260824
+SUMMARY:2026 TUA Annual Meeting
+LOCATION:台北南港展覽館2館 7F
+URL:https://eschool.tua.org.tw/p/2026_conference
+DESCRIPTION:主辦：台灣泌尿科醫學會\n簡章與報名：https://es
+ chool.tua.org.tw/p/2026_conference\n（時間為整天，實際起訖請
+ 看主辦單位公告）
+END:VEVENT
+END:VCALENDAR

@@ -11,7 +11,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -19,7 +18,7 @@ from typing import Dict, List
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from sources import eschool, kaohsing, tea, tua_meetings, tuoa  # noqa: E402
+from sources import eschool, icsfeed, kaohsing, tea, tua_meetings, tuoa  # noqa: E402
 from sources.base import (  # noqa: E402
     KIND_CME,
     KIND_MEETING,
@@ -28,6 +27,7 @@ from sources.base import (  # noqa: E402
     cutoff_iso,
     drain_warnings,
     is_current,
+    norm_title,
 )
 
 # 順序無所謂（輸出會重新排序），但積分來源放前面，讀 log 時比較好對。
@@ -35,13 +35,6 @@ SOURCES = [eschool, tua_meetings, tea, tuoa, kaohsing]
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / "data" / "events.json"
-
-
-def _norm_title(title: str) -> str:
-    """去掉積分/時數註記與所有空白標點，用來判斷兩筆是不是同一場活動。"""
-    text = re.sub(r"[(（][^)）]*[)）]", "", title)
-    text = re.sub(r"[【\[][^】\]]*[】\]]", "", text)  # 【線上】這類前綴標記不算差異
-    return re.sub(r"[\s\-—－_、,，.。:：;；]", "", text).lower()
 
 
 def _completeness(event: Event) -> int:
@@ -67,7 +60,7 @@ def dedupe(events: List[Event]) -> List[Event]:
     """
     best: Dict[tuple, Event] = {}
     for event in events:
-        key = (event.kind, event.date, _norm_title(event.title))
+        key = (event.kind, event.date, norm_title(event.title))
         current = best.get(key)
         if current is None or _completeness(event) > _completeness(current):
             best[key] = event
@@ -80,6 +73,36 @@ def _write(payload: dict) -> None:
     tmp = OUTPUT.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8")
     tmp.replace(OUTPUT)
+
+
+def _write_feeds(final: List[dict], updated_at: str) -> None:
+    """每個分頁各產一份 .ics 訂閱檔（站主 2026-08-25 要的「訂閱制按鈕」）。
+
+    🔴 **規則刻意最簡單：訂閱檔＝那個分頁的資料，不另外過濾。**
+    所以 `cme.ics` 只有未結束的課（events.json 裡本來就沒有過期的課），
+    `meeting.ics` 跟著會議線保留兩年份的已結束場次 —— 跟站上「學會會議」
+    分頁看到的是同一批資料。這樣使用者不必猜「訂閱到的跟我看到的一不一樣」。
+
+    ⚠️ 這裡**不能**做成「只收即將舉行」：三個學會的即將舉行目前是 0，
+    那樣產出的會是一份空日曆，訂閱端只會顯示成壞掉的行事曆。
+    """
+    stamp = icsfeed.utc_stamp(updated_at)
+    names = {
+        KIND_CME: ("cme.ics", "泌尿科 積分課程"),
+        KIND_MEETING: ("meeting.ics", "泌尿科 學會會議"),
+    }
+    for kind, (filename, calendar_name) in names.items():
+        rows = [Event(**row) for row in final if row.get("kind", KIND_CME) == kind]
+        text = icsfeed.render(rows, calendar_name, dtstamp=stamp)
+        target = OUTPUT.parent / filename
+        tmp = target.with_suffix(".ics.tmp")
+        # newline="" 是必要的：ics 規範要求 CRLF 換行，render() 已經產好 \r\n，
+        # 用預設模式寫檔會被再翻譯一次變成 \r\r\n（Path.write_text 在 3.9 沒有
+        # newline 參數，所以這裡用 open）。
+        with open(tmp, "w", encoding="utf-8", newline="") as handle:
+            handle.write(text)
+        tmp.replace(target)
+        print("已寫入 {}（{} 筆）".format(target, len(rows)))
 
 
 def _previous() -> dict:
@@ -238,6 +261,7 @@ def main() -> int:
 
     _write(payload)
     print("已寫入 {}".format(OUTPUT))
+    _write_feeds(final, updated_at)
     return exit_code
 
 if __name__ == "__main__":

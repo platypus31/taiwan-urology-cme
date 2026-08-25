@@ -93,6 +93,19 @@
     </div>
   </section>
 
+  <!-- 訂閱（站主 2026-08-25：「幫我添加一個訂閱制按鈕好了 … 讓他們選擇要不要去訂閱」）。
+       🔴 刻意做成**選配**而不是預設推播：站主的顧慮是「值班不一定每堂課都上得到，
+       不然就是單純的雜訊」，所以要不要進日曆由使用者自己按。
+       訂閱的粒度是**分頁**，說明文字由 app.js 照當前分頁寫上實際筆數，
+       不寫死在這裡也不含糊帶過（見 renderSubscribe 的註解）。 -->
+  <section class="subscribe" aria-label="訂閱行事曆">
+    <div class="subscribe-main">
+      <a id="subscribe-link" class="subscribe-btn" href="#">訂閱這個分頁到行事曆</a>
+      <button type="button" id="subscribe-copy" class="subscribe-copy">複製訂閱網址</button>
+    </div>
+    <p class="subscribe-note" id="subscribe-note"></p>
+  </section>
+
   <section id="list" class="list" aria-live="polite"></section>
   <p id="empty" class="empty" hidden>沒有符合條件的活動，試著放寬篩選條件。</p>
 </main>

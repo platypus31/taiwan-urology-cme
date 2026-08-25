@@ -30,6 +30,7 @@ from sources.base import (
     detect_online,
     detect_region,
     has_urology_credits,
+    norm_title,
     parse_credits,
     parse_date,
     primary_organizer,
@@ -653,6 +654,111 @@ check("兩種全掛-告警兩條", len(_errs5) >= 2, True)
 check("兩種全掛-第一條是積分課程", "積分課程" in _errs5[0] if _errs5 else False, True)
 check("兩種全掛-第二條是學會會議", "學會會議" in _errs5[1] if len(_errs5) > 1 else False, True)
 check("兩種全掛-舊資料兩種都留著", len(_written5["events"]), 2)
+
+# --------------------------------------------------------------------------
+# .ics 訂閱檔（sources/icsfeed.py）
+#
+# 🔴 這一組最重要的是 **UID 穩定性**：同一場活動每次 build 都要算出相同的 UID，
+#    否則訂閱端會把它當成新事件重複跳出來 —— 這是 ics 最常見也最惱人的坑，
+#    而且它**不會有任何錯誤訊息**，只有訂閱的人被洗版。
+# --------------------------------------------------------------------------
+from sources import icsfeed as _ics  # noqa: E402
+
+
+def _ev_ics(**kwargs):
+    base_kwargs = dict(date="2026-09-06", title="測試研討會", kind=KIND_CME)
+    base_kwargs.update(kwargs)
+    return Event(**base_kwargs)
+
+
+# 同樣的識別欄位 → 同樣的 UID（跑兩次也一樣）
+check("ics-UID-同一場兩次相同", _ics.event_uid(_ev_ics()), _ics.event_uid(_ev_ics()))
+
+# 🔴 會被來源網站改來改去的欄位**不可以**影響 UID，否則官網補個地點就等於新事件
+check(
+    "ics-UID-不受地點時間網址積分影響",
+    _ics.event_uid(_ev_ics()),
+    _ics.event_uid(
+        _ev_ics(
+            location="台北國際會議中心",
+            time="09:00 ~ 17:00",
+            url="https://example.invalid/x",
+            credits=3.0,
+            credits_raw="泌尿科(3點)",
+        )
+    ),
+)
+# 標題裡的括號註記與空白標點被正規化掉，仍算同一場（跟 dedupe 的判準一致）
+check(
+    "ics-UID-標題註記不影響",
+    _ics.event_uid(_ev_ics()),
+    _ics.event_uid(_ev_ics(title="【線上】測試 研討會（3點）")),
+)
+# 但日期、kind、實質標題不同就必須是不同事件
+check("ics-UID-日期不同要不同", _ics.event_uid(_ev_ics()) != _ics.event_uid(_ev_ics(date="2026-09-07")), True)
+check("ics-UID-kind不同要不同", _ics.event_uid(_ev_ics()) != _ics.event_uid(_ev_ics(kind=KIND_MEETING)), True)
+check("ics-UID-標題不同要不同", _ics.event_uid(_ev_ics()) != _ics.event_uid(_ev_ics(title="另一場會")), True)
+
+# UID 與 dedupe 用的是同一支正規化函式（兩邊若各留一份，改了一邊就會無聲失準）
+check("ics-UID-與dedupe共用正規化", norm_title("【線上】測試 研討會（3點）"), norm_title("測試研討會"))
+
+# 🔴 UID 不可以長得像 email。ics 的慣例寫法是 <識別碼>@<網域>，但那個形狀跟信箱
+#    一模一樣，scripts/pii-scan.sh 的信箱規則會把整份 .ics 判成個資外洩
+#    （2026-08-25 首次產出時真的被擋下 49 筆）。閘門分辨不出 UID 與信箱，
+#    所以要改的是我們的格式，不是把 data/*.ics 加進白名單。
+check("ics-UID-不含@不像信箱", "@" in _ics.event_uid(_ev_ics()), False)
+check("ics-UID-有專案命名空間前綴", _ics.event_uid(_ev_ics()).startswith("taiwan-urology-cme-"), True)
+
+_rendered = _ics.render([_ev_ics(time="09:00 ~ 17:30", location="台北")], "測試日曆", dtstamp="20260825T000000Z")
+_ics_lines = _rendered.split("\r\n")
+
+check("ics-換行是CRLF", "\r\n" in _rendered, True)
+check("ics-沒有裸LF", _rendered.replace("\r\n", "").count("\n"), 0)
+check("ics-開頭", _ics_lines[0], "BEGIN:VCALENDAR")
+check("ics-結尾", [l for l in _ics_lines if l][-1], "END:VCALENDAR")
+check("ics-有台北時區宣告", "TZID:Asia/Taipei" in _rendered, True)
+# 有起訖時間的單日活動 → 帶 TZID 的實際時段，不是整天事件
+check("ics-有時間用TZID", "DTSTART;TZID=Asia/Taipei:20260906T090000" in _rendered, True)
+check("ics-結束時間正確", "DTEND;TZID=Asia/Taipei:20260906T173000" in _rendered, True)
+
+# 沒寫時間 → 整天事件，DTEND 是**不含**的所以要 +1 天
+_allday = _ics.render([_ev_ics()], "x", dtstamp="20260825T000000Z")
+check("ics-整天DTSTART", "DTSTART;VALUE=DATE:20260906" in _allday, True)
+check("ics-整天DTEND隔天", "DTEND;VALUE=DATE:20260907" in _allday, True)
+# 多日活動以結束日為準，一樣要 +1
+_multi = _ics.render([_ev_ics(end_date="2026-09-08")], "x", dtstamp="20260825T000000Z")
+check("ics-多日DTEND用結束日+1", "DTEND;VALUE=DATE:20260909" in _multi, True)
+
+# 跳脫：逗號／分號／反斜線要跳脫，換行寫成 \n（否則整份檔會被訂閱端判為壞掉）
+_esc = _ics.render(
+    [_ev_ics(title="A,B;C\\D", location="地點,一")], "x", dtstamp="20260825T000000Z"
+)
+check("ics-跳脫逗號分號反斜線", "SUMMARY:A\\,B\\;C\\\\D" in _esc, True)
+check("ics-跳脫地點逗號", "LOCATION:地點\\,一" in _esc, True)
+
+# 🔴 折行必須以 octet 計算：中文一個字 3 bytes，用字元數折會超長被嚴格的訂閱端整份拒收
+_long = _ics.render(
+    [_ev_ics(title="泌尿科繼續教育學術研討會" * 8)], "x", dtstamp="20260825T000000Z"
+)
+check(
+    "ics-折行不超過75octet",
+    max(len(l.encode("utf-8")) for l in _long.split("\r\n")) <= 75,
+    True,
+)
+# 這條防的是「測試自己失效」：標題長到一定會折行，若某次改動讓它不再折行，
+# 上面那條照樣通過但其實什麼都沒驗到。
+check("ics-這個案例真的有折到行", any(l.startswith(" ") for l in _long.split("\r\n")), True)
+_unfolded = []
+for _l in _long.split("\r\n"):
+    if _l.startswith(" ") and _unfolded:
+        _unfolded[-1] += _l[1:]
+    else:
+        _unfolded.append(_l)
+check(
+    "ics-折行可還原成原標題",
+    any("泌尿科繼續教育學術研討會" * 8 in l for l in _unfolded),
+    True,
+)
 
 if FAILURES:
     print("自我測試失敗 {} 項：".format(len(FAILURES)), file=sys.stderr)
