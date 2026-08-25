@@ -65,9 +65,32 @@ check("積分-空", parse_credits(""), None)
 check("申請中-是", credits_pending("泌尿科(申請中)、外科積分(申請中)"), True)
 check("申請中-否", credits_pending("泌尿科(3點)、機泌(1點)"), False)
 # 收錄門檻：年會的個別議程積分欄是空的，必須被擋掉
+# 🔴 這一條是「擋 258 筆年會議程」的**全部防線**（積分欄空白 → 不收）。
+#    它看起來只是個空字串檢查，但拿掉它，2027-01 半年會約 35 筆、
+#    2027-08 年會約 88 筆議程會在同一天灌進清單。見 base.has_urology_credits 的註解。
 check("門檻-年會議程", has_urology_credits(""), False)
 check("門檻-他科課程", has_urology_credits("外科積分(2點)"), False)
 check("門檻-申請中要收", has_urology_credits("泌尿科(申請中)"), True)
+# 2026-08-25 放寬：積分欄寫「泌尿(3點)」沒寫「泌尿科」的場次原本被整列濾掉
+# （實抓 1 筆：高雄榮總 35 周年院慶暨台灣新創醫療學會半年會議）
+check("門檻-泌尿不含科要收", has_urology_credits("泌尿(3點)、外科學分、護理師學分"), True)
+check("門檻-泌尿冒號點數要收", has_urology_credits("泌尿：0.5點"), True)
+# 🔴 放寬的界線：不能寫成 `"泌尿" in text`，否則正文詞會被當成積分欄
+check("門檻-泌尿道感染不是積分", has_urology_credits("泌尿道感染衛教課程"), False)
+# 放寬前就會收的要繼續收（確認沒改壞）
+check(
+    "門檻-放寬後原本收的仍要收",
+    has_urology_credits("泌尿科(1.5點) ,婦產科,內科,家醫科3點,藥師 (學分申請中)"),
+    True,
+)
+# 這一列是靠比對到「台灣泌尿科醫學會」這個**學會名**而不是積分名才通過的。
+# 結論碰巧正確（它確實申請了泌尿科積分），但機制是誤打誤撞 —— 釘住它，
+# 免得日後有人「修正」比對邏輯時把這一列弄丟。
+check(
+    "門檻-靠學會名通過的那列不要弄丟",
+    has_urology_credits("(申請中):台灣外科醫學會、台灣消化系外科醫學會、台灣泌尿科醫學會、癌症醫學會。"),
+    True,
+)
 
 # --------------------------------------------------------------------------
 # 地區與線上
@@ -654,6 +677,53 @@ check("兩種全掛-告警兩條", len(_errs5) >= 2, True)
 check("兩種全掛-第一條是積分課程", "積分課程" in _errs5[0] if _errs5 else False, True)
 check("兩種全掛-第二條是學會會議", "學會會議" in _errs5[1] if len(_errs5) > 1 else False, True)
 check("兩種全掛-舊資料兩種都留著", len(_written5["events"]), 2)
+
+# --------------------------------------------------------------------------
+# 年度國際會議（sources/tua_international.py）
+#
+# 這一頁補的是「國外辦、不申請台灣積分 → 永遠不會進 E-School」的國際年會。
+# 版面是規整的「月/日 ｜ 議程」表，測資取自 2026 那一頁的實際結構。
+# --------------------------------------------------------------------------
+from sources import tua_international as _intl  # noqa: E402
+
+_INTL_FIXTURE = """
+<table><tbody>
+<tr><th>月/日</th><th>議程</th></tr>
+<tr><td>2/28-3/3</td><td>USANZ 2026／澳洲墨爾本</td></tr>
+<tr><td>3/13-3/16</td><td><a href="https://eauncongress.uroweb.org/">EAU 2026／ 英國倫敦</a></td></tr>
+<tr><td>12/28-1/3</td><td>跨年測試會議／某地</td></tr>
+<tr><td>2/30</td><td>來源打錯的日期／某地</td></tr>
+<tr><td>敬請期待</td><td>還沒公布的場次</td></tr>
+</tbody></table>
+"""
+
+_intl_rows = _intl.parse_page(_INTL_FIXTURE, 2026, "https://www.tua.org.tw/announce")
+
+# 表頭、非日期列、來源打錯的日期都要自動略過，不能變成一筆爛資料
+check("國際-只收得出日期的列", len(_intl_rows), 3)
+check("國際-起日", _intl_rows[0].date, "2026-02-28")
+check("國際-迄日", _intl_rows[0].end_date, "2026-03-03")
+# 標題與地點用全形／分隔，斜線後常多一個空白
+check("國際-標題切開", _intl_rows[1].title, "EAU 2026")
+check("國際-地點去掉前導空白", _intl_rows[1].location, "英國倫敦")
+# 有外部連結就連過去，沒有就連回學會公告頁（不留空連結）
+check("國際-有連結用連結", _intl_rows[1].url, "https://eauncongress.uroweb.org/")
+check("國際-沒連結退回公告頁", _intl_rows[0].url, "https://www.tua.org.tw/announce")
+# 🔴 年份來自公告 slug 不在頁面文字裡，跨年要把結束年 +1（12/28-1/3）
+check("國際-跨年起日", _intl_rows[2].date, "2026-12-28")
+check("國際-跨年迄日進到隔年", _intl_rows[2].end_date, "2027-01-03")
+check("國際-都是會議線", {e.kind for e in _intl_rows}, {KIND_MEETING})
+
+# 🔴 公告網址每年換，slug 比對要窄：同一個分類底下混著徵選／遴選公告，
+#    用「網址含 international」會指錯（TUA guideline 那邊踩過的同型坑）
+check("國際-slug比對-正版命中", bool(_intl._SLUG.search("/2627-2026-international-meeting")), True)
+check("國際-slug比對-EUREP不命中", bool(_intl._SLUG.search("/2683-2026-eurep")), False)
+check("國際-slug比對-AURC不命中", bool(_intl._SLUG.search("/2662-result-aurc-2026")), False)
+check(
+    "國際-slug比對-分類資料夾本身不命中",
+    bool(_intl._SLUG.search("/tua/tw/latest-news/events/86-international-meeting")),
+    False,
+)
 
 # --------------------------------------------------------------------------
 # .ics 訂閱檔（sources/icsfeed.py）

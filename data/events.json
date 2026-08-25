@@ -1,9 +1,9 @@
 {
- "updated_at": "2026-08-25T23:28:42+08:00",
- "count": 49,
+ "updated_at": "2026-08-25T23:43:19+08:00",
+ "count": 58,
  "counts": {
   "cme": 31,
-  "meeting": 18
+  "meeting": 27
  },
  "sources": {
   "台灣泌尿科醫學會": {
@@ -13,6 +13,10 @@
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
    "count": 3
+  },
+  "台灣泌尿科醫學會 國際會議": {
+   "kind": "meeting",
+   "count": 9
   },
   "台灣泌尿內視鏡醫學會": {
    "kind": "meeting",
@@ -267,6 +271,42 @@
    "badges": []
   },
   {
+   "date": "2026-02-28",
+   "title": "USANZ 2026",
+   "end_date": "2026-03-03",
+   "time": "",
+   "organizer": "台灣泌尿科醫學會",
+   "location": "澳洲墨爾本",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "meeting",
+   "source": "台灣泌尿科醫學會 國際會議",
+   "url": "https://www.tua.org.tw/tua/tw/latest-news/events/86-international-meeting/2627-2026-international-meeting",
+   "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-03-13",
+   "title": "EAU 2026",
+   "end_date": "2026-03-16",
+   "time": "",
+   "organizer": "台灣泌尿科醫學會",
+   "location": "英國倫敦",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "meeting",
+   "source": "台灣泌尿科醫學會 國際會議",
+   "url": "https://eauncongress.uroweb.org/",
+   "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
    "date": "2026-04-18",
    "title": "台灣泌尿內視鏡醫學會",
    "end_date": "",
@@ -283,6 +323,42 @@
    "categories": [
     "結石與內視鏡"
    ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-04-23",
+   "title": "JUA 2026",
+   "end_date": "2026-04-26",
+   "time": "",
+   "organizer": "台灣泌尿科醫學會",
+   "location": "日本 京都",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "meeting",
+   "source": "台灣泌尿科醫學會 國際會議",
+   "url": "https://www.c-linkage.co.jp/jua2026/en/",
+   "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-05-15",
+   "title": "AUA 2026",
+   "end_date": "2026-05-18",
+   "time": "",
+   "organizer": "台灣泌尿科醫學會",
+   "location": "美國 華盛頓",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "meeting",
+   "source": "台灣泌尿科醫學會 國際會議",
+   "url": "https://www.auanet.org/AUA2026/register",
+   "categories": [],
    "online": false,
    "badges": []
   },
@@ -308,6 +384,24 @@
     "有錄影",
     "高杏協辦"
    ]
+  },
+  {
+   "date": "2026-06-12",
+   "title": "ESMO Asia Congress 2026",
+   "end_date": "2026-06-14",
+   "time": "",
+   "organizer": "台灣泌尿科醫學會",
+   "location": "香港",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "meeting",
+   "source": "台灣泌尿科醫學會 國際會議",
+   "url": "https://www.tua.org.tw/tua/tw/latest-news/events/86-international-meeting/2627-2026-international-meeting",
+   "categories": [],
+   "online": false,
+   "badges": []
   },
   {
    "date": "2026-06-27",
@@ -728,6 +822,60 @@
    "badges": []
   },
   {
+   "date": "2026-10-06",
+   "title": "ICS 2026",
+   "end_date": "2026-10-09",
+   "time": "",
+   "organizer": "台灣泌尿科醫學會",
+   "location": "荷蘭馬斯垂克",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "meeting",
+   "source": "台灣泌尿科醫學會 國際會議",
+   "url": "https://www.tua.org.tw/tua/tw/latest-news/events/86-international-meeting/2627-2026-international-meeting",
+   "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-10-14",
+   "title": "KUA 2026",
+   "end_date": "2026-10-17",
+   "time": "",
+   "organizer": "台灣泌尿科醫學會",
+   "location": "韓國首爾",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "meeting",
+   "source": "台灣泌尿科醫學會 國際會議",
+   "url": "https://www.tua.org.tw/tua/tw/latest-news/events/86-international-meeting/2627-2026-international-meeting",
+   "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-10-14",
+   "title": "SIU 2026",
+   "end_date": "2026-10-17",
+   "time": "",
+   "organizer": "台灣泌尿科醫學會",
+   "location": "阿拉伯聯合大公國杜拜",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "meeting",
+   "source": "台灣泌尿科醫學會 國際會議",
+   "url": "https://www.tua.org.tw/tua/tw/latest-news/events/86-international-meeting/2627-2026-international-meeting",
+   "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
    "date": "2026-10-17",
    "title": "2026年臺中榮民總醫院44週年院慶國際醫學研討會",
    "end_date": "",
@@ -799,6 +947,24 @@
    "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3844",
+   "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-11-09",
+   "title": "WCET 2026",
+   "end_date": "2026-11-13",
+   "time": "",
+   "organizer": "台灣泌尿科醫學會",
+   "location": "阿根廷布宜諾斯艾利斯",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "meeting",
+   "source": "台灣泌尿科醫學會 國際會議",
+   "url": "https://www.eventscribe.com/2020/WCET2020/",
    "categories": [],
    "online": false,
    "badges": []
