@@ -47,6 +47,41 @@ body {
   font-size: .82rem;
 }
 
+/* ---------- 分頁（積分課程／學會會議） ---------- */
+.kinds {
+  display: flex;
+  gap: 8px;
+  margin: 18px 0 0;
+  border-bottom: 2px solid var(--line);
+}
+.kind {
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--muted);
+  padding: 9px 14px;
+  cursor: pointer;
+  /* 底線壓在容器的 border 上，選中時才看得到 */
+  margin-bottom: -2px;
+  border-bottom: 2px solid transparent;
+}
+.kind:hover { color: var(--accent); }
+.kind.on { color: var(--accent); border-bottom-color: var(--accent); }
+.kind .n {
+  font-size: .75em;
+  font-weight: 600;
+  opacity: .65;
+  margin-left: 3px;
+}
+.kind-hint {
+  margin: 8px 0 0;
+  font-size: .8rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
 /* ---------- filters ---------- */
 .filters {
   background: var(--card);
@@ -64,6 +99,9 @@ body {
   border-bottom: 1px dashed var(--line);
 }
 .filter-row:last-child { border-bottom: none; }
+/* 🔴 必要，不是保險：`display: flex` 的優先度高於瀏覽器對 [hidden] 的預設樣式，
+   少了這條，app.js 設 hidden=true 的那一列（切到學會會議時的積分軸）會照樣顯示。 */
+.filter-row[hidden] { display: none; }
 
 .label {
   flex: 0 0 44px;
@@ -179,6 +217,8 @@ body {
 .tag.online { background: #e9f4ec; color: #2f6b45; font-weight: 600; }
 .tag.media { background: #f2eef8; color: #5c4a86; }
 .tag.source { background: #f6f0ea; color: #8a6444; }
+/* 只出現在「學會會議」分頁：那一頁刻意留著已結束的場次當作年會月份的線索 */
+.tag.past { background: #ecedef; color: #6b7785; font-weight: 600; }
 
 .actions { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
 .cal {
@@ -192,7 +232,22 @@ body {
 }
 .cal:hover { background: var(--accent); color: #fff; }
 
-.empty { text-align: center; color: var(--muted); padding: 40px 0; }
+.empty { text-align: center; color: var(--muted); padding: 40px 16px; line-height: 1.7; }
+/* 空清單裡的行動按鈕。手機版的篩選器是收合的，所以「切到已結束」不能只用文字指路 */
+.empty-action {
+  display: block;
+  margin: 14px auto 0;
+  border: 1px solid var(--accent);
+  background: #fff;
+  color: var(--accent);
+  font-family: inherit;
+  font-size: .85rem;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 7px 18px;
+  cursor: pointer;
+}
+.empty-action:hover { background: var(--accent); color: #fff; }
 
 /* ---------- footer ---------- */
 .site-footer {

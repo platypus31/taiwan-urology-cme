@@ -1,9 +1,22 @@
 /* 讀 data/events.json，做多軸篩選（時間／地區／積分／主題／主辦／來源）與排序。
-   全部在瀏覽器端跑，沒有後端。資料量幾百筆等級，直接全量過濾就夠快。 */
+   全部在瀏覽器端跑，沒有後端。資料量幾百筆等級，直接全量過濾就夠快。
+
+   資料有兩種 kind，用分頁切換（見 index.html 的 #kinds 註解）：
+   cme＝可拿泌尿科積分的課，meeting＝各次專科學會的開會時間。 */
 (function () {
   "use strict";
 
   var DATA_URL = "data/events.json";
+  var KIND_CME = "cme";
+  var KIND_MEETING = "meeting";
+  var KINDS = [
+    { key: KIND_CME, label: "積分課程", hint: "台灣泌尿科醫學會公告、掛有泌尿科積分的課程。" },
+    {
+      key: KIND_MEETING,
+      label: "學會會議",
+      hint: "泌尿內視鏡醫學會（TEA）、泌尿腫瘤醫學會（TUOA）、高杏泌尿照護協會的開會時間。用途是提前排行程，跟積分無關。"
+    }
+  ];
   var REGION_ORDER = ["北部", "中部", "南部", "東部", "離島", "線上", "其他"];
   var DOW = ["日", "一", "二", "三", "四", "五", "六"];
 
@@ -15,6 +28,8 @@
 
   var state = {
     events: [],
+    data: {},
+    kind: KIND_CME,
     q: "",
     time: "upcoming",
     region: null,
@@ -33,7 +48,14 @@
     resultCount: document.getElementById("result-count"),
     notice: document.getElementById("notice"),
     filters: document.querySelector(".filters"),
-    toggle: document.getElementById("toggle")
+    toggle: document.getElementById("toggle"),
+    kinds: document.getElementById("kinds"),
+    kindHint: document.getElementById("kind-hint"),
+    creditRow: document.getElementById("row-credit"),
+    statCount: document.getElementById("stat-count"),
+    statCountLabel: document.getElementById("stat-count-label"),
+    statRange: document.getElementById("stat-range"),
+    statSources: document.getElementById("stat-sources")
   };
 
   // ---------- 工具 ----------
@@ -169,14 +191,28 @@
   }
 
   // ---------- 篩選 ----------
-  var TIME_FILTERS = [
+  var CME_TIME_FILTERS = [
     { key: "upcoming", label: "即將舉行", test: function (e, t) { return lastDay(e) >= t; } },
     { key: "7", label: "近 7 天", test: function (e, t) { return lastDay(e) >= t && e.date <= addDays(t, 7); } },
     { key: "30", label: "近 30 天", test: function (e, t) { return lastDay(e) >= t && e.date <= addDays(t, 30); } },
     { key: "90", label: "近 3 個月", test: function (e, t) { return lastDay(e) >= t && e.date <= addDays(t, 90); } }
-    // 沒有「含已結束」選項 —— 資料源頭就不收過期活動（KEEP_PAST_DAYS=0），
+    // 積分課程沒有「含已結束」選項 —— 資料源頭就不收過期的課（KEEP_PAST_DAYS=0），
     // 留一個永遠等同「即將舉行」的選項只會讓人以為點了沒反應。
   ];
+
+  /* 學會會議這一軸不一樣：資料**刻意**保留兩年份的已結束場次
+     （見 sources/base.js 對應的 MEETING_KEEP_PAST_DAYS 說明）。
+     學會官網多半在開會前一兩個月才更新，所以「即將舉行」常常真的是 0 筆；
+     這時上一場的日期就是最有用的線索，必須有路可以按進去看。 */
+  var MEETING_TIME_FILTERS = [
+    { key: "upcoming", label: "即將舉行", test: function (e, t) { return lastDay(e) >= t; } },
+    { key: "past", label: "已結束", test: function (e, t) { return lastDay(e) < t; } },
+    { key: "all", label: "全部", test: function () { return true; } }
+  ];
+
+  function timeFilters() {
+    return state.kind === KIND_MEETING ? MEETING_TIME_FILTERS : CME_TIME_FILTERS;
+  }
 
   var CREDIT_FILTERS = [
     { key: 0, label: "不限" },
@@ -196,10 +232,13 @@
    *  渲染清單時不傳，就是全部條件都套。 */
   function applyFilters(exceptAxis) {
     var today = todayISO();
-    var timeFilter = TIME_FILTERS.filter(function (f) { return f.key === state.time; })[0];
+    var timeFilter = timeFilters().filter(function (f) { return f.key === state.time; })[0];
     var q = state.q.trim().toLowerCase();
 
     var rows = state.events.filter(function (e) {
+      // kind 不是一個篩選軸而是分頁，所以 exceptAxis 對它無效：
+      // 另一個分頁的資料不該出現在這一頁的任何計數裡
+      if ((e.kind || KIND_CME) !== state.kind) return false;
       if (exceptAxis !== "time" && timeFilter && !timeFilter.test(e, today)) return false;
       if (exceptAxis !== "region" && state.region && e.region !== state.region) return false;
       if (exceptAxis !== "source" && state.source && e.source !== state.source) return false;
@@ -270,6 +309,40 @@
       "&details=" + encodeURIComponent(details);
   }
 
+  /** 空清單時要說的話。
+   *
+   *  「學會會議 + 即將舉行 + 沒有其他篩選」這一格特別重要，而且是**常態不是例外**：
+   *  三個學會加起來一年開不到十場，官網又多半在會前一兩個月才更新，
+   *  所以大半年時間這一頁就是 0 筆。給一句「試著放寬篩選條件」等於什麼都沒說，
+   *  使用者只會以為這個功能壞了。直接告訴他該按哪裡、以及為什麼值得按。 */
+  function renderEmpty() {
+    var pristine =
+      !state.q.trim() && !state.region && !state.category &&
+      !state.source && !state.organizer && !state.credit;
+    if (state.kind === KIND_MEETING && state.time === "upcoming" && pristine) {
+      // 🔴 這裡放一顆真的按鈕，不是寫「請按上面的已結束」——
+      // 手機版（≤560px）的篩選器預設是收合的，時間那排 chip 根本看不到，
+      // 指路的說明會指向一個使用者找不到的東西。按鈕在哪個版型都按得到。
+      var past = applyFilters("time").filter(function (e) {
+        return lastDay(e) < todayISO();
+      }).length;
+      el.empty.textContent =
+        "這幾個學會的官網目前都還沒公布下一場。年會與半年會通常固定在同一個月份，" +
+        "所以最近幾場的日期就是排行程的依據。";
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "empty-action";
+      btn.textContent = "看最近 " + past + " 場的日期";
+      btn.addEventListener("click", function () {
+        state.time = "past";
+        render();
+      });
+      el.empty.appendChild(btn);
+      return;
+    }
+    el.empty.textContent = "沒有符合條件的活動，試著放寬篩選條件。";
+  }
+
   // ---------- 渲染 ----------
   function renderList(rows) {
     var today = todayISO();
@@ -289,9 +362,14 @@
       if (e.location) meta.push("<span>地點：" + escapeHTML(e.location) + "</span>");
 
       var tags = [];
+      // 已結束的場次只會出現在「學會會議」分頁（積分課程過期就從資料裡消失了）。
+      // 標出來是必要的：這一頁刻意留著歷史場次，不標的話跟即將舉行的混在一起會誤導。
+      if (lastDay(e) < today) tags.push('<span class="tag past">已結束</span>');
       if (e.credits != null) tags.push('<span class="tag credit">' + e.credits + " 點</span>");
       else if (e.credits_pending) tags.push('<span class="tag pending">積分申請中</span>');
-      else tags.push('<span class="tag">積分未標示</span>');
+      // 「積分未標示」只對積分課程有意義。學會會議的來源根本不公告點數，
+      // 每張卡都掛一個「未標示」等於在講一句廢話，還會讓人以為資料抓漏了。
+      else if ((e.kind || "cme") !== KIND_MEETING) tags.push('<span class="tag">積分未標示</span>');
       // 一場課常常同時給外科、機器手臂等其他科別的積分（「泌尿科(1點)、外科積分(2點)」）。
       // 把泌尿科那段從原文剪掉，剩下的就是「另外還能拿什麼」—— 這對之後要考外科的人
       // 不是裝飾，是實際會少拿的分。剪完是空的就不多長一顆重複的標籤。
@@ -338,6 +416,7 @@
     }).join("");
 
     el.empty.hidden = rows.length > 0;
+    if (!rows.length) renderEmpty();
     el.resultCount.textContent = "顯示 " + rows.length + " 場";
   }
 
@@ -386,7 +465,19 @@
   }
 
   function renderFilters() {
-    renderChips("f-time", TIME_FILTERS, function (i) { return state.time === i.key; },
+    // 時間軸的數字要算：「即將舉行 0」正是學會會議這一頁最需要一眼看到的事實
+    var timeCounts = {};
+    var today = todayISO();
+    timeFilters().forEach(function (f) {
+      timeCounts[f.key] = applyFilters("time").filter(function (e) {
+        return f.test(e, today);
+      }).length;
+    });
+    renderChips("f-time",
+      timeFilters().map(function (f) {
+        return { key: f.key, label: f.label, count: timeCounts[f.key] };
+      }),
+      function (i) { return state.time === i.key; },
       function (i) { state.time = i.key; });
 
     var regionCounts = keepSelected(countBy(function (e) { return e.region; }, "region"), state.region);
@@ -429,7 +520,12 @@
       function (i) { return state.organizer === i.key; },
       function (i) { state.organizer = i.key; });
 
-    renderChips("f-sort", SORTS, function (i) { return state.sort === i.key; },
+    // 「積分高→低」在學會會議那頁排不出東西（那邊的 credits 一律是 null），
+    // 留著只是一顆按了沒反應的按鈕
+    var sorts = SORTS.filter(function (s) {
+      return !(state.kind === KIND_MEETING && s.key === "credit-desc");
+    });
+    renderChips("f-sort", sorts, function (i) { return state.sort === i.key; },
       function (i) { state.sort = i.key; });
   }
 
@@ -451,28 +547,85 @@
     el.toggle.innerHTML = "篩選" + (n ? '<span class="badge">' + n + "</span>" : "");
   }
 
+  /** 分頁列。數字是該分頁的**總筆數**（不是即將舉行的筆數）——
+   *  學會會議常常一場都還沒公布，分頁上掛一個 0 會讓人以為那頁是壞的。 */
+  function renderKinds() {
+    el.kinds.innerHTML = "";
+    KINDS.forEach(function (kind) {
+      var count = state.events.filter(function (e) {
+        return (e.kind || KIND_CME) === kind.key;
+      }).length;
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "kind" + (state.kind === kind.key ? " on" : "");
+      btn.setAttribute("aria-pressed", state.kind === kind.key ? "true" : "false");
+      btn.innerHTML = escapeHTML(kind.label) + ' <span class="n">' + count + "</span>";
+      btn.addEventListener("click", function () {
+        if (state.kind === kind.key) return;
+        state.kind = kind.key;
+        // 兩個分頁的時間選項不一樣（"past" 在積分課程那邊不存在），
+        // 不重設的話會落到一個當前分頁沒有的 key，變成「什麼都沒篩」
+        state.time = "upcoming";
+        // 主題／主辦／來源的可選值也完全不同，留著只會得到一頁空清單
+        state.region = null;
+        state.category = null;
+        state.source = null;
+        state.organizer = null;
+        state.credit = 0;
+        // 「積分高→低」在會議那頁不提供，帶著它切過去會變成一個選中卻看不到的狀態
+        state.sort = "date-asc";
+        render();
+      });
+      el.kinds.appendChild(btn);
+    });
+    el.kindHint.textContent = KINDS.filter(function (k) {
+      return k.key === state.kind;
+    })[0].hint;
+    // 積分軸對學會會議沒有意義（官網不公告點數，欄位一律是空的）
+    el.creditRow.hidden = state.kind === KIND_MEETING;
+  }
+
+  /** 頁首數字。跟著分頁走，不是全站合計。 */
+  function renderStats() {
+    var today = todayISO();
+    var mine = state.events.filter(function (e) {
+      return (e.kind || KIND_CME) === state.kind;
+    });
+    var upcoming = mine.filter(function (e) { return lastDay(e) >= today; });
+
+    el.statCount.textContent = upcoming.length;
+    el.statCountLabel.textContent = "場即將舉行";
+    if (upcoming.length) {
+      el.statRange.textContent =
+        upcoming[0].date.slice(5).replace("-", "/") + " – " +
+        upcoming[upcoming.length - 1].date.slice(5).replace("-", "/");
+    } else {
+      // 一場都還沒公布時，把「最近一場是什麼時候」講出來比印一條破折號有用
+      var past = mine.filter(function (e) { return lastDay(e) < today; });
+      el.statRange.textContent = past.length
+        ? "最近一場 " + past[past.length - 1].date
+        : "—";
+    }
+
+    var sources = state.data.sources || {};
+    el.statSources.textContent = Object.keys(sources).filter(function (name) {
+      var entry = sources[name];
+      // 舊版 events.json 的 sources 是 name→筆數，沒有 kind；那時只有積分課程
+      var kind = entry && typeof entry === "object" ? entry.kind : KIND_CME;
+      return (kind || KIND_CME) === state.kind;
+    }).length;
+  }
+
   function render() {
+    renderKinds();
+    renderStats();
     renderFilters();
     renderToggle();
     renderList(applyFilters());
   }
 
+  /** 只做「跟分頁無關」的部分；會跟著分頁變的數字在 renderStats()。 */
   function renderHeader(data) {
-    var today = todayISO();
-    var upcoming = data.events.filter(function (e) { return lastDay(e) >= today; });
-    document.getElementById("stat-count").textContent = upcoming.length;
-
-    if (upcoming.length) {
-      var first = upcoming[0].date.slice(5).replace("-", "/");
-      var last = upcoming[upcoming.length - 1].date.slice(5).replace("-", "/");
-      document.getElementById("stat-range").textContent = first + " – " + last;
-    } else {
-      document.getElementById("stat-range").textContent = "—";
-    }
-
-    document.getElementById("stat-sources").textContent =
-      Object.keys(data.sources || {}).length;
-
     if (data.updated_at) {
       document.getElementById("stat-updated").textContent =
         "更新於 " + formatUpdatedAt(data.updated_at);
@@ -503,6 +656,7 @@
   }
 
   el.reset.addEventListener("click", function () {
+    // 刻意不動 state.kind：「清除」清的是篩選條件，不是把人踢回另一個分頁
     state.q = "";
     el.q.value = "";
     state.time = "upcoming";
@@ -521,6 +675,7 @@
       return r.json();
     })
     .then(function (data) {
+      state.data = data;
       state.events = data.events || [];
       renderHeader(data);
       render();

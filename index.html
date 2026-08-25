@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>台灣泌尿科繼續教育活動彙整</title>
-<meta name="description" content="彙整台灣泌尿科醫學會公告的繼續教育活動與積分資訊，可依時間、地區、積分、主題、主辦單位篩選。">
+<meta name="description" content="彙整台灣泌尿科醫學會公告的繼續教育積分課程，以及泌尿內視鏡醫學會、泌尿腫瘤醫學會、高杏泌尿照護協會的開會時間，可依時間、地區、積分、主題、主辦單位篩選。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="台灣泌尿科繼續教育活動彙整">
-<meta property="og:description" content="彙整台灣泌尿科醫學會公告的積分課程，可依時間、地區、積分、主題、主辦單位篩選，每天自動更新。">
+<meta property="og:description" content="彙整台灣泌尿科醫學會公告的積分課程與各次專科學會的開會時間，可依時間、地區、積分、主題、主辦單位篩選，每天自動更新。">
 <meta property="og:url" content="https://platypus31.github.io/taiwan-urology-cme/">
 <meta property="og:locale" content="zh_TW">
 <meta name="twitter:card" content="summary">
@@ -20,9 +20,9 @@
 <header class="site-header">
   <div class="wrap">
     <h1>泌尿科 繼續教育活動</h1>
-    <p class="tagline">彙整台灣泌尿科醫學會公告的積分課程 · 每天自動更新</p>
+    <p class="tagline">積分課程 · 學會開會時間 · 每天自動更新</p>
     <div class="stats" id="stats">
-      <span class="stat"><b id="stat-count">–</b> 場活動</span>
+      <span class="stat"><b id="stat-count">–</b> <span id="stat-count-label">場即將舉行</span></span>
       <span class="stat"><b id="stat-range">–</b></span>
       <span class="stat"><b id="stat-sources">–</b> 個來源</span>
       <span class="stat updated" id="stat-updated"></span>
@@ -32,6 +32,11 @@
 </header>
 
 <main class="wrap">
+  <!-- 兩種資料的切換。「積分課程」問這堂課給幾點，「學會會議」問他們什麼時候開會，
+       是兩個不同的問題，所以分頁而不是混在同一份清單裡多加一個篩選軸。 -->
+  <nav class="kinds" id="kinds" aria-label="資料類別"></nav>
+  <p class="kind-hint" id="kind-hint"></p>
+
   <section class="filters" aria-label="篩選器">
     <div class="filter-row search-row">
       <input type="search" id="q" placeholder="搜尋標題、主辦單位、地點…" autocomplete="off">
@@ -49,7 +54,8 @@
       <div class="chips" id="f-region"></div>
     </div>
 
-    <div class="filter-row">
+    <!-- 積分軸只對「積分課程」有意義，切到「學會會議」時整列由 app.js 隱藏 -->
+    <div class="filter-row" id="row-credit">
       <span class="label">積分</span>
       <div class="chips" id="f-credit"></div>
     </div>
@@ -82,8 +88,9 @@
 
 <footer class="site-footer">
   <div class="wrap">
-    <p>資料直接取自台灣泌尿科醫學會官方公告，僅作彙整索引；<strong>報名與積分認定請以主辦單位公告為準</strong>。</p>
+    <p>資料直接取自各學會官方公告，僅作彙整索引；<strong>報名與積分認定請以主辦單位公告為準</strong>。</p>
     <p>標「積分申請中」的場次代表學會尚未核定點數，開課前請再確認一次。</p>
+    <p>「學會會議」分頁列的是各次專科學會的開會時間，<strong>不代表該場有泌尿科積分</strong>；學會官網多半在開會前一兩個月才更新，所以看得到的常是已結束的場次，年會的月份本身就是排行程的依據。</p>
     <p>專科醫師證書更新需在六年內累積繼續教育積分 108 點以上（依<a href="https://www.tua.org.tw/tua/tw/specialist-of-urology/points" target="_blank" rel="noopener">學會繼續教育積分授予辦法</a>）。</p>
     <p>點選活動標題會連到學會的原始頁面。</p>
   </div>
