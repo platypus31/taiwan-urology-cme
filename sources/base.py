@@ -24,9 +24,21 @@ TIMEOUT = 30
 # --------------------------------------------------------------------------
 # 資料結構
 # --------------------------------------------------------------------------
+# 活動的兩種用途，寫在 Event.kind 裡。
+#
+# 這個站原本只有一種資料：能拿泌尿科積分的課。2026-08-25 之後多了第二種 ——
+# 幾個次專科學會的**開會時間**（年會／半年會／研討會），目的是提前排行程，
+# 跟積不積分無關。兩者刻意用同一個 Event 形狀但不同 kind，理由是：
+#   ・共用一套地區／分類／去重／日曆連結的邏輯，不必養第二條管線
+#   ・前端可以完全分開呈現（兩個分頁），不會讓「沒有積分」的會議稀釋積分清單
+# 判準：**這筆的用途是「拿積分」還是「知道什麼時候開會」**。
+KIND_CME = "cme"
+KIND_MEETING = "meeting"
+
+
 @dataclass
 class Event:
-    """一筆繼續教育活動。所有來源都必須產出這個形狀。"""
+    """一筆活動。所有來源都必須產出這個形狀。"""
 
     date: str  # 開始日，ISO 格式 YYYY-MM-DD
     title: str
@@ -38,6 +50,7 @@ class Event:
     credits_raw: str = ""  # 積分欄位原文，含外科／機泌等其他科別
     credits_pending: bool = False  # 泌尿科積分「申請中」
     region: str = "其他"  # 由 location 推導
+    kind: str = KIND_CME  # KIND_CME（積分課程）或 KIND_MEETING（學會開會時間）
     source: str = ""  # 學會名稱
     url: str = ""
     categories: List[str] = field(default_factory=list)
@@ -58,6 +71,15 @@ TAIPEI = timezone(timedelta(hours=8))
 # 保留過去幾天的活動。過期的課程不要出現在站上，所以是 0。
 # 定義在這裡而不是 build.py，是為了讓「來源層自己過濾」與「彙整層過濾」用同一個下界。
 KEEP_PAST_DAYS = 0
+
+# 會議（KIND_MEETING）的下界不一樣，刻意保留兩年份的已結束場次。
+#
+# 這不是忘了清：次專科學會一年只開一到兩次會，官網往往在開會前一兩個月才更新，
+# 所以任何時候去看，「下一場」多半還沒公布。這種時候**上一場是什麼時候開的**
+# 就是最有用的資訊 —— 年會固定落在同一個月份，看得到 2026/01/31 就推得出
+# 2027 年初要留時間。把過去的場次砍光，這個分頁一年有大半時間會是空的，
+# 使用者只會以為壞了。前端預設仍然只顯示即將舉行，要看歷史得自己按「已結束」。
+MEETING_KEEP_PAST_DAYS = 730
 
 
 class SourceError(Exception):
@@ -387,7 +409,10 @@ def primary_organizer(text: str) -> str:
     if not result:
         return ""
     result = re.sub(r"^主辦(?:單位)?\s*[：:]\s*", "", result)
-    result = re.split(r"協辦(?:單位)?\s*[：:]", result)[0]
+    # 「協辦」後面接什麼字都有：協辦單位／協辦廠商／光是協辦。
+    # 少認一種寫法的下場是主辦欄拖著一串藥廠名字，卡片變三行、篩選器長出廠商項目
+    # （學會官網用的就是「協辦廠商：」，只認「協辦單位」會漏）。
+    result = re.split(r"協辦(?:單位|廠商)?\s*[：:]", result)[0]
     return clean_text(result)
 
 
@@ -400,11 +425,52 @@ def today_iso() -> str:
     return today_taipei().isoformat()
 
 
-def cutoff_iso() -> str:
+def cutoff_iso(kind: str = KIND_CME) -> str:
     """資料保留下界：早於這天的活動一律不收。
 
     來源層若要自己過濾過期活動，必須用這個函式而不是 today_iso()，
     否則 build.py 的 KEEP_PAST_DAYS 對該來源會失效 ——
     資料看起來正常，只是跟彙整層對不上。
+
+    kind 決定用哪個下界（見 MEETING_KEEP_PAST_DAYS 的註解）。
     """
-    return (today_taipei() - timedelta(days=KEEP_PAST_DAYS)).isoformat()
+    days = MEETING_KEEP_PAST_DAYS if kind == KIND_MEETING else KEEP_PAST_DAYS
+    return (today_taipei() - timedelta(days=days)).isoformat()
+
+
+# --------------------------------------------------------------------------
+# 個資防線
+# --------------------------------------------------------------------------
+# 學會官網的活動頁常在地點或主辦欄旁邊接著寫承辦人的信箱與電話
+# （E-School 是獨立欄位可以整欄不收，官網是同一段文字，躲不掉）。
+# 那些是個資，公開站沒有理由轉載，所以凡是從官網自由文字抽出來的欄位
+# 都要先過這一關再放進 Event。
+#
+# 這是 scripts/pii-scan.sh 的**上游**，不是替代品：掃描器是最後一道閘門，
+# 這裡則是讓資料一開始就不髒。兩道都要有 —— 只靠掃描器的話，
+# 每天自動更新會在某天突然變紅，而且那時髒資料已經在 events.json 裡了。
+#
+# 🔴 兩條電話規則都要用 (?<!\d) 與 (?!\d) 綁數字邊界，而且**手機那條要排在市話前面**：
+# 沒有邊界的話，市話規則會從「0900-000-000」的第二個 0 開始比對、只咬掉後半段，
+# 留下一截「09」黏在文字裡 —— 挖一半比沒挖更糟，因為看起來像挖乾淨了。
+# （這個洞是 selftest 的「個資-挖手機」抓到的，那條案例就是為它留的。）
+_CONTACT_PATTERNS = [
+    re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"),  # 信箱
+    re.compile(r"(?<!\d)09[0-9]{2}[-\s]?[0-9]{3}[-\s]?[0-9]{3}(?!\d)"),  # 手機
+    re.compile(
+        r"(?<!\d)0[0-9]{1,2}[-\s]?[0-9]{3,4}[-\s]?[0-9]{3,4}"
+        r"(?:\s*[#分機]+\s*[0-9]+)?(?!\d)"
+    ),
+]
+
+
+def scrub_contacts(text: str) -> str:
+    """把信箱與電話從自由文字裡挖掉。挖完只剩標點就回空字串。"""
+    result = text or ""
+    for pattern in _CONTACT_PATTERNS:
+        result = pattern.sub("", result)
+    result = clean_text(result)
+    # 挖掉之後可能剩下「聯絡人：」「（）」這種殘骸，沒有中英數就當它是空的
+    if not re.search(r"[0-9A-Za-z一-鿿]", result):
+        return ""
+    return result

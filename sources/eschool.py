@@ -20,16 +20,22 @@
    那些不能單獨報名、也不單獨給積分，積分欄是空的，而「主辦/主持人」欄放的是
    議程主持人的姓名。所以收錄門檻是 has_urology_credits()：積分欄有提到泌尿科才收。
    這一關同時擋掉了「把個人姓名當主辦單位列在公開網站上」的問題。
+
+從 2026-08-25 起這支還兼任「E-School 列表的解析引擎」：sources/kaohsing.py 也走
+同一張表，只是換一個收錄條件（主辦／協辦欄提到某個協會）與不同的 kind。所以
+`month_soup()` 與 `parse_month()` 是給外部用的公開函式，改它們的簽章前先 grep。
+`month_soup()` 會把抓過的月份記在行程內快取裡，兩支來源掃到同一個月不會打兩次。
 """
 from __future__ import annotations
 
 import re
 from datetime import date
-from typing import List, Optional, Tuple
+from typing import Callable, Dict, List, Optional, Tuple
 
 from bs4 import BeautifulSoup
 
 from .base import (
+    KIND_CME,
     Event,
     clean_text,
     credits_pending,
@@ -46,6 +52,7 @@ from .base import (
 )
 
 NAME = "台灣泌尿科醫學會"
+KIND = KIND_CME  # build.py 用它標記這個來源產出哪一種資料
 BASE = "https://eschool.tua.org.tw"
 LIST_URL = BASE + "/conference/list"
 
@@ -57,17 +64,19 @@ _MD = re.compile(r"^(\d{1,2})-(\d{1,2})$")
 _TIME = re.compile(r"(\d{1,2}:\d{2}\s*[~～-]\s*\d{1,2}:\d{2})")
 
 
+def month_range(months_back: int, months_ahead: int) -> List[Tuple[int, int]]:
+    """以台灣的當月為原點，往前 months_back 個月、往後 months_ahead 個月（含當月）。"""
+    today = today_taipei()
+    index = today.year * 12 + (today.month - 1)
+    return [
+        ((index + offset) // 12, (index + offset) % 12 + 1)
+        for offset in range(-months_back, months_ahead)
+    ]
+
+
 def _month_list(count: int) -> List[Tuple[int, int]]:
     """從台灣的當月起，往後 count 個月的 (年, 月)。"""
-    today = today_taipei()
-    months = []
-    year, month = today.year, today.month
-    for _ in range(count):
-        months.append((year, month))
-        month += 1
-        if month > 12:
-            year, month = year + 1, 1
-    return months
+    return month_range(0, count)
 
 
 def _resolve_date(md: str, year: int, month: int) -> Optional[str]:
@@ -120,11 +129,29 @@ def _cell_text(row, selector: str) -> str:
     return clean_text(cell.get_text(" ")) if cell else ""
 
 
-def _parse_rows(soup: BeautifulSoup, year: int, month: int) -> List[Event]:
+def _urology_gate(credits_raw: str, division_raw: str) -> bool:
+    """本來源的收錄門檻：積分欄有沒有掛泌尿科（見模組開頭第 2 點）。"""
+    return has_urology_credits(credits_raw)
+
+
+def parse_month(
+    soup: BeautifulSoup,
+    year: int,
+    month: int,
+    accept: Optional[Callable[[str, str], bool]] = None,
+    source_name: str = NAME,
+    kind: str = KIND_CME,
+) -> List[Event]:
+    """把某個月份的列表頁解析成 Event 清單。
+
+    accept(積分欄原文, 主辦/主持人欄原文) 決定哪些列要收。預設是泌尿科積分門檻；
+    sources/kaohsing.py 換成「主辦或協辦欄提到該協會」，用同一張表產出不同的清單。
+    """
+    accept_row = accept or _urology_gate
     table = soup.select_one("table#conferenceTable")
     if table is None:
         # 表格不見了＝來源改版，這種事一定要浮出來，不能靜靜地回傳 0 筆
-        warn("{}：{}-{:02d} 找不到會議表格，來源可能已改版".format(NAME, year, month))
+        warn("{}：{}-{:02d} 找不到會議表格，來源可能已改版".format(source_name, year, month))
         return []
 
     events: List[Event] = []
@@ -160,10 +187,11 @@ def _parse_rows(soup: BeautifulSoup, year: int, month: int) -> List[Event]:
         # 只取第一格 —— 聯絡人欄是承辦人員的姓氏與分機，公開站沒有理由轉載。
         credit_cells = row.select("td.col-char7")
         credits_raw = clean_text(credit_cells[0].get_text(" ")) if credit_cells else ""
-        if not has_urology_credits(credits_raw):
-            continue  # 年會議程／他科課程，不是能拿泌尿科積分的獨立場次
+        division_raw = _cell_text(row, "td.col-division")
+        if not accept_row(credits_raw, division_raw):
+            continue  # 沒通過本來源的收錄門檻（預設：不是能拿泌尿科積分的獨立場次）
 
-        organizer = primary_organizer(_cell_text(row, "td.col-division"))
+        organizer = primary_organizer(division_raw)
         location = _cell_text(row, "td.col-site").replace("|", "：")
         if is_tbd(location):
             location = "地點待公布"
@@ -189,7 +217,8 @@ def _parse_rows(soup: BeautifulSoup, year: int, month: int) -> List[Event]:
                 credits_raw=credits_raw,
                 credits_pending=credits_pending(credits_raw),
                 region=detect_region(location, organizer),
-                source=NAME,
+                kind=kind,
+                source=source_name,
                 url=url,
                 categories=detect_categories(title, organizer),
                 online=detect_online(title, location),
@@ -209,20 +238,43 @@ def _parse_rows(soup: BeautifulSoup, year: int, month: int) -> List[Event]:
     ):
         warn(
             "{}：{}-{:02d} 有 {} 列但一筆都解析不出來，欄位結構可能已改版".format(
-                NAME, year, month, len(body_rows)
+                source_name, year, month, len(body_rows)
             )
         )
     return events
 
 
+# 舊名保留給 scripts/selftest.py 與既有呼叫端，語義完全相同。
+_parse_rows = parse_month
+
+
+# 抓過的月份頁面。兩支來源（本檔與 kaohsing）掃到同一個月時不重複發請求 ——
+# 這個快取只活在一次 build.py 執行之內，不會讓資料變舊。
+#
+# ⚠️ 回傳的是**共用的** soup 物件，parse_month() 會就地改動它（_title_of 會把標題裡
+# 那顆圖示 span decompose 掉）。目前這個改動是冪等的：圖示 span 拆過就不在了，
+# 第二次解析拿到的標題完全一樣（selftest 有回歸案例）。日後若在解析中加入
+# 「會改變輸出的」DOM 改寫，這裡就要改成每次回傳 copy.copy(soup)。
+_PAGE_CACHE: Dict[Tuple[int, int], BeautifulSoup] = {}
+
+
+def month_soup(year: int, month: int) -> BeautifulSoup:
+    """取得某個月份的列表頁（同一次執行內只抓一次）。"""
+    key = (year, month)
+    cached = _PAGE_CACHE.get(key)
+    if cached is not None:
+        return cached
+    resp = get(LIST_URL, params={"display_date": "{}-{:02d}".format(year, month)})
+    resp.encoding = resp.apparent_encoding or "utf-8"
+    soup = BeautifulSoup(resp.text, "html.parser")
+    _PAGE_CACHE[key] = soup
+    return soup
+
+
 def fetch() -> List[Event]:
     events: List[Event] = []
     for year, month in _month_list(MONTHS_AHEAD):
-        resp = get(LIST_URL, params={"display_date": "{}-{:02d}".format(year, month)})
-        resp.encoding = resp.apparent_encoding or "utf-8"
-        events.extend(
-            _parse_rows(BeautifulSoup(resp.text, "html.parser"), year, month)
-        )
+        events.extend(parse_month(month_soup(year, month), year, month))
     # 空月份是正常的（明年的課還沒排），所以**不因為某個月 0 筆就停止往後翻** ——
     # 實測 2026-12 有課、2027-01 空、之後又會陸續補上，提早收手會漏掉遠期的課。
     return events

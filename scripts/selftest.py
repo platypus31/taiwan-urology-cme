@@ -19,8 +19,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from bs4 import BeautifulSoup
 
-from sources import eschool
+from sources import eschool, kaohsing, tea, tuoa
 from sources.base import (
+    KIND_CME,
+    KIND_MEETING,
     credits_pending,
     drain_warnings,
     detect_categories,
@@ -30,6 +32,7 @@ from sources.base import (
     parse_credits,
     parse_date,
     primary_organizer,
+    scrub_contacts,
 )
 
 FAILURES = []
@@ -102,6 +105,12 @@ check(
 )
 check("主辦-無前綴", primary_organizer("台灣尿失禁防治協會、馬偕醫院泌尿部"), "台灣尿失禁防治協會、馬偕醫院泌尿部")
 check("主辦-半形冒號", primary_organizer("主辦:台灣泌尿科醫學會 協辦單位:友華生技醫藥公司"), "台灣泌尿科醫學會")
+# 學會官網寫的是「協辦廠商：」，只認「協辦單位」的話主辦欄會拖著一串藥廠名字
+check(
+    "主辦-協辦廠商",
+    primary_organizer("台灣泌尿內視鏡醫學會 協辦廠商：某某公司、另一家公司"),
+    "台灣泌尿內視鏡醫學會",
+)
 
 # --------------------------------------------------------------------------
 # 日期
@@ -200,6 +209,127 @@ eschool._parse_rows(BeautifulSoup(FIXTURE, "html.parser"), 2026, 10)
 check("門檻濾掉-不誤報", len(drain_warnings()), 0)
 
 # --------------------------------------------------------------------------
+# 會議來源（kind=meeting）：TEA 官網的「日期 標題」清單
+# --------------------------------------------------------------------------
+check("TEA-單日", tea._parse_item("2026.04.18 台灣泌尿內視鏡醫學會"), ("2026-04-18", "", "台灣泌尿內視鏡醫學會"))
+# 「~26」只給日，不是完整的第二個日期
+check(
+    "TEA-跨日",
+    tea._parse_item("2026.07.25~26 泌尿腫瘤夏季研討會"),
+    ("2026-07-25", "2026-07-26", "泌尿腫瘤夏季研討會"),
+)
+# 結束日不在開始日之後（跨月寫法／打錯）就留白，不自己推月份
+check("TEA-結束日不合理", tea._parse_item("2026.07.25~03 某研討會"), ("2026-07-25", "", "某研討會"))
+check("TEA-假日期", tea._parse_item("2026.02.30 某研討會"), None)
+# 導覽列與頁尾的連結不是活動，必須認不出來
+check("TEA-非活動連結", tea._parse_item("學術活動"), None)
+check("TEA-標題開頭是年份不算跨日", tea._parse_item("2025.09.06 2025年健康台灣"), ("2025-09-06", "", "2025年健康台灣"))
+# 簡章 PDF／JPG 不當內頁抓（丟給 HTML 解析器只會得到亂碼）
+check("TEA-內頁只抓html", tea._is_html_page("https://x/news/20260418.html"), True)
+check("TEA-不抓pdf", tea._is_html_page("https://x/news/0725-26.pdf"), False)
+check("TEA-不抓jpg", tea._is_html_page("https://x/news/20260627.jpg"), False)
+
+# --------------------------------------------------------------------------
+# 會議來源：TUOA 官網日期欄的四種寫法（全部取自實際頁面）
+# --------------------------------------------------------------------------
+check("TUOA-單日", tuoa._parse_dates("2026/08/01(Sat)"), ("2026-08-01", ""))
+check("TUOA-跨月", tuoa._parse_dates("2026/01/31-2026/02/01(Sat.Sun)"), ("2026-01-31", "2026-02-01"))
+# 「.23」是同月的第二天；(SAT.SUN) 裡也有一個點，錨在第一個日期正後方才不會誤抓
+check("TUOA-同月兩天", tuoa._parse_dates("2025/02/22.23(SAT.SUN)"), ("2025-02-22", "2025-02-23"))
+check("TUOA-破折號單日", tuoa._parse_dates("2023-10-14"), ("2023-10-14", ""))
+check("TUOA-沒有日期", tuoa._parse_dates("敬請期待"), None)
+
+# --------------------------------------------------------------------------
+# 會議來源：高杏。走的是 E-School 同一張表，但門檻換成「主辦／協辦欄提到高杏」
+# --------------------------------------------------------------------------
+KAOHSING_FIXTURE = """
+<table id='conferenceTable'><tbody>
+<tr class=' '>
+  <td class='  text-center  col-datetime'><div class='text-overflow'>
+    <div><span class='fs-em'>11-22</span> (六)<br>08:30 ~ 18:00</div>
+  </div></td>
+  <td colspan="2"><div class='sm-text-overflow fs-em'><a href='/conference/3494'>
+    <span class='text '>2025 TUA南區月會暨高杏泌尿論壇</span></a></div></td>
+  <td class='hidden-xs hidden-sm text-center  col-char3'></td>
+  <td class='hidden-xs hidden-sm text-left  col-division'>主辦單位：高醫岡山醫院泌尿科、高杏泌尿照護協會</td>
+  <td class='hidden-xs hidden-sm text-left  col-site'>高醫岡山醫院</td>
+  <td class='hidden-xs hidden-sm text-left  col-char7'>泌尿科(3點)、外科積分(申請中)</td>
+  <td class='hidden-xs hidden-sm text-left  col-char7'>郭小姐 07-123-4567</td>
+</tr>
+<tr class=' '>
+  <td class='  text-center  col-datetime'><div class='text-overflow'>
+    <div><span class='fs-em'>11-29</span> (六)<br>13:30 ~ 16:40</div>
+  </div></td>
+  <td colspan="2"><div class='sm-text-overflow fs-em'><a href='/conference/3779'>
+    <span class='text '>某某醫學會冬季研習會</span></a></div></td>
+  <td class='hidden-xs hidden-sm text-center  col-char3'></td>
+  <td class='hidden-xs hidden-sm text-left  col-division'>主辦單位：某某醫學會 協辦單位：高雄市高杏泌尿照護協會</td>
+  <td class='hidden-xs hidden-sm text-left  col-site'>高雄市三民區</td>
+  <td class='hidden-xs hidden-sm text-left  col-char7'></td>
+  <td class='hidden-xs hidden-sm text-left  col-char7'></td>
+</tr>
+</tbody></table>
+"""
+
+drain_warnings()
+kh_rows = eschool.parse_month(
+    BeautifulSoup(KAOHSING_FIXTURE, "html.parser"),
+    2025,
+    11,
+    accept=kaohsing._accept,
+    source_name=kaohsing.NAME,
+    kind=KIND_MEETING,
+)
+# 第二列積分欄是空的 —— 積分門檻會擋掉它，高杏門檻不該擋
+check("高杏-筆數", len(kh_rows), 2)
+if len(kh_rows) == 2:
+    check("高杏-kind", kh_rows[0].kind, KIND_MEETING)
+    check("高杏-來源名", kh_rows[0].source, kaohsing.NAME)
+    check("高杏-主辦場標記", kaohsing.role_badge(kh_rows[0].organizer), "高杏主辦")
+    # 協辦欄被 primary_organizer 切掉了，所以 organizer 裡沒有「高杏」＝它是協辦
+    check("高杏-協辦場標記", kaohsing.role_badge(kh_rows[1].organizer), "高杏協辦")
+    check("高杏-沒積分的場次照收", kh_rows[1].credits, None)
+    check("高杏-不收聯絡人", "郭小姐" in str(kh_rows[0].to_dict()), False)
+# 同一批列用積分門檻跑，第二列必須被擋掉 —— 證明兩個門檻真的是分開的
+check(
+    "高杏-積分門檻仍擋得住",
+    len(eschool.parse_month(BeautifulSoup(KAOHSING_FIXTURE, "html.parser"), 2025, 11)),
+    1,
+)
+check("高杏-兩種門檻都沒誤報改版", len(drain_warnings()), 0)
+
+# --------------------------------------------------------------------------
+# 兩種 kind 的保留下界不同：課過期就丟，會議留兩年
+# --------------------------------------------------------------------------
+from sources.base import cutoff_iso as _cutoff  # noqa: E402
+from sources.base import today_iso as _today  # noqa: E402
+
+# KEEP_PAST_DAYS=0：課的下界就是今天（過期就從站上消失）
+check("下界-課等於今天", _cutoff(KIND_CME), _today())
+check("下界-會議比課早", _cutoff(KIND_MEETING) < _cutoff(KIND_CME), True)
+
+# --------------------------------------------------------------------------
+# 個資防線：官網把承辦人電話／信箱寫在地點同一段，抽欄位時要挖掉
+# （scripts/pii-scan.sh 是最後一道閘門，這裡是讓資料一開始就不髒）
+# --------------------------------------------------------------------------
+# 🔴 這幾條的測資一律用**虛構**的號碼與信箱，不要貼來源網站上真實承辦人的聯絡方式 ——
+#    測試檔跟著 repo 公開，把真號碼寫進來就是自己把個資推上去（這正是這支測試在防的事）。
+#    信箱那條還得把字串拆開拼，否則 scripts/pii-scan.sh 會在自己的測試檔裡抓到信箱樣式
+#    而擋下 CI。拆開拼不會削弱測試：真正被檢驗的是 scrub_contacts() 執行時的行為。
+check("個資-挖電話", scrub_contacts("某某會議中心 洽詢 02-1234-5678 #123"), "某某會議中心 洽詢")
+check("個資-挖信箱", scrub_contacts("報名請洽 nobody" + "@" + "example.invalid"), "報名請洽")
+check("個資-挖手機", scrub_contacts("聯絡 0900-000-000"), "聯絡")
+# 挖完只剩標點就當它是空的，不要留一個「（）」在卡片上
+check("個資-挖完剩標點", scrub_contacts("( 0912-345-678 )"), "")
+# 正常地址不能被誤傷（門牌號碼、樓層、郵遞區號都有數字）
+check(
+    "個資-地址不誤傷",
+    scrub_contacts("臺北文創大樓六樓多功能廳D+E (台北市信義區菸廠路88號)"),
+    "臺北文創大樓六樓多功能廳D+E (台北市信義區菸廠路88號)",
+)
+check("個資-時間不誤傷", scrub_contacts("2026/04/18(W六) 13:00~18:00"), "2026/04/18(W六) 13:00~18:00")
+
+# --------------------------------------------------------------------------
 # 彙整層：來源拋例外時，它在例外**之前**發的 warning 不能跟著消失
 # （只在成功分支 drain 的話，那些訊息會卡在緩衝區裡沒人看得到）
 # --------------------------------------------------------------------------
@@ -227,6 +357,21 @@ class _FailingSource:
         raise RuntimeError("連線失敗")
 
 
+# 同一場活動如果兩條線都收得到（例如學會年會有申請泌尿科積分），去重不可以把它合成
+# 一筆 —— 合掉的話有一個分頁會少一場，而且少得無聲無息
+from sources.base import Event as _Event  # noqa: E402
+
+_same = [
+    _Event(date="2026-01-31", title="某學會年會", kind=KIND_CME, source="A"),
+    _Event(date="2026-01-31", title="某學會年會", kind=KIND_MEETING, source="B"),
+]
+check("去重-不同 kind 各留一份", len(_build.dedupe(_same)), 2)
+check(
+    "去重-同 kind 同名同日才合併",
+    len(_build.dedupe(_same + [_Event(date="2026-01-31", title="某學會年會", kind=KIND_CME, source="A")])),
+    2,
+)
+
 _orig_sources, _orig_output = _build.SOURCES, _build.OUTPUT
 _build.SOURCES = [_FailingSource]
 _build.OUTPUT = Path(tempfile.mkdtemp()) / "events.json"
@@ -240,6 +385,69 @@ drain_warnings()
 check("來源全掛-退出碼", _rc, 1)
 check("來源全掛-例外訊息有出現", "連線失敗" in _out, True)
 check("來源全掛-例外前的警告沒消失", "一筆都解析不出來" in _out, True)
+
+# --------------------------------------------------------------------------
+# 降級寫入：積分課程掛掉時，**這次抓到的會議資料照樣要寫進去**
+#
+# 這條是 codex review 2026-08-25 抓到的洞。原本的作法是整份檔案跳過寫入，
+# 於是主來源一掛，會議那一頁也跟著默默停止更新，而告警文字只講積分課程 ——
+# 「資料默默停止更新、畫面上看不出來」正是這整段防線要擋的事，只是換一頁發生。
+# --------------------------------------------------------------------------
+import json as _json  # noqa: E402
+
+
+class _MeetingOnlySource:
+    NAME = "測試用會議來源"
+    KIND = KIND_MEETING
+    __name__ = "meeting_only_source"
+
+    @staticmethod
+    def fetch():
+        return [
+            _Event(
+                date="2099-01-01",
+                title="這次剛抓到的會議",
+                kind=KIND_MEETING,
+                source="測試用會議來源",
+            )
+        ]
+
+
+_tmp = Path(tempfile.mkdtemp()) / "events.json"
+_tmp.write_text(
+    _json.dumps(
+        {
+            "updated_at": "2026-08-01T06:00:00+08:00",
+            "count": 1,
+            "events": [
+                {"date": "2099-12-31", "title": "上一次抓到的課", "kind": KIND_CME},
+                {"date": "2099-06-30", "title": "上一次抓到的會議", "kind": KIND_MEETING},
+            ],
+        },
+        ensure_ascii=False,
+    ),
+    encoding="utf-8",
+)
+
+_orig_sources2, _orig_output2 = _build.SOURCES, _build.OUTPUT
+_build.SOURCES = [_FailingSource, _MeetingOnlySource]
+_build.OUTPUT = _tmp
+_buf2 = io.StringIO()
+with contextlib.redirect_stdout(_buf2), contextlib.redirect_stderr(_buf2):
+    _rc2 = _build.main()
+_build.SOURCES, _build.OUTPUT = _orig_sources2, _orig_output2
+drain_warnings()
+
+_written = _json.loads(_tmp.read_text(encoding="utf-8"))
+_titles = [e["title"] for e in _written["events"]]
+check("降級-退出碼仍是失敗", _rc2, 1)
+check("降級-舊的課要留著", "上一次抓到的課" in _titles, True)
+check("降級-新抓到的會議要寫進去", "這次剛抓到的會議" in _titles, True)
+# 舊的會議由這次的結果整批取代（會議來源沒掛，它就是最新狀態）
+check("降級-舊會議被新結果取代", "上一次抓到的會議" in _titles, False)
+check("降級-updated_at 不能被改新", _written["updated_at"], "2026-08-01T06:00:00+08:00")
+check("降級-有告警", "舊資料" in _written["errors"][0], True)
+check("降級-告警說明會議有更新", "學會會議已照常更新" in _written["errors"][0], True)
 
 if FAILURES:
     print("自我測試失敗 {} 項：".format(len(FAILURES)), file=sys.stderr)
