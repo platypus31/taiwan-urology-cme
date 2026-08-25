@@ -81,56 +81,24 @@ def _write(payload: dict) -> None:
     tmp.replace(OUTPUT)
 
 
-def _flag_stale(
-    errors: List[str], fresh_meetings: List[dict], per_source: Dict[str, dict]
-) -> bool:
-    """積分課程抓不到東西時的降級寫入：留住舊的課，但**這次抓到的會議照樣寫進去**。
-
-    🔴 不能整份檔案原封不動地跳過寫入（本函式原本的作法）。積分課程與學會會議是
-    兩條互相獨立的來源，主來源掛掉不代表 TEA／TUOA／高杏 也掛了 —— 那樣做會讓
-    會議那一頁跟著默默停止更新，而且告警文字只講積分課程，畫面上完全看不出來。
-    「資料默默停止更新、畫面上看不出來」正是這整段防線要擋的事，換一頁發生而已。
-
-    回傳有沒有成功寫出去（既有檔不存在或壞掉、或裡面連一筆舊的積分課程都沒有，
-    就沒有東西可以留，這次不寫檔）。
-    """
+def _previous() -> dict:
+    """上一次寫出去的 events.json。讀不到或壞掉就回空 dict。"""
     try:
         existing = json.loads(OUTPUT.read_text(encoding="utf-8"))
     except (OSError, ValueError):
-        return False
+        return {}
     if not isinstance(existing, dict) or not isinstance(existing.get("events"), list):
-        return False
+        return {}
+    return existing
 
-    old_cme = [
-        e
-        for e in existing["events"]
-        if isinstance(e, dict) and e.get("kind", KIND_CME) == KIND_CME
+
+def _kept_from_previous(previous: dict, kind: str) -> List[dict]:
+    """舊檔裡屬於某一種 kind 的活動。"""
+    return [
+        event
+        for event in previous.get("events", [])
+        if isinstance(event, dict) and event.get("kind", KIND_CME) == kind
     ]
-    if not old_cme:
-        return False
-
-    merged = sorted(
-        old_cme + list(fresh_meetings),
-        key=lambda e: (e.get("date", ""), e.get("title", "")),
-    )
-    stale_since = existing.get("updated_at", "未知時間")
-    notice = "本次更新沒有抓到任何積分課程，積分課程顯示的是 {} 的舊資料".format(stale_since)
-    if fresh_meetings:
-        notice += "（學會會議已照常更新）"
-
-    existing["events"] = merged
-    existing["count"] = len(merged)
-    existing["counts"] = {
-        KIND_CME: len(old_cme),
-        KIND_MEETING: len(merged) - len(old_cme),
-    }
-    # sources 換成這次的：某個來源這次抓到 0 筆就該顯示 0，不要沿用上一次的數字
-    existing["sources"] = per_source
-    # updated_at 刻意不動 —— 那個欄位的意思是「資料有多新」，而檔案裡最舊的那部分
-    # （積分課程）就是停在這個時間。把它改成現在只會讓過期資料看起來是剛更新的。
-    existing["errors"] = [notice] + list(errors)
-    _write(existing)
-    return True
 
 
 def main() -> int:
@@ -180,67 +148,95 @@ def main() -> int:
             print("[warn] {}".format(message), file=sys.stderr)
 
     events = dedupe(collected)
-    cme_events = [e for e in events if e.kind == KIND_CME]
-
-    payload = {
-        "updated_at": datetime.now(TAIPEI).isoformat(timespec="seconds"),
-        "count": len(events),
-        "counts": {
-            KIND_CME: len(cme_events),
-            KIND_MEETING: len(events) - len(cme_events),
-        },
-        "sources": per_source,
-        "errors": errors,
-        "events": [e.to_dict() for e in events],
+    fresh = {
+        kind: [e.to_dict() for e in events if e.kind == kind]
+        for kind in (KIND_CME, KIND_MEETING)
     }
 
     print(
         "合計 {} 筆（積分課程 {} ／學會會議 {}；去重前 {}），來源 {} 個，錯誤 {} 個".format(
             len(events),
-            len(cme_events),
-            len(events) - len(cme_events),
+            len(fresh[KIND_CME]),
+            len(fresh[KIND_MEETING]),
             len(collected),
             len(per_source),
             len(errors),
         )
     )
 
-    # 一筆都沒有就是失敗，不管來源有沒有丟錯誤。
+    # 「某一種 kind 這次抓到 0 筆」就是那條線失敗了，不管來源有沒有丟例外。
     #
     # 不能寫成「有 errors 且沒 events 才算失敗」：來源改版時很可能一個例外都沒有
     # （HTTP 200、HTML 解析成功、只是選擇器對不上），errors 是空的、events 也是空的，
     # 那種寫法會判定成功並用 0 筆覆蓋掉正常的舊資料 —— 正是最該防的失敗形態。
-    # 代價是「學會真的一場課都沒排」會被當成故障，但那在半年份的月會排程下不會發生，
-    # 而且就算發生，保留舊資料加一條告警也比把網站清空安全。
-    # dry-run 也要套同一套判斷，否則拿它當健康檢查會永遠得到成功碼。
+    # 代價是「學會真的一場都沒排」會被當成故障，但積分課程有半年份的月會排程、
+    # 會議留兩年份歷史，兩邊都不會真的歸零；就算發生，保留舊資料加一條告警
+    # 也比把網站清空安全。
     #
-    # 🔴 只看**積分課程**的筆數，不看總數。會議來源的筆數天生就少（一年一到兩場），
-    # 把它們算進來會讓這道防線變鬆：三個會議來源合計 5 筆就足以掩蓋
-    # 「主來源整個掛掉、積分課程 0 筆」這個最該被抓到的情況。
-    # 會議來源自己壞掉走的是另一條路 —— 每支解析器在「頁面拿得到卻解不出東西」時
-    # 會發 warning，那些 warning 會進 errors 顯示在站上。
-    exit_code = 1 if not cme_events else 0
+    # 🔴 **兩種 kind 各判各的，不看合計**（codex review 2026-08-25 第 2 輪抓到）。
+    # 看合計會讓兩邊互相掩護：會議來源合計 5 筆就足以蓋掉「主來源整個掛掉、
+    # 積分課程 0 筆」；反過來 31 筆課也會蓋掉「三個會議來源全滅」。
+    # 那正是這整段防線要擋的事 —— 資料默默清空，畫面上看不出來 —— 只是換一頁重演。
+    stale_kinds = [kind for kind in (KIND_CME, KIND_MEETING) if not fresh[kind]]
+    exit_code = 1 if stale_kinds else 0
 
+    # dry-run 也要套同一套判斷，否則拿它當健康檢查會永遠得到成功碼。
     if args.dry_run:
         return exit_code
 
-    # 全部來源都掛掉時保留既有 events.json 的**活動**—— 寧可資料舊，也不要把網站洗成 0 筆。
-    #
-    # 但錯誤訊息要換成這次的：否則「來源改版 → 解析出 0 筆 → 只發 warning」這種情況，
-    # 舊檔原封不動、網站看起來一切正常，警訊只留在 CI 的 stderr 裡沒人看
-    # （Codex review 2026-08-25 抓到的洞）。這正是這個站最該避免的失敗形態：
-    # 資料默默停止更新，而畫面上完全看不出來。
-    if exit_code == 1:
-        print("本次抓取沒有任何積分課程，保留既有的課並寫入這次的會議資料", file=sys.stderr)
-        fresh_meetings = [e.to_dict() for e in events if e.kind == KIND_MEETING]
-        if not _flag_stale(errors, fresh_meetings, per_source):
-            print("既有 {} 不存在或無法解析，這次不寫檔".format(OUTPUT), file=sys.stderr)
+    previous = _previous() if stale_kinds else {}
+    final: List[dict] = []
+    kept_counts: Dict[str, int] = {}
+    for kind in (KIND_CME, KIND_MEETING):
+        if kind not in stale_kinds:
+            final.extend(fresh[kind])
+            continue
+        # 這一種這次沒抓到 —— 沿用舊檔裡的，寧可資料舊也不要把那一頁洗成 0 筆。
+        # 另一種照樣用這次的新資料，兩條線互不牽連。
+        kept = _kept_from_previous(previous, kind)
+        kept_counts[kind] = len(kept)
+        final.extend(kept)
+
+    if not final:
+        print("這次與既有檔案都沒有任何活動，不寫檔（不要把網站洗成 0 筆）", file=sys.stderr)
         return exit_code
+
+    final.sort(key=lambda e: (e.get("date", ""), e.get("title", "")))
+    cme_count = len([e for e in final if e.get("kind", KIND_CME) == KIND_CME])
+
+    if stale_kinds:
+        labels = {KIND_CME: "積分課程", KIND_MEETING: "學會會議"}
+        stale_since = previous.get("updated_at", "未知時間")
+        for kind in stale_kinds:
+            if kept_counts.get(kind):
+                errors.insert(
+                    0,
+                    "本次沒有抓到任何{}，{}顯示的是 {} 的舊資料".format(
+                        labels[kind], labels[kind], stale_since
+                    ),
+                )
+            else:
+                errors.insert(0, "本次沒有抓到任何{}，而且沒有舊資料可以沿用".format(labels[kind]))
+            print("[stale] {}".format(errors[0]), file=sys.stderr)
+
+    # updated_at 的意思是「資料有多新」，所以只要有任何一種沿用了舊資料就不能往前推
+    # —— 推了只會讓過期資料看起來是剛更新的。哪一部分是舊的寫在 errors 裡。
+    now = datetime.now(TAIPEI).isoformat(timespec="seconds")
+    updated_at = previous.get("updated_at") or now if stale_kinds else now
+
+    payload = {
+        "updated_at": updated_at,
+        "count": len(final),
+        "counts": {KIND_CME: cme_count, KIND_MEETING: len(final) - cme_count},
+        # sources 一律換成這次的：某個來源這次抓到 0 筆就該顯示 0，不要沿用上一次的數字
+        "sources": per_source,
+        "errors": errors,
+        "events": final,
+    }
 
     _write(payload)
     print("已寫入 {}".format(OUTPUT))
     return exit_code
-
 
 if __name__ == "__main__":
     raise SystemExit(main())

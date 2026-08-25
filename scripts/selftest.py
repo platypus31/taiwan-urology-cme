@@ -387,67 +387,92 @@ check("來源全掛-例外訊息有出現", "連線失敗" in _out, True)
 check("來源全掛-例外前的警告沒消失", "一筆都解析不出來" in _out, True)
 
 # --------------------------------------------------------------------------
-# 降級寫入：積分課程掛掉時，**這次抓到的會議資料照樣要寫進去**
+# 降級寫入：兩種 kind 各判各的，一邊掛掉不能牽連另一邊
 #
-# 這條是 codex review 2026-08-25 抓到的洞。原本的作法是整份檔案跳過寫入，
-# 於是主來源一掛，會議那一頁也跟著默默停止更新，而告警文字只講積分課程 ——
-# 「資料默默停止更新、畫面上看不出來」正是這整段防線要擋的事，只是換一頁發生。
+# 這一整段是 codex review 2026-08-25 兩輪抓出來的。錯誤的作法有兩種，
+# 兩種的後果一模一樣 ——「那一頁被默默清空 / 默默停止更新，畫面上看不出來」，
+# 正是這個站最想避免的失敗形態，只是換一頁重演：
+#   ① 積分課程掛掉時整份檔案跳過寫入 → 會議那頁跟著停止更新（第 1 輪）
+#   ② 只用積分課程的筆數判成敗       → 會議三個來源全滅時仍判成功、把會議洗成 0 筆（第 2 輪）
 # --------------------------------------------------------------------------
 import json as _json  # noqa: E402
 
-
-class _MeetingOnlySource:
-    NAME = "測試用會議來源"
-    KIND = KIND_MEETING
-    __name__ = "meeting_only_source"
-
-    @staticmethod
-    def fetch():
-        return [
-            _Event(
-                date="2099-01-01",
-                title="這次剛抓到的會議",
-                kind=KIND_MEETING,
-                source="測試用會議來源",
-            )
-        ]
+_PREVIOUS_FILE = {
+    "updated_at": "2026-08-01T06:00:00+08:00",
+    "count": 2,
+    "events": [
+        {"date": "2099-12-31", "title": "上一次抓到的課", "kind": KIND_CME},
+        {"date": "2099-06-30", "title": "上一次抓到的會議", "kind": KIND_MEETING},
+    ],
+}
 
 
-_tmp = Path(tempfile.mkdtemp()) / "events.json"
-_tmp.write_text(
-    _json.dumps(
+def _fake_source(name, kind, events):
+    return type(
+        "FakeSource",
+        (),
         {
-            "updated_at": "2026-08-01T06:00:00+08:00",
-            "count": 1,
-            "events": [
-                {"date": "2099-12-31", "title": "上一次抓到的課", "kind": KIND_CME},
-                {"date": "2099-06-30", "title": "上一次抓到的會議", "kind": KIND_MEETING},
-            ],
+            "NAME": name,
+            "KIND": kind,
+            "__name__": name,
+            "fetch": staticmethod(lambda: list(events)),
         },
-        ensure_ascii=False,
-    ),
-    encoding="utf-8",
+    )
+
+
+def _run_build(sources):
+    """拿既有檔案跑一次 build.main()，回傳 (退出碼, 寫出去的內容)。"""
+    tmp = Path(tempfile.mkdtemp()) / "events.json"
+    tmp.write_text(_json.dumps(_PREVIOUS_FILE, ensure_ascii=False), encoding="utf-8")
+    orig_sources, orig_output = _build.SOURCES, _build.OUTPUT
+    _build.SOURCES, _build.OUTPUT = sources, tmp
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
+        rc = _build.main()
+    _build.SOURCES, _build.OUTPUT = orig_sources, orig_output
+    drain_warnings()
+    return rc, _json.loads(tmp.read_text(encoding="utf-8"))
+
+
+_NEW_MEETING = _Event(
+    date="2099-01-01", title="這次剛抓到的會議", kind=KIND_MEETING, source="會議來源"
 )
+_NEW_CME = _Event(date="2099-02-02", title="這次剛抓到的課", kind=KIND_CME, source="積分來源")
 
-_orig_sources2, _orig_output2 = _build.SOURCES, _build.OUTPUT
-_build.SOURCES = [_FailingSource, _MeetingOnlySource]
-_build.OUTPUT = _tmp
-_buf2 = io.StringIO()
-with contextlib.redirect_stdout(_buf2), contextlib.redirect_stderr(_buf2):
-    _rc2 = _build.main()
-_build.SOURCES, _build.OUTPUT = _orig_sources2, _orig_output2
-drain_warnings()
-
-_written = _json.loads(_tmp.read_text(encoding="utf-8"))
+# ① 積分課程掛掉、會議正常
+_rc2, _written = _run_build(
+    [_FailingSource, _fake_source("會議來源", KIND_MEETING, [_NEW_MEETING])]
+)
 _titles = [e["title"] for e in _written["events"]]
-check("降級-退出碼仍是失敗", _rc2, 1)
-check("降級-舊的課要留著", "上一次抓到的課" in _titles, True)
-check("降級-新抓到的會議要寫進去", "這次剛抓到的會議" in _titles, True)
-# 舊的會議由這次的結果整批取代（會議來源沒掛，它就是最新狀態）
-check("降級-舊會議被新結果取代", "上一次抓到的會議" in _titles, False)
-check("降級-updated_at 不能被改新", _written["updated_at"], "2026-08-01T06:00:00+08:00")
-check("降級-有告警", "舊資料" in _written["errors"][0], True)
-check("降級-告警說明會議有更新", "學會會議已照常更新" in _written["errors"][0], True)
+check("降級①-退出碼是失敗", _rc2, 1)
+check("降級①-舊的課要留著", "上一次抓到的課" in _titles, True)
+check("降級①-新抓到的會議要寫進去", "這次剛抓到的會議" in _titles, True)
+check("降級①-舊會議被新結果取代", "上一次抓到的會議" in _titles, False)
+check("降級①-updated_at 不能被改新", _written["updated_at"], _PREVIOUS_FILE["updated_at"])
+check("降級①-告警指名是積分課程", "沒有抓到任何積分課程" in _written["errors"][0], True)
+
+# ② 會議三個來源全滅、積分課程正常 —— 反過來也要有一樣的保護
+_rc3, _written3 = _run_build(
+    [_fake_source("積分來源", KIND_CME, [_NEW_CME]), _FailingSource]
+)
+_titles3 = [e["title"] for e in _written3["events"]]
+check("降級②-會議全滅也算失敗", _rc3, 1)
+check("降級②-舊的會議要留著", "上一次抓到的會議" in _titles3, True)
+check("降級②-新抓到的課要寫進去", "這次剛抓到的課" in _titles3, True)
+check("降級②-舊的課被新結果取代", "上一次抓到的課" in _titles3, False)
+check("降級②-告警指名是學會會議", "沒有抓到任何學會會議" in _written3["errors"][0], True)
+
+# ③ 兩邊都正常 = 完全不碰舊資料，退出碼 0
+_rc4, _written4 = _run_build(
+    [
+        _fake_source("積分來源", KIND_CME, [_NEW_CME]),
+        _fake_source("會議來源", KIND_MEETING, [_NEW_MEETING]),
+    ]
+)
+check("正常-退出碼 0", _rc4, 0)
+check("正常-筆數", _written4["count"], 2)
+check("正常-updated_at 有更新", _written4["updated_at"] != _PREVIOUS_FILE["updated_at"], True)
+check("正常-沒有降級告警", _written4["errors"], [])
 
 if FAILURES:
     print("自我測試失敗 {} 項：".format(len(FAILURES)), file=sys.stderr)
