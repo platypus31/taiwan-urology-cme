@@ -311,6 +311,48 @@ body {
 }
 .cal:hover { background: var(--accent); color: #fff; }
 
+/* ---------- 已結束的場次：整張卡片降對比 ----------
+   站主 2026-08-26：「已經過期的變成灰色，不然按全部看起來會有點混亂」。
+   時間選「全部」時未來與過去的場次交錯在同一份清單裡，光靠一顆「已結束」小標籤
+   要逐張讀才分得出來 —— 卡片層級的灰化能在滑動時一眼掃過去。
+
+   🔴 用降對比而不是 opacity：opacity 會把卡片連同底色一起沖淡，在手機戶外亮度下
+   文字會糊掉。這裡改成把**彩色元素轉灰階**（日期的藍、日曆按鈕的藍框），
+   文字則只降到仍過 WCAG AA 4.5:1 的灰（實測 4.7~5.4:1），手機上照樣讀得清楚。
+   🔴 日曆按鈕**不設 pointer-events: none**：過去的場次站主可能還要補進日曆當紀錄，
+   看起來淡但必須按得下去。 */
+/* 🔴 底色刻意比頁面底色（--bg #f6f7f9）**更深**而不是更淺：未結束的卡是白的、
+   浮在灰底頁面上，已結束的比頁面還深就會讀成「陷下去」。只把彩色轉灰、底色維持接近白
+   的版本實測過，滑動時分不出來（差異全在細節，要停下來逐張看才發現）。 */
+.event.is-past {
+  background: #edeff2;
+  border-color: #e0e4e9;
+}
+.event.is-past .date-badge { border-right-color: #d7dce2; }
+/* 日期數字原本是主色藍，是整張卡最搶眼的地方，轉灰的效果最直接 */
+.event.is-past .date-badge .md { color: #5f6b78; }
+/* 多日活動的結束日原本是橘色（--warn），一起收進灰階，否則整張灰卡上會留一點橘 */
+.event.is-past .date-badge .span,
+.event.is-past .date-badge .yr,
+.event.is-past .date-badge .dow { color: #616c78; }
+.event.is-past .event-title a,
+.event.is-past .event-title { color: #5c6773; }
+.event.is-past .event-meta { color: #626d79; }
+/* 標籤底色要跟著卡片一起壓深，否則原本的淺灰底會反過來比卡片亮、變成整張卡最跳的東西 */
+.event.is-past .tag,
+.event.is-past .tag.credit,
+.event.is-past .tag.pending,
+.event.is-past .tag.region,
+.event.is-past .tag.online,
+.event.is-past .tag.media,
+.event.is-past .tag.source { background: #e2e5ea; color: #58626d; font-weight: 400; }
+/* 「已結束」這一顆反而要留最深的對比：它是解釋整張卡為什麼灰掉的那句話 */
+.event.is-past .tag.past { background: #d5dae0; color: #454f5a; font-weight: 600; }
+.event.is-past .cal { color: #58626d; border-color: #c3cad2; }
+/* hover／focus 時回到可點擊的樣子，證明它沒有被停用 */
+.event.is-past .cal:hover { background: #58626d; border-color: #58626d; color: #fff; }
+.event.is-past .event-title a:hover { color: var(--accent); }
+
 .empty { text-align: center; color: var(--muted); padding: 40px 16px; line-height: 1.7; }
 /* 空清單裡的行動按鈕。手機版的篩選器是收合的，所以「切到已結束」不能只用文字指路 */
 .empty-action {

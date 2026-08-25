@@ -380,6 +380,10 @@
       var parts = e.date.split("-");
       var dow = DOW[new Date(e.date + "T00:00:00").getDay()];
       var soon = e.date >= today && e.date <= soonLimit ? " soon" : "";
+      /* 過期判定只算這一次，下面的「已結束」標籤與整張卡的灰化共用同一個值。
+         算兩次的話兩套判準遲早會漂掉（標籤說已結束、卡片卻還是亮的）。
+         比的是 lastDay（結束日）不是 date（開始日）—— 8/22→8/23 的年會在 8/22 當天還沒結束。 */
+      var isPast = lastDay(e) < today;
       var span = e.end_date
         ? '<div class="span">→ ' + escapeHTML(e.end_date.slice(5).replace("-", "/")) + "</div>"
         : "";
@@ -392,7 +396,7 @@
       var tags = [];
       // 已結束的場次只會出現在「學會會議」分頁（積分課程過期就從資料裡消失了）。
       // 標出來是必要的：這一頁刻意留著歷史場次，不標的話跟即將舉行的混在一起會誤導。
-      if (lastDay(e) < today) tags.push('<span class="tag past">已結束</span>');
+      if (isPast) tags.push('<span class="tag past">已結束</span>');
       if (e.credits != null) tags.push('<span class="tag credit">' + e.credits + " 點</span>");
       else if (e.credits_pending) tags.push('<span class="tag pending">積分申請中</span>');
       // 「積分未標示」只對積分課程有意義。學會會議的來源根本不公告點數，
@@ -423,7 +427,7 @@
         : escapeHTML(e.title);
 
       return (
-        '<article class="event">' +
+        '<article class="event' + (isPast ? " is-past" : "") + '">' +
           '<div class="date-badge' + soon + '">' +
             '<div class="md">' + parts[1] + "/" + parts[2] + "</div>" +
             '<div class="dow">週' + dow + "</div>" +
