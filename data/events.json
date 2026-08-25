@@ -1,11 +1,334 @@
 {
- "updated_at": "2026-08-25T19:41:46+08:00",
- "count": 31,
+ "updated_at": "2026-08-25T21:34:23+08:00",
+ "count": 46,
+ "counts": {
+  "cme": 31,
+  "meeting": 15
+ },
  "sources": {
-  "台灣泌尿科醫學會": 31
+  "台灣泌尿科醫學會": {
+   "kind": "cme",
+   "count": 31
+  },
+  "台灣泌尿內視鏡醫學會": {
+   "kind": "meeting",
+   "count": 9
+  },
+  "台灣泌尿腫瘤醫學會": {
+   "kind": "meeting",
+   "count": 3
+  },
+  "高雄市高杏泌尿照護協會": {
+   "kind": "meeting",
+   "count": 3
+  }
  },
  "errors": [],
  "events": [
+  {
+   "date": "2024-12-21",
+   "title": "台灣泌尿內視鏡醫學會學術研討會",
+   "end_date": "",
+   "time": "",
+   "organizer": "台灣泌尿內視鏡醫學會",
+   "location": "台北JR東日本大飯店2F牡丹廳",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "北部",
+   "kind": "meeting",
+   "source": "台灣泌尿內視鏡醫學會",
+   "url": "https://www.tea2024.org.tw/news/20241221.html",
+   "categories": [
+    "結石與內視鏡"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2025-02-22",
+   "title": "台灣泌尿腫瘤醫學會年會暨學術演講及2nd PCUC",
+   "end_date": "2025-02-23",
+   "time": "",
+   "organizer": "台灣泌尿腫瘤醫學會",
+   "location": "高雄日航酒店3F宴會廳(高雄市前鎮區林森四路268號3F)",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "南部",
+   "kind": "meeting",
+   "source": "台灣泌尿腫瘤醫學會",
+   "url": "https://tuoa.org.tw/info_detail.php?p=17",
+   "categories": [
+    "泌尿腫瘤"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2025-03-08",
+   "title": "台灣泌尿內視鏡醫學會研討會",
+   "end_date": "",
+   "time": "13:30~18:00",
+   "organizer": "台灣泌尿內視鏡醫學會",
+   "location": "台中林酒店 7F 上海廳",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "中部",
+   "kind": "meeting",
+   "source": "台灣泌尿內視鏡醫學會",
+   "url": "https://www.tea2024.org.tw/news/20250308.html",
+   "categories": [
+    "結石與內視鏡"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2025-07-12",
+   "title": "2025年 台灣泌尿內視鏡醫學會年會",
+   "end_date": "2025-07-13",
+   "time": "13:50~17:50",
+   "organizer": "台灣泌尿內視鏡醫學會",
+   "location": "嘉義長榮文苑 (二樓 A廳)",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "南部",
+   "kind": "meeting",
+   "source": "台灣泌尿內視鏡醫學會",
+   "url": "https://www.tea2024.org.tw/news/20250712.html",
+   "categories": [
+    "結石與內視鏡"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2025-09-06",
+   "title": "2025年健康台灣 Health Taiw",
+   "end_date": "",
+   "time": "",
+   "organizer": "台灣泌尿內視鏡醫學會",
+   "location": "",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "meeting",
+   "source": "台灣泌尿內視鏡醫學會",
+   "url": "https://www.tea2024.org.tw/news/20250906.html",
+   "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2025-09-20",
+   "title": "台灣泌尿內視鏡暨尿路結石委員會秋季研討會",
+   "end_date": "",
+   "time": "12:50~17:00",
+   "organizer": "台灣泌尿內視鏡醫學會、尿路結石委員會",
+   "location": "台北六福萬怡酒店 7F 風光廳",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "北部",
+   "kind": "meeting",
+   "source": "台灣泌尿內視鏡醫學會",
+   "url": "https://www.tea2024.org.tw/news/20250920.html",
+   "categories": [
+    "結石與內視鏡"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2025-11-22",
+   "title": "2025 TUA南區月會暨高杏泌尿論壇",
+   "end_date": "",
+   "time": "08:30 ~ 18:00",
+   "organizer": "高雄醫學大學附設高醫岡山醫院泌尿科、奇美醫院泌尿科、高杏泌尿照護協會",
+   "location": "高雄醫學大學附設高醫岡山醫院",
+   "credits": 3.0,
+   "credits_raw": "泌尿科(3點)、外科積分(申請中)",
+   "credits_pending": false,
+   "region": "南部",
+   "kind": "meeting",
+   "source": "高雄市高杏泌尿照護協會",
+   "url": "https://eschool.tua.org.tw/conference/3494",
+   "categories": [],
+   "online": false,
+   "badges": [
+    "高杏主辦"
+   ]
+  },
+  {
+   "date": "2025-12-13",
+   "title": "台灣泌尿內視鏡醫學會暨進階達文西腹腔鏡手術討論會",
+   "end_date": "",
+   "time": "08:50~18:30",
+   "organizer": "台灣泌尿內視鏡醫學會",
+   "location": "高雄漢來大飯店 會展廳",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "南部",
+   "kind": "meeting",
+   "source": "台灣泌尿內視鏡醫學會",
+   "url": "https://www.tea2024.org.tw/news/20251213.html",
+   "categories": [
+    "結石與內視鏡",
+    "機器手臂與微創"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2025-12-20",
+   "title": "114年疝氣醫學會冬季研習會aiwan Hernia Society Summer Workshop",
+   "end_date": "",
+   "time": "13:30 ~ 16:40",
+   "organizer": "台灣疝氣醫學會、高雄醫學大學附設中和紀念醫院泌尿外科",
+   "location": "高雄醫學大學附設中和紀念醫院 第三講堂(80756高雄市三民區自由一路100號)",
+   "credits": 1.5,
+   "credits_raw": "泌尿科(1.5點)",
+   "credits_pending": false,
+   "region": "南部",
+   "kind": "meeting",
+   "source": "高雄市高杏泌尿照護協會",
+   "url": "https://eschool.tua.org.tw/conference/3779",
+   "categories": [
+    "教育訓練與研究"
+   ],
+   "online": false,
+   "badges": [
+    "高杏協辦"
+   ]
+  },
+  {
+   "date": "2026-01-31",
+   "title": "台灣泌尿腫瘤醫學會年會暨3rd PCUC",
+   "end_date": "2026-02-01",
+   "time": "",
+   "organizer": "台灣泌尿腫瘤醫學會",
+   "location": "臺北文創大樓六樓多功能廳D+E",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "北部",
+   "kind": "meeting",
+   "source": "台灣泌尿腫瘤醫學會",
+   "url": "https://tuoa.org.tw/info_detail.php?p=18",
+   "categories": [
+    "泌尿腫瘤"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-04-18",
+   "title": "台灣泌尿內視鏡醫學會",
+   "end_date": "",
+   "time": "13:00~18:00",
+   "organizer": "台灣泌尿內視鏡醫學會",
+   "location": "長庚國際會議中心2樓 討論室A、D",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "meeting",
+   "source": "台灣泌尿內視鏡醫學會",
+   "url": "https://www.tea2024.org.tw/news/20260418.html",
+   "categories": [
+    "結石與內視鏡"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-06-06",
+   "title": "TAASM 115年度第十二屆第1次會員大會暨第57次學術演講會",
+   "end_date": "2026-06-07",
+   "time": "09:00 ~ 17:20",
+   "organizer": "台灣男性學暨性醫學醫學會、高雄大學附設中和紀念醫院",
+   "location": "高雄醫學大學附設醫院啟川大樓六樓(高雄市三民區自由一路100號)",
+   "credits": 5.0,
+   "credits_raw": "泌尿科(5點)",
+   "credits_pending": false,
+   "region": "南部",
+   "kind": "meeting",
+   "source": "高雄市高杏泌尿照護協會",
+   "url": "https://eschool.tua.org.tw/conference/3998",
+   "categories": [
+    "男性學與性功能"
+   ],
+   "online": false,
+   "badges": [
+    "有錄影",
+    "高杏協辦"
+   ]
+  },
+  {
+   "date": "2026-06-27",
+   "title": "台灣泌尿內視鏡醫學會年會",
+   "end_date": "",
+   "time": "",
+   "organizer": "台灣泌尿內視鏡醫學會",
+   "location": "",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "meeting",
+   "source": "台灣泌尿內視鏡醫學會",
+   "url": "https://www.tea2024.org.tw/news/20260627.jpg",
+   "categories": [
+    "結石與內視鏡"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-07-25",
+   "title": "泌尿腫瘤夏季研討會",
+   "end_date": "2026-07-26",
+   "time": "",
+   "organizer": "台灣泌尿內視鏡醫學會",
+   "location": "",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "meeting",
+   "source": "台灣泌尿內視鏡醫學會",
+   "url": "https://www.tea2024.org.tw/news/0725-26.pdf",
+   "categories": [
+    "泌尿腫瘤"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-08-01",
+   "title": "台灣泌尿腫瘤醫學會半年會暨學術研討會",
+   "end_date": "",
+   "time": "",
+   "organizer": "台灣泌尿腫瘤醫學會",
+   "location": "長庚國際會議中心3F國際會議廳 (桃園市龜山區復興街7號3樓)",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "北部",
+   "kind": "meeting",
+   "source": "台灣泌尿腫瘤醫學會",
+   "url": "https://tuoa.org.tw/info_detail.php?p=14",
+   "categories": [
+    "泌尿腫瘤"
+   ],
+   "online": false,
+   "badges": []
+  },
   {
    "date": "2026-08-29",
    "title": "The Art of Accuracy: Mastering Confined Spaces in Modern Surgery",
@@ -17,6 +340,7 @@
    "credits_raw": "泌尿科(3點)",
    "credits_pending": false,
    "region": "北部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4022",
    "categories": [],
@@ -34,6 +358,7 @@
    "credits_raw": "泌尿科(0.5點)",
    "credits_pending": false,
    "region": "東部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4042",
    "categories": [],
@@ -51,6 +376,7 @@
    "credits_raw": "泌尿科(2點)",
    "credits_pending": false,
    "region": "北部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4016",
    "categories": [],
@@ -68,6 +394,7 @@
    "credits_raw": "泌尿科(1.5點)",
    "credits_pending": false,
    "region": "北部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4040",
    "categories": [],
@@ -85,6 +412,7 @@
    "credits_raw": "泌尿科(3點)",
    "credits_pending": false,
    "region": "南部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4036",
    "categories": [
@@ -104,6 +432,7 @@
    "credits_raw": "泌尿科(1點)、外科積分(1點)",
    "credits_pending": false,
    "region": "北部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3839",
    "categories": [],
@@ -121,6 +450,7 @@
    "credits_raw": "泌尿科(2點)、外科積分(2點)",
    "credits_pending": false,
    "region": "南部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3842",
    "categories": [
@@ -140,6 +470,7 @@
    "credits_raw": "泌尿科(1.5點)",
    "credits_pending": false,
    "region": "南部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4043",
    "categories": [
@@ -159,6 +490,7 @@
    "credits_raw": "泌尿科(0.5點)",
    "credits_pending": false,
    "region": "南部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4044",
    "categories": [
@@ -178,6 +510,7 @@
    "credits_raw": "泌尿科(2點)、外科積分(申請中)",
    "credits_pending": false,
    "region": "中部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3841",
    "categories": [],
@@ -195,6 +528,7 @@
    "credits_raw": "泌尿科(1點)、外科積分(申請中)",
    "credits_pending": false,
    "region": "東部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4046",
    "categories": [],
@@ -212,6 +546,7 @@
    "credits_raw": "泌尿科(0.5點)",
    "credits_pending": false,
    "region": "線上",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4045",
    "categories": [
@@ -231,6 +566,7 @@
    "credits_raw": "泌尿科(2.5點)",
    "credits_pending": false,
    "region": "北部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4038",
    "categories": [],
@@ -248,6 +584,7 @@
    "credits_raw": "泌尿科(0.5點)",
    "credits_pending": false,
    "region": "線上",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4048",
    "categories": [
@@ -267,6 +604,7 @@
    "credits_raw": "泌尿科(0.5點)",
    "credits_pending": false,
    "region": "南部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4047",
    "categories": [],
@@ -284,6 +622,7 @@
    "credits_raw": "泌尿科(1點)、外科積分(申請中)",
    "credits_pending": false,
    "region": "南部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3840",
    "categories": [],
@@ -301,6 +640,7 @@
    "credits_raw": "泌尿科(0.5點)",
    "credits_pending": false,
    "region": "北部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4050",
    "categories": [
@@ -320,6 +660,7 @@
    "credits_raw": "泌尿科(2點)",
    "credits_pending": false,
    "region": "南部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4049",
    "categories": [
@@ -339,6 +680,7 @@
    "credits_raw": "泌尿科(3.5點)",
    "credits_pending": false,
    "region": "中部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4039",
    "categories": [
@@ -358,6 +700,7 @@
    "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
    "credits_pending": true,
    "region": "其他",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3843",
    "categories": [],
@@ -375,6 +718,7 @@
    "credits_raw": "泌尿科(6點)",
    "credits_pending": false,
    "region": "北部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4051",
    "categories": [
@@ -394,6 +738,7 @@
    "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
    "credits_pending": true,
    "region": "其他",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3844",
    "categories": [],
@@ -411,6 +756,7 @@
    "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
    "credits_pending": true,
    "region": "其他",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3847",
    "categories": [],
@@ -428,6 +774,7 @@
    "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
    "credits_pending": true,
    "region": "北部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3845",
    "categories": [],
@@ -445,6 +792,7 @@
    "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
    "credits_pending": true,
    "region": "南部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3846",
    "categories": [],
@@ -462,6 +810,7 @@
    "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
    "credits_pending": true,
    "region": "其他",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3851",
    "categories": [],
@@ -479,6 +828,7 @@
    "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
    "credits_pending": true,
    "region": "北部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3852",
    "categories": [],
@@ -496,6 +846,7 @@
    "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
    "credits_pending": true,
    "region": "其他",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3848",
    "categories": [],
@@ -513,6 +864,7 @@
    "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
    "credits_pending": true,
    "region": "中部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3850",
    "categories": [],
@@ -530,6 +882,7 @@
    "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
    "credits_pending": true,
    "region": "南部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3853",
    "categories": [],
@@ -547,6 +900,7 @@
    "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
    "credits_pending": true,
    "region": "北部",
+   "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3849",
    "categories": [],
