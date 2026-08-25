@@ -274,7 +274,14 @@
       if (ea !== eb) return ea ? 1 : -1;
       // 已結束那一段要排在所有排序模式**之前**處理：放在 credit-desc 分支後面的話，
       // 選「積分高→低」時已結束的會改以積分排序，跟上面註解承諾的順序對不起來。
-      if (ea) return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
+      //
+      // 這裡比的是 lastDay（結束日）不是 date（開始日）—— 「最近剛結束」講的就是結束日。
+      // 用開始日排的話，一場 8/14-8/17 的年會會被排在 8/16 那場單日活動前面，
+      // 但它其實比較晚結束。會議這一頁的多日活動不是特例，年會全都是多日的。
+      if (ea) {
+        var la = lastDay(a), lb = lastDay(b);
+        return la < lb ? 1 : la > lb ? -1 : 0;
+      }
       if (state.sort === "credit-desc") {
         var ca = a.credits == null ? -1 : a.credits;
         var cb = b.credits == null ? -1 : b.credits;
