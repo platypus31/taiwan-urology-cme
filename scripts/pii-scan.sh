@@ -40,7 +40,10 @@ fi
 
 # 白名單：專案自己的匿名署名信箱，不是個資。
 # 用「命中行是否只含白名單值」來判，不是整檔排除。
-ALLOW='platypusbot@users\.noreply\.github\.com|41898282\+github-actions\[bot\]@users\.noreply\.github\.com'
+# `noreply@anthropic.com` 是 commit 訊息 Co-Authored-By 那行的固定值，
+# 跟 github-actions[bot] 同性質 —— 是廠商的公用 noreply 位址，不指向任何人。
+# 不加的話 --all 掃歷史會被自己的 commit 訊息卡住（復健科站 2026-08-26 修法回饋）。
+ALLOW='platypusbot@users\.noreply\.github\.com|41898282\+github-actions\[bot\]@users\.noreply\.github\.com|noreply@anthropic\.com'
 
 # 這支腳本自己的規則宣告行一定會匹配到自己的樣式（例如 token 前綴那行）。
 # 只濾掉「內容就是那幾行宣告」的命中，不是整檔排除 ——
@@ -85,7 +88,10 @@ if [ -f data/events.json ]; then
   # 上面那條紅字說「掃描規則本身不能是外洩管道」，寫真號碼進註解就是同一個錯）：
   #   區碼-連續八碼#分機 ／ 區碼-三碼-四碼 空格#分機 ／ 區碼 空格 三碼 空格 四碼
   # （只寫「區碼-連續數字」會漏掉中間有分隔的那兩種，等於閘門形同虛設）
-  phones=$(grep -nE '0[0-9]{1,2}[- ][0-9]{3,4}[- ]?[0-9]{3,4}' data/events.json 2>/dev/null || true)
+  # 🔴 手機要**另外寫一條**，市話那條吃不到它：`0[0-9]{1,2}` 貪婪吃掉前三碼後
+  # 要求下一個字元是分隔符，但手機的第四碼還是數字 —— 09XX-XXX-XXX 這個
+  # 最常見格式市話規則完全掃不到（復健科站 2026-08-26 修法回饋，同源同修）。
+  phones=$(grep -nE '0[0-9]{1,2}[- ][0-9]{3,4}[- ]?[0-9]{3,4}|09[0-9]{2}[- ]?[0-9]{3}[- ]?[0-9]{3}' data/events.json 2>/dev/null || true)
   if [ -n "$phones" ]; then
     echo "$phones"
     echo "🛑 events.json 出現電話號碼，請檢查解析規則是否誤收聯絡人欄"
