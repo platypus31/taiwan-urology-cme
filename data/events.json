@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-08-26T07:05:40+08:00",
- "count": 62,
+ "updated_at": "2026-08-27T10:23:14+08:00",
+ "count": 65,
  "counts": {
-  "cme": 31,
+  "cme": 34,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 31
+   "count": 34
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -137,13 +137,13 @@
    "date": "2025-07-12",
    "title": "2025年 台灣泌尿內視鏡醫學會年會",
    "end_date": "2025-07-13",
-   "time": "13:50~17:50",
+   "time": "",
    "organizer": "台灣泌尿內視鏡醫學會",
-   "location": "嘉義長榮文苑 (二樓 A廳)",
+   "location": "",
    "credits": null,
    "credits_raw": "",
    "credits_pending": false,
-   "region": "南部",
+   "region": "其他",
    "kind": "meeting",
    "source": "台灣泌尿內視鏡醫學會",
    "url": "https://www.tea2024.org.tw/news/20250712.html",
@@ -764,6 +764,24 @@
    "badges": []
   },
   {
+   "date": "2026-09-13",
+   "title": "2026台南家庭醫學週末研討會",
+   "end_date": "",
+   "time": "09:20 ~ 12:20",
+   "organizer": "台灣家庭醫學醫學會",
+   "location": "禧榕軒大飯店 2F宴會A廳",
+   "credits": 0.5,
+   "credits_raw": "泌尿科(0.5點)",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4052",
+   "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
    "date": "2026-09-17",
    "title": "TUA泌尿科東區雙月會",
    "end_date": "",
@@ -876,6 +894,24 @@
    "badges": []
   },
   {
+   "date": "2026-10-03",
+   "title": "2026長庚醫學週",
+   "end_date": "",
+   "time": "09:00 ~ 17:00",
+   "organizer": "林口長庚紀念醫院",
+   "location": "桃園長庚轉運站長庚國際會議中心",
+   "credits": 0.5,
+   "credits_raw": "泌尿科(0.5點)",
+   "credits_pending": false,
+   "region": "北部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4053",
+   "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
    "date": "2026-10-04",
    "title": "台灣生育力保存學會2026年會暨學術研討會",
    "end_date": "",
@@ -977,7 +1013,7 @@
    "organizer": "臺中榮民總醫院達文西手術中心",
    "location": "臺中榮民總醫院研究大樓 1 樓第二會議室",
    "credits": 3.5,
-   "credits_raw": "泌尿科(3.5點)",
+   "credits_raw": "泌尿科(3.5點)、外科積分(申請中)",
    "credits_pending": false,
    "region": "中部",
    "kind": "cme",
@@ -1009,7 +1045,7 @@
   },
   {
    "date": "2026-10-17",
-   "title": "台灣尿失禁防治協會115年度會員大會暨學術研討會",
+   "title": "台灣尿失禁防治協會115年度會員大會暨學術研討會暨TUA北區月會",
    "end_date": "2026-10-18",
    "time": "08:00 ~ 17:00",
    "organizer": "台灣尿失禁防治協會、馬偕醫院泌尿部",
@@ -1023,6 +1059,27 @@
    "url": "https://eschool.tua.org.tw/conference/4051",
    "categories": [
     "排尿功能與婦女泌尿"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-10-19",
+   "title": "達文西機械手臂輔助手術大體實作培訓課程",
+   "end_date": "2026-10-24",
+   "time": "17:00 ~ 21:00",
+   "organizer": "臺中榮民總醫院達文西手術中心",
+   "location": "臺中榮總教學大樓4樓外科微創手術訓練中心",
+   "credits": null,
+   "credits_raw": "泌尿科(申請中)",
+   "credits_pending": true,
+   "region": "中部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4054",
+   "categories": [
+    "機器手臂與微創",
+    "教育訓練與研究"
    ],
    "online": false,
    "badges": []
