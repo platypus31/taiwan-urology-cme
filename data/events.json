@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-08-29T11:26:01+08:00",
- "count": 65,
+ "updated_at": "2026-08-30T07:41:49+08:00",
+ "count": 64,
  "counts": {
-  "cme": 34,
+  "cme": 33,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 34
+   "count": 33
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -571,24 +571,6 @@
    "kind": "meeting",
    "source": "台灣泌尿科醫學會 理監事會議",
    "url": "https://www.tua.org.tw/tua/tw/latest-news/announcement/2599-2026-calendar",
-   "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-08-29",
-   "title": "The Art of Accuracy: Mastering Confined Spaces in Modern Surgery",
-   "end_date": "",
-   "time": "09:30 ~ 16:20",
-   "organizer": "新光醫院",
-   "location": "新光吳火獅紀念醫院友誼大樓2樓 主會議室",
-   "credits": 3.0,
-   "credits_raw": "泌尿科(3點)",
-   "credits_pending": false,
-   "region": "北部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4022",
    "categories": [],
    "online": false,
    "badges": []
