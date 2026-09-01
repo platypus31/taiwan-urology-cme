@@ -1,13 +1,13 @@
 {
- "updated_at": "2026-08-25T22:03:54+08:00",
+ "updated_at": "2026-09-02T07:41:43+08:00",
  "errors": [],
  "guidelines": [
   {
    "key": "tua",
    "label": "TUA guideline",
    "full_name": "台灣泌尿科醫學會 治療指引",
-   "url": "https://www.tua.org.tw/tua/tw/latest-news/announcement/2198-tua-guideline-2024",
-   "version": "2024",
+   "url": "https://www.tua.org.tw/tua/tw/latest-news/announcement/2762-tua-guideline-2026",
+   "version": "2026",
    "resolved": true,
    "note": ""
   },
