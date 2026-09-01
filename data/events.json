@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-09-01T08:53:43+08:00",
- "count": 63,
+ "updated_at": "2026-09-02T07:40:05+08:00",
+ "count": 62,
  "counts": {
-  "cme": 32,
+  "cme": 31,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 32
+   "count": 31
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -986,24 +986,6 @@
    "categories": [
     "機器手臂與微創"
    ],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-10-17",
-   "title": "TUA 10月北區月會",
-   "end_date": "",
-   "time": "13:00 ~ 17:00",
-   "organizer": "馬偕醫院、TUA",
-   "location": "地點待公布",
-   "credits": null,
-   "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
-   "credits_pending": true,
-   "region": "其他",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/3843",
-   "categories": [],
    "online": false,
    "badges": []
   },
