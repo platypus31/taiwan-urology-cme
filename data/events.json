@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-09-02T07:40:05+08:00",
+ "updated_at": "2026-09-03T07:41:29+08:00",
  "count": 62,
  "counts": {
   "cme": 31,
@@ -717,7 +717,7 @@
    "organizer": "中山附設醫院、TUA",
    "location": "中山醫學大學正心樓三樓會議室 (台中市南區建國北路一段 110 號)",
    "credits": 2.0,
-   "credits_raw": "泌尿科(2點)、外科積分(申請中)",
+   "credits_raw": "泌尿科(2點)、外科積分(2點)",
    "credits_pending": false,
    "region": "中部",
    "kind": "cme",
@@ -847,7 +847,7 @@
    "organizer": "成大醫院、TUA",
    "location": "成功大學醫學院第一講堂",
    "credits": 1.0,
-   "credits_raw": "泌尿科(1點)、外科積分(申請中)",
+   "credits_raw": "泌尿科(1點)、外科積分(1點)",
    "credits_pending": false,
    "region": "南部",
    "kind": "cme",
