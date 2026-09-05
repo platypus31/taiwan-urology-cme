@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-09-05T07:32:45+08:00",
- "count": 62,
+ "updated_at": "2026-09-06T07:27:33+08:00",
+ "count": 56,
  "counts": {
-  "cme": 31,
+  "cme": 25,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 31
+   "count": 25
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -572,120 +572,6 @@
    "source": "台灣泌尿科醫學會 理監事會議",
    "url": "https://www.tua.org.tw/tua/tw/latest-news/announcement/2599-2026-calendar",
    "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-09-05",
-   "title": "2026 ONCommit",
-   "end_date": "",
-   "time": "14:00 ~ 18:25",
-   "organizer": "AZ",
-   "location": "臺北萬豪酒店",
-   "credits": 2.0,
-   "credits_raw": "泌尿科(2點)",
-   "credits_pending": false,
-   "region": "北部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4016",
-   "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-09-05",
-   "title": "2026亞東醫院泌尿科學術研討會",
-   "end_date": "",
-   "time": "14:30 ~ 17:30",
-   "organizer": "亞東醫院泌尿科",
-   "location": "亞東醫院南棟 10 樓第二會議室",
-   "credits": 1.5,
-   "credits_raw": "泌尿科(1.5點)",
-   "credits_pending": false,
-   "region": "北部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4040",
-   "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-09-05",
-   "title": "TASSM and SDACT Joint Symposium Core Curriculum in Andrology & Obesity, Metabolic Dysfunction and Sexual Health 男性學核心課程&肥胖、代謝失衡與性健康",
-   "end_date": "",
-   "time": "08:30 ~ 17:00",
-   "organizer": "台灣男性學暨性醫學醫學會、台灣性功能障礙諮詢暨訓練委員會、成大醫院泌尿部",
-   "location": "大臺南會展中心三樓大員 A 會議室 (台南市歸仁區歸仁十二路 3 號 台南高鐵站旁)",
-   "credits": 3.0,
-   "credits_raw": "泌尿科(3點)",
-   "credits_pending": false,
-   "region": "南部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4036",
-   "categories": [
-    "男性學與性功能"
-   ],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-09-05",
-   "title": "TUA 9月北區月會",
-   "end_date": "",
-   "time": "13:20 ~ 15:30",
-   "organizer": "萬芳醫院、TUA",
-   "location": "臺北市立萬芳醫院 五樓 500 會議室(臺北市文山區興隆路三段 111 號 5 樓)",
-   "credits": 1.0,
-   "credits_raw": "泌尿科(1點)、外科積分(1點)",
-   "credits_pending": false,
-   "region": "北部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/3839",
-   "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-09-05",
-   "title": "TUA 9月雲嘉區季會",
-   "end_date": "",
-   "time": "13:30 ~ 17:00",
-   "organizer": "台灣泌尿科醫學會、台灣泌尿內視鏡醫學會、嘉義長庚醫院泌尿外科",
-   "location": "新悅花園酒店一樓宴會廳",
-   "credits": 2.0,
-   "credits_raw": "泌尿科(2點)、外科積分(2點)",
-   "credits_pending": false,
-   "region": "南部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/3842",
-   "categories": [
-    "結石與內視鏡"
-   ],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-09-05",
-   "title": "【性健康友善計畫】南區研討會",
-   "end_date": "",
-   "time": "09:00 ~ 12:00",
-   "organizer": "社團法人台灣感染症醫學會、台灣泌尿科醫學會",
-   "location": "高雄萬豪酒店10樓皇喜會議室D (高雄市鼓山區龍德新路222號)",
-   "credits": 1.5,
-   "credits_raw": "泌尿科(1.5點)",
-   "credits_pending": false,
-   "region": "南部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4043",
-   "categories": [
-    "感染與性傳染病"
-   ],
    "online": false,
    "badges": []
   },
