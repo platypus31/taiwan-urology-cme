@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-09-09T07:45:47+08:00",
- "count": 56,
+ "updated_at": "2026-09-10T07:39:20+08:00",
+ "count": 55,
  "counts": {
-  "cme": 25,
+  "cme": 24,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 25
+   "count": 24
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -573,26 +573,6 @@
    "url": "https://www.tua.org.tw/tua/tw/latest-news/announcement/2599-2026-calendar",
    "categories": [],
    "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-09-09",
-   "title": "實體+【🎬線上】The Evolving Role of 5-ARIs in BPH : From Medical Therapy to Surgical Care",
-   "end_date": "",
-   "time": "19:00 ~ 20:00",
-   "organizer": "裕利",
-   "location": "高雄萬豪酒店",
-   "credits": 0.5,
-   "credits_raw": "泌尿科(0.5點)",
-   "credits_pending": false,
-   "region": "南部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4044",
-   "categories": [
-    "排尿功能與婦女泌尿"
-   ],
-   "online": true,
    "badges": []
   },
   {
