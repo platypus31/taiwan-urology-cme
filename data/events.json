@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-09-12T07:40:16+08:00",
- "count": 59,
+ "updated_at": "2026-09-13T07:33:12+08:00",
+ "count": 58,
  "counts": {
-  "cme": 28,
+  "cme": 27,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 28
+   "count": 27
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -571,24 +571,6 @@
    "kind": "meeting",
    "source": "台灣泌尿科醫學會 理監事會議",
    "url": "https://www.tua.org.tw/tua/tw/latest-news/announcement/2599-2026-calendar",
-   "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-09-12",
-   "title": "TUA 9月中區季會",
-   "end_date": "",
-   "time": "14:00 ~ 18:10",
-   "organizer": "中山附設醫院、TUA",
-   "location": "中山醫學大學正心樓三樓會議室 (台中市南區建國北路一段 110 號)",
-   "credits": 2.0,
-   "credits_raw": "泌尿科(2點)、外科積分(2點)",
-   "credits_pending": false,
-   "region": "中部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/3841",
    "categories": [],
    "online": false,
    "badges": []
