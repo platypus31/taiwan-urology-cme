@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-09-13T07:33:12+08:00",
- "count": 58,
+ "updated_at": "2026-09-14T07:45:49+08:00",
+ "count": 57,
  "counts": {
-  "cme": 27,
+  "cme": 26,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 27
+   "count": 26
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -571,24 +571,6 @@
    "kind": "meeting",
    "source": "台灣泌尿科醫學會 理監事會議",
    "url": "https://www.tua.org.tw/tua/tw/latest-news/announcement/2599-2026-calendar",
-   "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-09-13",
-   "title": "2026台南家庭醫學週末研討會",
-   "end_date": "",
-   "time": "09:20 ~ 12:20",
-   "organizer": "台灣家庭醫學醫學會",
-   "location": "禧榕軒大飯店 2F宴會A廳",
-   "credits": 0.5,
-   "credits_raw": "泌尿科(0.5點)",
-   "credits_pending": false,
-   "region": "其他",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4052",
    "categories": [],
    "online": false,
    "badges": []
