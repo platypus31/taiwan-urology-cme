@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-09-17T07:58:07+08:00",
- "count": 56,
+ "updated_at": "2026-09-18T07:48:14+08:00",
+ "count": 54,
  "counts": {
-  "cme": 25,
+  "cme": 23,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 25
+   "count": 23
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -42,7 +42,6 @@
    "北部": "cme-north.ics",
    "中部": "cme-central.ics",
    "南部": "cme-south.ics",
-   "東部": "cme-east.ics",
    "線上": "cme-online.ics",
    "其他": "cme-other.ics"
   },
@@ -573,44 +572,6 @@
    "url": "https://www.tua.org.tw/tua/tw/latest-news/announcement/2599-2026-calendar",
    "categories": [],
    "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-09-17",
-   "title": "TUA泌尿科東區雙月會",
-   "end_date": "",
-   "time": "18:00 ~ 20:00",
-   "organizer": "花蓮慈濟、TUA",
-   "location": "花蓮慈濟醫院合心七樓討論室",
-   "credits": 1.0,
-   "credits_raw": "泌尿科(1點)、外科積分(申請中)",
-   "credits_pending": false,
-   "region": "東部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4046",
-   "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-09-17",
-   "title": "【🎬線上】泌尿癌實戰現場三部曲",
-   "end_date": "",
-   "time": "19:00 ~ 20:25",
-   "organizer": "臺灣阿斯特捷利康(AZ)",
-   "location": "線上會議",
-   "credits": 0.5,
-   "credits_raw": "泌尿科(0.5點)",
-   "credits_pending": false,
-   "region": "線上",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4045",
-   "categories": [
-    "泌尿腫瘤"
-   ],
-   "online": true,
    "badges": []
   },
   {
