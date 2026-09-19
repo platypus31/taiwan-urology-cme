@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-09-19T07:44:45+08:00",
- "count": 54,
+ "updated_at": "2026-09-20T07:46:06+08:00",
+ "count": 53,
  "counts": {
-  "cme": 23,
+  "cme": 22,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 23
+   "count": 22
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -570,24 +570,6 @@
    "kind": "meeting",
    "source": "台灣泌尿科醫學會 理監事會議",
    "url": "https://www.tua.org.tw/tua/tw/latest-news/announcement/2599-2026-calendar",
-   "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-09-19",
-   "title": "2026當代泌尿學論壇",
-   "end_date": "",
-   "time": "09:00 ~ 16:30",
-   "organizer": "臺北榮民總醫院泌尿部、財團法人泌尿外科醫學研究發展基金會、社團法人台灣揚榮泌尿學會",
-   "location": "臺北榮民總醫院致德3會議室",
-   "credits": 2.5,
-   "credits_raw": "泌尿科(2.5點)",
-   "credits_pending": false,
-   "region": "北部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4038",
    "categories": [],
    "online": false,
    "badges": []
