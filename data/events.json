@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-09-23T07:55:23+08:00",
- "count": 55,
+ "updated_at": "2026-09-24T08:06:55+08:00",
+ "count": 59,
  "counts": {
-  "cme": 24,
+  "cme": 28,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 24
+   "count": 28
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -882,6 +882,24 @@
    "badges": []
   },
   {
+   "date": "2026-10-24",
+   "title": "實體+【🎬線上】第44屆台灣微整形美容醫學會研討會",
+   "end_date": "2026-10-25",
+   "time": "09:00 ~ 16:50",
+   "organizer": "台灣微整形美容醫學會、台灣婦產科醫學會、台灣泌尿科醫學會",
+   "location": "華南銀行國際會議中心2樓(臺北市信義區松仁路123號)",
+   "credits": 1.0,
+   "credits_raw": "泌尿科(1點)",
+   "credits_pending": false,
+   "region": "北部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4061",
+   "categories": [],
+   "online": true,
+   "badges": []
+  },
+  {
    "date": "2026-10-31",
    "title": "TUA 10月南區月會",
    "end_date": "",
@@ -896,6 +914,26 @@
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3844",
    "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-10-31",
+   "title": "探討泌尿癌治療的新角色、新疆界與新未來",
+   "end_date": "",
+   "time": "09:00 ~ 15:50",
+   "organizer": "彰濱秀傳纪念醫院 癌症中心·放射腫瘤科",
+   "location": "彰濱秀傳紀念醫院 濱秀國際會議廳",
+   "credits": 2.5,
+   "credits_raw": "泌尿科(2.5點)",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4062",
+   "categories": [
+    "泌尿腫瘤"
+   ],
    "online": false,
    "badges": []
   },
@@ -934,6 +972,26 @@
    "source": "台灣泌尿科醫學會 國際會議",
    "url": "https://www.eventscribe.com/2020/WCET2020/",
    "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-11-14",
+   "title": "肥胖、代謝失衡與性健康(台中場)",
+   "end_date": "",
+   "time": "13:30 ~ 17:00",
+   "organizer": "台灣男性學暨性醫學醫學會、台灣性功能障礙諮詢暨訓練委員會",
+   "location": "中國醫藥大學水湳校本部卓越大樓2樓史丹佛講堂(台中市北屯區經貿路一段100號)",
+   "credits": 1.0,
+   "credits_raw": "泌尿科(1點)、家醫科、內科、一般科及藥師積分",
+   "credits_pending": false,
+   "region": "中部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4063",
+   "categories": [
+    "男性學與性功能"
+   ],
    "online": false,
    "badges": []
   },
@@ -1096,6 +1154,26 @@
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3849",
    "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2027-01-09",
+   "title": "2027台灣婦女泌尿暨骨盆醫學會中區學術研討會",
+   "end_date": "2027-01-10",
+   "time": "13:50 ~ 17:30",
+   "organizer": "台灣婦女泌尿暨骨盆醫學會",
+   "location": "台中榮總 第二醫療大樓2樓第八會議室",
+   "credits": 2.0,
+   "credits_raw": "泌尿科(2點)",
+   "credits_pending": false,
+   "region": "中部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4064",
+   "categories": [
+    "排尿功能與婦女泌尿"
+   ],
    "online": false,
    "badges": []
   }
