@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-09-24T08:06:55+08:00",
- "count": 59,
+ "updated_at": "2026-09-25T08:08:27+08:00",
+ "count": 58,
  "counts": {
-  "cme": 28,
+  "cme": 27,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 28
+   "count": 27
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -570,24 +570,6 @@
    "kind": "meeting",
    "source": "台灣泌尿科醫學會 理監事會議",
    "url": "https://www.tua.org.tw/tua/tw/latest-news/announcement/2599-2026-calendar",
-   "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-09-24",
-   "title": "死亡與複雜案例討論會-顯影劑外露產生的後續醫療併發症",
-   "end_date": "",
-   "time": "08:00 ~ 09:00",
-   "organizer": "高雄市立民生醫院",
-   "location": "高雄市高齡整合長期照護中心 10樓會議室(高雄市苓雅區凱旋二路132號)",
-   "credits": 0.5,
-   "credits_raw": "泌尿科(0.5點)",
-   "credits_pending": false,
-   "region": "南部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4047",
    "categories": [],
    "online": false,
    "badges": []
