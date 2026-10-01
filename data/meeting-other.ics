@@ -18,7 +18,7 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:taiwan-urology-cme-c4e6ac7b87ac95a4f544a9ea4c794fdda89e6960
-DTSTAMP:20260930T005146Z
+DTSTAMP:20261001T005532Z
 DTSTART;VALUE=DATE:20250503
 DTEND;VALUE=DATE:20250504
 SUMMARY:第24屆第3次理監事會議
@@ -30,19 +30,8 @@ DESCRIPTION:主辦：台灣泌尿科醫學會\n簡章與報名：https://ww
  為整天，實際起訖請看主辦單位公告）
 END:VEVENT
 BEGIN:VEVENT
-UID:taiwan-urology-cme-f842fce55de7fb8bf23954afce27bbf1531402ea
-DTSTAMP:20260930T005146Z
-DTSTART;VALUE=DATE:20250712
-DTEND;VALUE=DATE:20250714
-SUMMARY:2025年 台灣泌尿內視鏡醫學會年會
-URL:https://www.tea2024.org.tw/news/20250712.html
-DESCRIPTION:主辦：台灣泌尿內視鏡醫學會\n簡章與報名：http
- s://www.tea2024.org.tw/news/20250712.html\n（時間為整天，實際起
- 訖請看主辦單位公告）
-END:VEVENT
-BEGIN:VEVENT
 UID:taiwan-urology-cme-482c8c5bab693cab129234236f3f4ac5d5d63639
-DTSTAMP:20260930T005146Z
+DTSTAMP:20261001T005532Z
 DTSTART;VALUE=DATE:20250906
 DTEND;VALUE=DATE:20250907
 SUMMARY:2025年健康台灣 Health Taiw
@@ -52,8 +41,34 @@ DESCRIPTION:主辦：台灣泌尿內視鏡醫學會\n簡章與報名：http
  訖請看主辦單位公告）
 END:VEVENT
 BEGIN:VEVENT
+UID:taiwan-urology-cme-89356d98f4e789dd111b731012eb21ba1d122fe5
+DTSTAMP:20261001T005532Z
+DTSTART;VALUE=DATE:20260228
+DTEND;VALUE=DATE:20260304
+SUMMARY:USANZ 2026
+LOCATION:澳洲墨爾本
+URL:https://www.tua.org.tw/tua/tw/latest-news/events/86-international-meeti
+ ng/2627-2026-international-meeting
+DESCRIPTION:主辦：台灣泌尿科醫學會\n簡章與報名：https://ww
+ w.tua.org.tw/tua/tw/latest-news/events/86-international-meeting/2627-2026-
+ international-meeting\n（時間為整天，實際起訖請看主辦單位
+ 公告）
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-9c12b326570ce1e25594964e52e347d3af56fcf2
+DTSTAMP:20261001T005532Z
+DTSTART;VALUE=DATE:20260313
+DTEND;VALUE=DATE:20260317
+SUMMARY:EAU 2026
+LOCATION:英國倫敦
+URL:https://eauncongress.uroweb.org/
+DESCRIPTION:主辦：台灣泌尿科醫學會\n簡章與報名：https://ea
+ uncongress.uroweb.org/\n（時間為整天，實際起訖請看主辦單
+ 位公告）
+END:VEVENT
+BEGIN:VEVENT
 UID:taiwan-urology-cme-5938dc24d461110558183dee46e85408874b1f0c
-DTSTAMP:20260930T005146Z
+DTSTAMP:20261001T005532Z
 DTSTART;VALUE=DATE:20260411
 DTEND;VALUE=DATE:20260412
 SUMMARY:第24屆第6次理監事會議
@@ -66,7 +81,7 @@ DESCRIPTION:主辦：台灣泌尿科醫學會\n簡章與報名：https://ww
 END:VEVENT
 BEGIN:VEVENT
 UID:taiwan-urology-cme-e89bd1f3f7ab4adfee8ee7c9fed911436508b383
-DTSTAMP:20260930T005146Z
+DTSTAMP:20261001T005532Z
 DTSTART;TZID=Asia/Taipei:20260418T130000
 DTEND;TZID=Asia/Taipei:20260418T180000
 SUMMARY:台灣泌尿內視鏡醫學會
@@ -76,8 +91,46 @@ DESCRIPTION:主辦：台灣泌尿內視鏡醫學會\n簡章與報名：http
  s://www.tea2024.org.tw/news/20260418.html
 END:VEVENT
 BEGIN:VEVENT
+UID:taiwan-urology-cme-ff67a965a04236d37e4a8afb90408d19beba5621
+DTSTAMP:20261001T005532Z
+DTSTART;VALUE=DATE:20260423
+DTEND;VALUE=DATE:20260427
+SUMMARY:JUA 2026
+LOCATION:日本 京都
+URL:https://www.c-linkage.co.jp/jua2026/en/
+DESCRIPTION:主辦：台灣泌尿科醫學會\n簡章與報名：https://ww
+ w.c-linkage.co.jp/jua2026/en/\n（時間為整天，實際起訖請看主
+ 辦單位公告）
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-4f1d81995b4edca2a3a219bd65b58aff71b2fc96
+DTSTAMP:20261001T005532Z
+DTSTART;VALUE=DATE:20260515
+DTEND;VALUE=DATE:20260519
+SUMMARY:AUA 2026
+LOCATION:美國 華盛頓
+URL:https://www.auanet.org/AUA2026/register
+DESCRIPTION:主辦：台灣泌尿科醫學會\n簡章與報名：https://ww
+ w.auanet.org/AUA2026/register\n（時間為整天，實際起訖請看主
+ 辦單位公告）
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-8240cae3d131500e31bddf229019a03c09e1f8bd
+DTSTAMP:20261001T005532Z
+DTSTART;VALUE=DATE:20260612
+DTEND;VALUE=DATE:20260615
+SUMMARY:ESMO Asia Congress 2026
+LOCATION:香港
+URL:https://www.tua.org.tw/tua/tw/latest-news/events/86-international-meeti
+ ng/2627-2026-international-meeting
+DESCRIPTION:主辦：台灣泌尿科醫學會\n簡章與報名：https://ww
+ w.tua.org.tw/tua/tw/latest-news/events/86-international-meeting/2627-2026-
+ international-meeting\n（時間為整天，實際起訖請看主辦單位
+ 公告）
+END:VEVENT
+BEGIN:VEVENT
 UID:taiwan-urology-cme-921286a7a1296190d9c4c3218ed4e23a671698bc
-DTSTAMP:20260930T005146Z
+DTSTAMP:20261001T005532Z
 DTSTART;VALUE=DATE:20260627
 DTEND;VALUE=DATE:20260628
 SUMMARY:台灣泌尿內視鏡醫學會年會
@@ -88,7 +141,7 @@ DESCRIPTION:主辦：台灣泌尿內視鏡醫學會\n簡章與報名：http
 END:VEVENT
 BEGIN:VEVENT
 UID:taiwan-urology-cme-30dfe185eef262616367d99d41bd5c27a36faa16
-DTSTAMP:20260930T005146Z
+DTSTAMP:20261001T005532Z
 DTSTART;VALUE=DATE:20260725
 DTEND;VALUE=DATE:20260727
 SUMMARY:泌尿腫瘤夏季研討會
@@ -99,7 +152,7 @@ DESCRIPTION:主辦：台灣泌尿內視鏡醫學會\n簡章與報名：http
 END:VEVENT
 BEGIN:VEVENT
 UID:taiwan-urology-cme-057237e8d28d5b8919e07b2b8e9e307062a4c1bc
-DTSTAMP:20260930T005146Z
+DTSTAMP:20261001T005532Z
 DTSTART;VALUE=DATE:20260823
 DTEND;VALUE=DATE:20260824
 SUMMARY:第25屆第1次理監事會議
@@ -109,5 +162,59 @@ URL:https://www.tua.org.tw/tua/tw/latest-news/announcement/2599-2026-calend
 DESCRIPTION:主辦：台灣泌尿科醫學會\n簡章與報名：https://ww
  w.tua.org.tw/tua/tw/latest-news/announcement/2599-2026-calendar\n（時間
  為整天，實際起訖請看主辦單位公告）
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-24535cdc55f64749d7a7b2bda8509291ac2554f3
+DTSTAMP:20261001T005532Z
+DTSTART;VALUE=DATE:20261006
+DTEND;VALUE=DATE:20261010
+SUMMARY:ICS 2026
+LOCATION:荷蘭馬斯垂克
+URL:https://www.tua.org.tw/tua/tw/latest-news/events/86-international-meeti
+ ng/2627-2026-international-meeting
+DESCRIPTION:主辦：台灣泌尿科醫學會\n簡章與報名：https://ww
+ w.tua.org.tw/tua/tw/latest-news/events/86-international-meeting/2627-2026-
+ international-meeting\n（時間為整天，實際起訖請看主辦單位
+ 公告）
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-7bd68da93fc3f181fd9a3dfe95d3fba013aaf2e5
+DTSTAMP:20261001T005532Z
+DTSTART;VALUE=DATE:20261014
+DTEND;VALUE=DATE:20261018
+SUMMARY:KUA 2026
+LOCATION:韓國首爾
+URL:https://www.tua.org.tw/tua/tw/latest-news/events/86-international-meeti
+ ng/2627-2026-international-meeting
+DESCRIPTION:主辦：台灣泌尿科醫學會\n簡章與報名：https://ww
+ w.tua.org.tw/tua/tw/latest-news/events/86-international-meeting/2627-2026-
+ international-meeting\n（時間為整天，實際起訖請看主辦單位
+ 公告）
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-0c25d7b0320fefd12c24e26726d77eac9f534fd3
+DTSTAMP:20261001T005532Z
+DTSTART;VALUE=DATE:20261014
+DTEND;VALUE=DATE:20261018
+SUMMARY:SIU 2026
+LOCATION:阿拉伯聯合大公國杜拜
+URL:https://www.tua.org.tw/tua/tw/latest-news/events/86-international-meeti
+ ng/2627-2026-international-meeting
+DESCRIPTION:主辦：台灣泌尿科醫學會\n簡章與報名：https://ww
+ w.tua.org.tw/tua/tw/latest-news/events/86-international-meeting/2627-2026-
+ international-meeting\n（時間為整天，實際起訖請看主辦單位
+ 公告）
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-56dc2085b856f53f94f301f3c63e9832ea072d7f
+DTSTAMP:20261001T005532Z
+DTSTART;VALUE=DATE:20261109
+DTEND;VALUE=DATE:20261114
+SUMMARY:WCET 2026
+LOCATION:阿根廷布宜諾斯艾利斯
+URL:https://www.eventscribe.com/2020/WCET2020/
+DESCRIPTION:主辦：台灣泌尿科醫學會\n簡章與報名：https://ww
+ w.eventscribe.com/2020/WCET2020/\n（時間為整天，實際起訖請看
+ 主辦單位公告）
 END:VEVENT
 END:VCALENDAR
