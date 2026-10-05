@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-10-04T08:13:48+08:00",
- "count": 53,
+ "updated_at": "2026-10-05T08:19:14+08:00",
+ "count": 51,
  "counts": {
-  "cme": 22,
+  "cme": 20,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 22
+   "count": 20
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -571,46 +571,6 @@
    "source": "台灣泌尿科醫學會 理監事會議",
    "url": "https://www.tua.org.tw/tua/tw/latest-news/announcement/2599-2026-calendar",
    "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-10-04",
-   "title": "台灣生育力保存學會2026年會暨學術研討會",
-   "end_date": "",
-   "time": "08:50 ~ 18:00",
-   "organizer": "社團法人台灣生育力保存學會",
-   "location": "張榮發基金會國際會議中心(臺北市中正區東門里中山南路11號)",
-   "credits": 0.5,
-   "credits_raw": "泌尿科(0.5點)",
-   "credits_pending": false,
-   "region": "北部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4050",
-   "categories": [
-    "男性學與性功能"
-   ],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-10-04",
-   "title": "台灣男性重建外科115年秋季學術演講會",
-   "end_date": "",
-   "time": "08:30 ~ 16:30",
-   "organizer": "台灣男性重建外科醫會",
-   "location": "台邦商旅2F國際廳(台南市安平區永華二街199號)",
-   "credits": 2.0,
-   "credits_raw": "泌尿科(2點)",
-   "credits_pending": false,
-   "region": "南部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4049",
-   "categories": [
-    "男性學與性功能"
-   ],
    "online": false,
    "badges": []
   },
