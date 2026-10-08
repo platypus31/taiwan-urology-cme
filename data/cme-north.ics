@@ -17,8 +17,20 @@ TZNAME:CST
 END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
+UID:taiwan-urology-cme-756fd10290cfd73a792f364dfd9c5be455f2e893
+DTSTAMP:20261008T012610Z
+DTSTART;TZID=Asia/Taipei:20261017T140000
+DTEND;TZID=Asia/Taipei:20261017T183000
+SUMMARY:Real-World Insights and Multidisciplinary Decision-Making in UC Car
+ e
+LOCATION:台北晶華
+URL:https://eschool.tua.org.tw/conference/4066
+DESCRIPTION:主辦：台灣泌尿科醫學會\n積分：泌尿科(2點)\n
+ 簡章與報名：https://eschool.tua.org.tw/conference/4066
+END:VEVENT
+BEGIN:VEVENT
 UID:taiwan-urology-cme-f60ea0c193adb0f124aa489306d9cd47a8f6b19c
-DTSTAMP:20261007T010630Z
+DTSTAMP:20261008T012610Z
 DTSTART;VALUE=DATE:20261017
 DTEND;VALUE=DATE:20261019
 SUMMARY:台灣尿失禁防治協會115年度會員大會暨學術研討會
@@ -31,7 +43,7 @@ DESCRIPTION:主辦：台灣尿失禁防治協會、馬偕醫院泌尿部\n
 END:VEVENT
 BEGIN:VEVENT
 UID:taiwan-urology-cme-a64829f1ef0c4419edfab2435d21767497fa56de
-DTSTAMP:20261007T010630Z
+DTSTAMP:20261008T012610Z
 DTSTART;VALUE=DATE:20261024
 DTEND;VALUE=DATE:20261026
 SUMMARY:實體+【🎬線上】第44屆台灣微整形美容醫學會研討
@@ -46,7 +58,7 @@ DESCRIPTION:主辦：台灣微整形美容醫學會、台灣婦產科醫學
 END:VEVENT
 BEGIN:VEVENT
 UID:taiwan-urology-cme-2d6ecb2277ace99c6f44474907c0e73604a23674
-DTSTAMP:20261007T010630Z
+DTSTAMP:20261008T012610Z
 DTSTART;TZID=Asia/Taipei:20261031T150000
 DTEND;TZID=Asia/Taipei:20261031T181000
 SUMMARY:2026北區 GU Cancer Symposium
@@ -57,20 +69,46 @@ DESCRIPTION:主辦：財團法人泌尿外科醫學研究發展基金會、
  報名：https://eschool.tua.org.tw/conference/4065
 END:VEVENT
 BEGIN:VEVENT
+UID:taiwan-urology-cme-7074b826e25ace1d7125cd734fb52879770815aa
+DTSTAMP:20261008T012610Z
+DTSTART;VALUE=DATE:20261031
+DTEND;VALUE=DATE:20261102
+SUMMARY:第八屆亞太醫用超音波新進展國際論壇中華民國醫
+ 用超音波學會42週年暨2026年年會暨第四次學術研討會
+LOCATION:台北國際會議中心(臺北市信義路五段一號)
+URL:https://eschool.tua.org.tw/conference/4067
+DESCRIPTION:主辦：中華民國醫用超音波學會\n積分：泌尿科(
+ 0.5點)\n簡章與報名：https://eschool.tua.org.tw/conference/4067\n（
+ 時間為整天，實際起訖請看主辦單位公告）
+END:VEVENT
+BEGIN:VEVENT
 UID:taiwan-urology-cme-5e023d65cd281fbec5caea4ae69be9047891972d
-DTSTAMP:20261007T010630Z
-DTSTART;TZID=Asia/Taipei:20261121T130000
-DTEND;TZID=Asia/Taipei:20261121T170000
+DTSTAMP:20261008T012610Z
+DTSTART;VALUE=DATE:20261121
+DTEND;VALUE=DATE:20261123
 SUMMARY:TUA 11月北區月會
-LOCATION:地點待公布
+LOCATION:台北遠東香格里拉 2F 香格里拉宴會廳
 URL:https://eschool.tua.org.tw/conference/3845
-DESCRIPTION:主辦：台北榮總、TUA\n積分：泌尿科(申請中)、
- 外科積分(申請中)\n簡章與報名：https://eschool.tua.org.tw/conf
- erence/3845
+DESCRIPTION:主辦：台北榮總、TUA\n積分：泌尿科(2.5點)、外
+ 科積分(申請中)\n簡章與報名：https://eschool.tua.org.tw/confere
+ nce/3845\n（時間為整天，實際起訖請看主辦單位公告）
+END:VEVENT
+BEGIN:VEVENT
+UID:taiwan-urology-cme-59e2bf4464e8ea0646b719ac8e960a0abbb78719
+DTSTAMP:20261008T012610Z
+DTSTART;TZID=Asia/Taipei:20261122T083000
+DTEND;TZID=Asia/Taipei:20261122T170000
+SUMMARY:達文西手術系統能力培訓計畫(學習護照) da Vinci Comp
+ etency Program (DVCP) – Xi System Stage 1|Table Surgeon Course
+LOCATION:臺北市信義區松仁路100號38樓
+URL:https://eschool.tua.org.tw/conference/4071
+DESCRIPTION:主辦：TUA機器手臂暨腹腔鏡手術委員會\n積分：
+ 泌尿科(2點)\n簡章與報名：https://eschool.tua.org.tw/conference/4
+ 071
 END:VEVENT
 BEGIN:VEVENT
 UID:taiwan-urology-cme-1b5e892fd225ca766a094b256c58b73854049d0f
-DTSTAMP:20261007T010630Z
+DTSTAMP:20261008T012610Z
 DTSTART;TZID=Asia/Taipei:20261210T130000
 DTEND;TZID=Asia/Taipei:20261210T170000
 SUMMARY:TUA 12月蘭陽區季會
@@ -82,7 +120,7 @@ DESCRIPTION:主辦：羅東博愛醫院、TUA\n積分：泌尿科(申請中
 END:VEVENT
 BEGIN:VEVENT
 UID:taiwan-urology-cme-f544a49be7f1733337b6e4e379f4367ac133c950
-DTSTAMP:20261007T010630Z
+DTSTAMP:20261008T012610Z
 DTSTART;TZID=Asia/Taipei:20261227T130000
 DTEND;TZID=Asia/Taipei:20261227T170000
 SUMMARY:TUA 12月桃竹苗區雙月會

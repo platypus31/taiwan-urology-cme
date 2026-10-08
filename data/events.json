@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-10-07T09:06:30+08:00",
- "count": 51,
+ "updated_at": "2026-10-08T09:26:10+08:00",
+ "count": 57,
  "counts": {
-  "cme": 20,
+  "cme": 26,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 20
+   "count": 27
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -42,6 +42,7 @@
    "北部": "cme-north.ics",
    "中部": "cme-central.ics",
    "南部": "cme-south.ics",
+   "東部": "cme-east.ics",
    "線上": "cme-online.ics",
    "其他": "cme-other.ics"
   },
@@ -670,6 +671,26 @@
   },
   {
    "date": "2026-10-17",
+   "title": "Real-World Insights and Multidisciplinary Decision-Making in UC Care",
+   "end_date": "",
+   "time": "14:00 ~ 18:30",
+   "organizer": "台灣泌尿科醫學會",
+   "location": "台北晶華",
+   "credits": 2.0,
+   "credits_raw": "泌尿科(2點)",
+   "credits_pending": false,
+   "region": "北部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4066",
+   "categories": [
+    "教育訓練與研究"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-10-17",
    "title": "台灣尿失禁防治協會115年度會員大會暨學術研討會暨TUA北區月會",
    "end_date": "2026-10-18",
    "time": "08:00 ~ 17:00",
@@ -788,6 +809,24 @@
    "badges": []
   },
   {
+   "date": "2026-10-31",
+   "title": "第八屆亞太醫用超音波新進展國際論壇中華民國醫用超音波學會42週年暨2026年年會暨第四次學術研討會",
+   "end_date": "2026-11-01",
+   "time": "08:20 ~ 16:30",
+   "organizer": "中華民國醫用超音波學會",
+   "location": "台北國際會議中心(臺北市信義路五段一號)",
+   "credits": 0.5,
+   "credits_raw": "泌尿科(0.5點)",
+   "credits_pending": false,
+   "region": "北部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4067",
+   "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
    "date": "2026-11-01",
    "title": "【🎬線上】勃起功能障礙跨科(家醫科/新陳代謝科/腸胃內科/家醫科/泌尿科)交流會議",
    "end_date": "",
@@ -808,6 +847,26 @@
    "badges": []
   },
   {
+   "date": "2026-11-07",
+   "title": "2026 Oncology Day",
+   "end_date": "2026-11-08",
+   "time": "15:00 ~ 18:15",
+   "organizer": "中華民國癌症醫學會、台灣癌症研究學會",
+   "location": "南港六福萬怡酒店 7F-超新星廳",
+   "credits": 1.0,
+   "credits_raw": "泌尿科(1點)",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4069",
+   "categories": [
+    "泌尿腫瘤"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
    "date": "2026-11-09",
    "title": "WCET 2026",
    "end_date": "2026-11-13",
@@ -821,6 +880,24 @@
    "kind": "meeting",
    "source": "台灣泌尿科醫學會 國際會議",
    "url": "https://www.eventscribe.com/2020/WCET2020/",
+   "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-11-12",
+   "title": "2026台灣醫學週─台灣聯合醫學會學術演講會暨臺灣醫學會第119屆總會學術演講會",
+   "end_date": "2026-11-15",
+   "time": "09:00 ~ 17:00",
+   "organizer": "衛生福利部、臺灣醫學會",
+   "location": "南港展覽館二館 7 樓 701E",
+   "credits": 0.5,
+   "credits_raw": "泌尿科(0.5點)",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4070",
    "categories": [],
    "online": false,
    "badges": []
@@ -849,13 +926,13 @@
    "date": "2026-11-19",
    "title": "TUA 11月東區雙月會",
    "end_date": "",
-   "time": "13:00 ~ 17:00",
+   "time": "18:00 ~ 20:00",
    "organizer": "門諾醫院、TUA",
-   "location": "地點待公布",
-   "credits": null,
-   "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
-   "credits_pending": true,
-   "region": "其他",
+   "location": "璽賓行旅Kadda Hotel (花蓮市⺠權路2-6號)",
+   "credits": 1.0,
+   "credits_raw": "泌尿科(1點)、外科積分(申請中)",
+   "credits_pending": false,
+   "region": "東部",
    "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3847",
@@ -866,18 +943,38 @@
   {
    "date": "2026-11-21",
    "title": "TUA 11月北區月會",
-   "end_date": "",
-   "time": "13:00 ~ 17:00",
+   "end_date": "2026-11-22",
+   "time": "16:00 ~ 19:05",
    "organizer": "台北榮總、TUA",
-   "location": "地點待公布",
-   "credits": null,
-   "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
-   "credits_pending": true,
+   "location": "台北遠東香格里拉 2F 香格里拉宴會廳",
+   "credits": 2.5,
+   "credits_raw": "泌尿科(2.5點)、外科積分(申請中)",
+   "credits_pending": false,
    "region": "北部",
    "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3845",
    "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-11-22",
+   "title": "達文西手術系統能力培訓計畫(學習護照) da Vinci Competency Program (DVCP) – Xi System Stage 1|Table Surgeon Course",
+   "end_date": "",
+   "time": "08:30 ~ 17:00",
+   "organizer": "TUA機器手臂暨腹腔鏡手術委員會",
+   "location": "臺北市信義區松仁路100號38樓",
+   "credits": 2.0,
+   "credits_raw": "泌尿科(2點)",
+   "credits_pending": false,
+   "region": "北部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4071",
+   "categories": [
+    "機器手臂與微創"
+   ],
    "online": false,
    "badges": []
   },
@@ -895,6 +992,24 @@
    "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3846",
+   "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-11-29",
+   "title": "臺中榮民總醫院泌尿醫學部研究日",
+   "end_date": "",
+   "time": "08:00 ~ 15:30",
+   "organizer": "臺中榮民總醫院泌尿醫學部",
+   "location": "臺中榮民總醫院第二綜合大樓 4 樓 護理部會議室",
+   "credits": 2.5,
+   "credits_raw": "泌尿科(2.5點)、外科積分(申請中)",
+   "credits_pending": false,
+   "region": "中部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4072",
    "categories": [],
    "online": false,
    "badges": []
