@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-10-14T08:49:34+08:00",
- "count": 57,
+ "updated_at": "2026-10-15T08:11:57+08:00",
+ "count": 60,
  "counts": {
-  "cme": 26,
+  "cme": 29,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 27
+   "count": 30
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -903,6 +903,45 @@
    "badges": []
   },
   {
+   "date": "2026-11-13",
+   "title": "泌尿系統外傷處置",
+   "end_date": "",
+   "time": "12:30 ~ 14:00",
+   "organizer": "埔基醫療財團法人埔里基督教醫院",
+   "location": "謝緯紀念堂 (南投縣埔里鎮鐵山路1號-8樓)",
+   "credits": 0.5,
+   "credits_raw": "泌尿科(0.5點)",
+   "credits_pending": false,
+   "region": "中部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4073",
+   "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-11-14",
+   "title": "2026臺中榮民總醫院國際醫學研討會Advancing Pediatric Minimal Invasive Surgery by Robotic-Assisted Surgery/機械手臂輔助手術於兒童外科微創手術Advancing Functional Preserving Gynecologic Surgery with Robotic-Assisted Surgery/機械手臂輔助手術於婦科功能保留手術之發展",
+   "end_date": "",
+   "time": "09:00 ~ 16:30",
+   "organizer": "臺中榮民總醫院",
+   "location": "臺中榮民總醫院第二醫療大樓2樓第8會議室",
+   "credits": 0.5,
+   "credits_raw": "泌尿科(0.5點)",
+   "credits_pending": false,
+   "region": "中部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4074",
+   "categories": [
+    "機器手臂與微創",
+    "小兒泌尿"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
    "date": "2026-11-14",
    "title": "肥胖、代謝失衡與性健康(台中場)",
    "end_date": "",
@@ -916,6 +955,26 @@
    "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4063",
+   "categories": [
+    "男性學與性功能"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-11-15",
+   "title": "2026男性健康日",
+   "end_date": "",
+   "time": "08:55 ~ 15:35",
+   "organizer": "臺灣楓城泌尿學會",
+   "location": "財團法人張榮發基金會 601&602&603室 (台北市中山南路11號)",
+   "credits": 2.5,
+   "credits_raw": "泌尿科(2.5點)",
+   "credits_pending": false,
+   "region": "北部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4075",
    "categories": [
     "男性學與性功能"
    ],
@@ -942,10 +1001,10 @@
   },
   {
    "date": "2026-11-21",
-   "title": "TUA 11月北區月會",
+   "title": "TUA北區月會暨Urothelial CarcinomaTransformation Summit",
    "end_date": "2026-11-22",
-   "time": "16:00 ~ 19:05",
-   "organizer": "台北榮總、TUA",
+   "time": "13:30 ~ 19:05",
+   "organizer": "台北榮總、台灣泌尿科醫學會",
    "location": "台北遠東香格里拉 2F 香格里拉宴會廳",
    "credits": 2.5,
    "credits_raw": "泌尿科(2.5點)、外科積分(申請中)",
@@ -954,7 +1013,9 @@
    "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3845",
-   "categories": [],
+   "categories": [
+    "泌尿腫瘤"
+   ],
    "online": false,
    "badges": []
   },
@@ -982,17 +1043,19 @@
    "date": "2026-11-28",
    "title": "TUA 11月南區月會",
    "end_date": "",
-   "time": "13:00 ~ 17:00",
-   "organizer": "奇美醫院、TUA",
-   "location": "地點待公布",
-   "credits": null,
-   "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
-   "credits_pending": true,
+   "time": "13:00 ~ 18:00",
+   "organizer": "台灣泌尿科醫學會、奇美醫院泌尿外科、台灣泌尿腫瘤醫學會",
+   "location": "台南遠東香格里拉B1樓赤崁延平廳",
+   "credits": 2.0,
+   "credits_raw": "泌尿科(2點)、外科積分(申請中)",
+   "credits_pending": false,
    "region": "南部",
    "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3846",
-   "categories": [],
+   "categories": [
+    "泌尿腫瘤"
+   ],
    "online": false,
    "badges": []
   },
