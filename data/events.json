@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-10-15T08:11:57+08:00",
- "count": 60,
+ "updated_at": "2026-10-16T07:58:45+08:00",
+ "count": 59,
  "counts": {
-  "cme": 29,
+  "cme": 28,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 30
+   "count": 29
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -627,26 +627,6 @@
    "url": "https://www.tua.org.tw/tua/tw/latest-news/events/86-international-meeting/2627-2026-international-meeting",
    "categories": [],
    "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-10-15",
-   "title": "【🎬線上】Maximizing Treatment Outcomes in Advanced Prostate Cancer: Strategies for Optimal Patient Care",
-   "end_date": "",
-   "time": "19:00 ~ 20:30",
-   "organizer": "台灣安斯泰來製藥 (股) 公司",
-   "location": "線上會議",
-   "credits": 0.5,
-   "credits_raw": "泌尿科(0.5點)",
-   "credits_pending": false,
-   "region": "線上",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4060",
-   "categories": [
-    "泌尿腫瘤"
-   ],
-   "online": true,
    "badges": []
   },
   {
