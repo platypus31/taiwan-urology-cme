@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-10-17T08:02:48+08:00",
- "count": 59,
+ "updated_at": "2026-10-18T07:37:08+08:00",
+ "count": 57,
  "counts": {
-  "cme": 28,
+  "cme": 26,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 29
+   "count": 27
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -626,46 +626,6 @@
    "source": "台灣泌尿科醫學會 國際會議",
    "url": "https://www.tua.org.tw/tua/tw/latest-news/events/86-international-meeting/2627-2026-international-meeting",
    "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-10-17",
-   "title": "2026年臺中榮民總醫院44週年院慶國際醫學研討會",
-   "end_date": "",
-   "time": "09:00 ~ 16:30",
-   "organizer": "臺中榮民總醫院達文西手術中心",
-   "location": "臺中榮民總醫院研究大樓 1 樓第二會議室",
-   "credits": 3.5,
-   "credits_raw": "泌尿科(3.5點)、外科積分(申請中)",
-   "credits_pending": false,
-   "region": "中部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4039",
-   "categories": [
-    "機器手臂與微創"
-   ],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-10-17",
-   "title": "Real-World Insights and Multidisciplinary Decision-Making in UC Care",
-   "end_date": "",
-   "time": "14:00 ~ 18:30",
-   "organizer": "台灣泌尿科醫學會",
-   "location": "台北晶華",
-   "credits": 2.0,
-   "credits_raw": "泌尿科(2點)",
-   "credits_pending": false,
-   "region": "北部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4066",
-   "categories": [
-    "教育訓練與研究"
-   ],
    "online": false,
    "badges": []
   },
