@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-10-18T07:37:08+08:00",
- "count": 57,
+ "updated_at": "2026-10-19T07:47:49+08:00",
+ "count": 56,
  "counts": {
-  "cme": 26,
+  "cme": 25,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 27
+   "count": 26
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -628,28 +628,6 @@
    "categories": [],
    "online": false,
    "badges": []
-  },
-  {
-   "date": "2026-10-17",
-   "title": "台灣尿失禁防治協會115年度會員大會暨學術研討會暨TUA北區月會",
-   "end_date": "2026-10-18",
-   "time": "08:00 ~ 17:00",
-   "organizer": "台灣尿失禁防治協會、馬偕醫院泌尿部",
-   "location": "茹曦酒店 (台北市松山區敦化北路 100 號)",
-   "credits": 6.0,
-   "credits_raw": "泌尿科(6點)",
-   "credits_pending": false,
-   "region": "北部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4051",
-   "categories": [
-    "排尿功能與婦女泌尿"
-   ],
-   "online": false,
-   "badges": [
-    "有錄影"
-   ]
   },
   {
    "date": "2026-10-19",
