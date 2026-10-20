@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-10-19T07:47:49+08:00",
+ "updated_at": "2026-10-20T08:48:04+08:00",
  "count": 56,
  "counts": {
   "cme": 25,
@@ -696,7 +696,7 @@
    "organizer": "高雄市立大同醫院泌尿科、TUA",
    "location": "高雄市立大同醫院 2M國際會議廳",
    "credits": 2.0,
-   "credits_raw": "泌尿科(2點)、外科積分(申請中)",
+   "credits_raw": "泌尿科(2點)、外科積分(2點)",
    "credits_pending": false,
    "region": "南部",
    "kind": "cme",
@@ -856,6 +856,24 @@
     "機器手臂與微創",
     "小兒泌尿"
    ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-11-14",
+   "title": "TUA 12月桃竹苗區雙月會",
+   "end_date": "",
+   "time": "17:00 ~ 20:00",
+   "organizer": "天晟醫療體系泌尿科、中國醫藥大學附設醫院新竹分院泌尿科、TUA",
+   "location": "地點待公布",
+   "credits": null,
+   "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
+   "credits_pending": true,
+   "region": "北部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/3849",
+   "categories": [],
    "online": false,
    "badges": []
   },
@@ -1081,24 +1099,6 @@
    "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3853",
-   "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-12-27",
-   "title": "TUA 12月桃竹苗區雙月會",
-   "end_date": "",
-   "time": "13:00 ~ 17:00",
-   "organizer": "天晟醫療體系泌尿科、中國醫藥大學附設醫院新竹分院泌尿科、TUA",
-   "location": "地點待公布",
-   "credits": null,
-   "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
-   "credits_pending": true,
-   "region": "北部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/3849",
    "categories": [],
    "online": false,
    "badges": []
