@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-10-24T08:08:44+08:00",
- "count": 56,
+ "updated_at": "2026-10-25T07:51:57+08:00",
+ "count": 55,
  "counts": {
-  "cme": 25,
+  "cme": 24,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 26
+   "count": 25
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -626,27 +626,6 @@
    "source": "台灣泌尿科醫學會 國際會議",
    "url": "https://www.tua.org.tw/tua/tw/latest-news/events/86-international-meeting/2627-2026-international-meeting",
    "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-10-19",
-   "title": "達文西機械手臂輔助手術大體實作培訓課程",
-   "end_date": "2026-10-24",
-   "time": "17:00 ~ 21:00",
-   "organizer": "臺中榮民總醫院達文西手術中心",
-   "location": "臺中榮總教學大樓4樓外科微創手術訓練中心",
-   "credits": null,
-   "credits_raw": "泌尿科(申請中)",
-   "credits_pending": true,
-   "region": "中部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4054",
-   "categories": [
-    "機器手臂與微創",
-    "教育訓練與研究"
-   ],
    "online": false,
    "badges": []
   },
