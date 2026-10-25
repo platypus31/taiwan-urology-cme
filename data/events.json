@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-10-25T07:51:57+08:00",
- "count": 55,
+ "updated_at": "2026-10-26T07:41:00+08:00",
+ "count": 54,
  "counts": {
-  "cme": 24,
+  "cme": 23,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 25
+   "count": 24
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -627,24 +627,6 @@
    "url": "https://www.tua.org.tw/tua/tw/latest-news/events/86-international-meeting/2627-2026-international-meeting",
    "categories": [],
    "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-10-24",
-   "title": "實體+【🎬線上】第44屆台灣微整形美容醫學會研討會",
-   "end_date": "2026-10-25",
-   "time": "09:00 ~ 16:50",
-   "organizer": "台灣微整形美容醫學會、台灣婦產科醫學會、台灣泌尿科醫學會",
-   "location": "華南銀行國際會議中心2樓(臺北市信義區松仁路123號)",
-   "credits": 1.0,
-   "credits_raw": "泌尿科(1點)",
-   "credits_pending": false,
-   "region": "北部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4061",
-   "categories": [],
-   "online": true,
    "badges": []
   },
   {
