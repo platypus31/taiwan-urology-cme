@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-10-31T09:12:43+08:00",
- "count": 55,
+ "updated_at": "2026-11-01T08:33:38+08:00",
+ "count": 52,
  "counts": {
-  "cme": 24,
+  "cme": 21,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 25
+   "count": 21
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -626,64 +626,6 @@
    "source": "台灣泌尿科醫學會 國際會議",
    "url": "https://www.tua.org.tw/tua/tw/latest-news/events/86-international-meeting/2627-2026-international-meeting",
    "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-10-31",
-   "title": "2026北區 GU Cancer Symposium",
-   "end_date": "",
-   "time": "15:00 ~ 18:10",
-   "organizer": "財團法人泌尿外科醫學研究發展基金會、社團法人台灣揚榮泌尿學會",
-   "location": "慕軒飯店 (台北市大安區敦化南路 1 段 331 號)",
-   "credits": 1.0,
-   "credits_raw": "泌尿科(1點)",
-   "credits_pending": false,
-   "region": "北部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4065",
-   "categories": [
-    "泌尿腫瘤"
-   ],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-10-31",
-   "title": "TUA 10月南區月會",
-   "end_date": "",
-   "time": "13:30 ~ 17:30",
-   "organizer": "高雄市立大同醫院泌尿科、TUA",
-   "location": "高雄市立大同醫院 2M國際會議廳",
-   "credits": 2.0,
-   "credits_raw": "泌尿科(2點)、外科積分(2點)",
-   "credits_pending": false,
-   "region": "南部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/3844",
-   "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-10-31",
-   "title": "探討泌尿癌治療的新角色、新疆界與新未來",
-   "end_date": "",
-   "time": "09:00 ~ 15:50",
-   "organizer": "彰濱秀傳纪念醫院 癌症中心·放射腫瘤科",
-   "location": "彰濱秀傳紀念醫院 濱秀國際會議廳",
-   "credits": 2.5,
-   "credits_raw": "泌尿科(2.5點)",
-   "credits_pending": false,
-   "region": "其他",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4062",
-   "categories": [
-    "泌尿腫瘤"
-   ],
    "online": false,
    "badges": []
   },
