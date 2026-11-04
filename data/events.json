@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-11-03T11:09:21+08:00",
- "count": 52,
+ "updated_at": "2026-11-04T09:46:03+08:00",
+ "count": 58,
  "counts": {
-  "cme": 21,
+  "cme": 27,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 21
+   "count": 27
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -861,6 +861,26 @@
    "badges": []
   },
   {
+   "date": "2026-11-20",
+   "title": "國軍機械手臂輔助手術論壇",
+   "end_date": "",
+   "time": "09:00 ~ 16:00",
+   "organizer": "國防醫學大學外科學科、台灣胸腔外科醫學會",
+   "location": "國防醫學大學 3 樓 31 教室",
+   "credits": 0.5,
+   "credits_raw": "泌尿科(0.5點)",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4079",
+   "categories": [
+    "機器手臂與微創"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
    "date": "2026-11-21",
    "title": "TUA北區月會暨Urothelial CarcinomaTransformation Summit",
    "end_date": "2026-11-22",
@@ -876,6 +896,26 @@
    "url": "https://eschool.tua.org.tw/conference/3845",
    "categories": [
     "泌尿腫瘤"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-11-21",
+   "title": "器官捐贈與肝臟移植:從潛在捐贈者辨識到受贈者全方位照護",
+   "end_date": "",
+   "time": "08:50 ~ 12:30",
+   "organizer": "高榮重症外科、泌尿外科、台灣安斯泰來製藥股份有限公司",
+   "location": "高雄榮總 高齡醫學大樓第11會議室",
+   "credits": 1.0,
+   "credits_raw": "泌尿科(1點)",
+   "credits_pending": false,
+   "region": "南部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4080",
+   "categories": [
+    "腎臟移植"
    ],
    "online": false,
    "badges": []
@@ -922,6 +962,27 @@
   },
   {
    "date": "2026-11-29",
+   "title": "台灣創新微創泌尿內視鏡學會第三屆結石論壇",
+   "end_date": "",
+   "time": "13:00 ~ 17:30",
+   "organizer": "台灣創新微創泌尿內視鏡學會",
+   "location": "台大國際會議中心202教室",
+   "credits": 2.0,
+   "credits_raw": "泌尿科(2點)",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4081",
+   "categories": [
+    "結石與內視鏡",
+    "機器手臂與微創"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-11-29",
    "title": "臺中榮民總醫院泌尿醫學部研究日",
    "end_date": "",
    "time": "08:00 ~ 15:30",
@@ -942,12 +1003,12 @@
    "date": "2026-12-01",
    "title": "TUA 12月雲嘉區季會",
    "end_date": "",
-   "time": "13:00 ~ 17:00",
+   "time": "07:30 ~ 08:30",
    "organizer": "大林慈濟、TUA",
-   "location": "地點待公布",
-   "credits": null,
-   "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
-   "credits_pending": true,
+   "location": "大林慈濟醫院 第一會議室",
+   "credits": 0.5,
+   "credits_raw": "泌尿科(0.5點)",
+   "credits_pending": false,
    "region": "其他",
    "kind": "cme",
    "source": "台灣泌尿科醫學會",
@@ -957,15 +1018,35 @@
    "badges": []
   },
   {
+   "date": "2026-12-04",
+   "title": "實體+【🎬線上】關「心」不「攝」限：Optimizing mCSPC Management : Effective Disease Control with Treatment Flexibility",
+   "end_date": "",
+   "time": "19:00 ~ 20:20",
+   "organizer": "台灣拜耳股份有限公司",
+   "location": "JR 東日本大飯店+線上會議",
+   "credits": 0.5,
+   "credits_raw": "泌尿科(0.5點)",
+   "credits_pending": false,
+   "region": "線上",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4082",
+   "categories": [
+    "泌尿腫瘤"
+   ],
+   "online": true,
+   "badges": []
+  },
+  {
    "date": "2026-12-10",
    "title": "TUA 12月蘭陽區季會",
    "end_date": "",
-   "time": "13:00 ~ 17:00",
+   "time": "18:00 ~ 21:10",
    "organizer": "羅東博愛醫院、TUA",
-   "location": "地點待公布",
-   "credits": null,
-   "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
-   "credits_pending": true,
+   "location": "菊丹料理亭 (宜蘭縣羅東鎮中正北路21號)",
+   "credits": 1.5,
+   "credits_raw": "泌尿科(1.5點)、外科積分(申請中)",
+   "credits_pending": false,
    "region": "北部",
    "kind": "cme",
    "source": "台灣泌尿科醫學會",
@@ -976,19 +1057,59 @@
   },
   {
    "date": "2026-12-12",
+   "title": "115年器官移植動物實驗訓練營",
+   "end_date": "",
+   "time": "08:00 ~ 16:00",
+   "organizer": "臺中榮民總醫院外科部、泌尿醫學部",
+   "location": "臺中榮民總醫院教學大樓4樓外科臨床技能中心 (台中市西屯區台灣大道4段1650號 )",
+   "credits": 1.5,
+   "credits_raw": "泌尿科(1.5點)",
+   "credits_pending": false,
+   "region": "中部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4083",
+   "categories": [
+    "腎臟移植"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-12-12",
    "title": "TUA 12月北區月會",
    "end_date": "",
-   "time": "13:00 ~ 17:00",
-   "organizer": "新光醫院、TUA",
-   "location": "地點待公布",
-   "credits": null,
-   "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
-   "credits_pending": true,
-   "region": "其他",
+   "time": "13:30 ~ 16:00",
+   "organizer": "新光醫療財團法人新光吳火獅紀念醫院、TUA",
+   "location": "新光吳火獅紀念醫院 火獅樓 B1 大會議室",
+   "credits": 1.0,
+   "credits_raw": "泌尿科(1點)、外科積分(申請中)",
+   "credits_pending": false,
+   "region": "北部",
    "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3848",
    "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-12-18",
+   "title": "逆行性軟式輸尿管鏡腎內(碎石)手術安全性(併發症)",
+   "end_date": "",
+   "time": "07:30 ~ 08:30",
+   "organizer": "澄清綜合醫院",
+   "location": "澄清綜合醫院(平等) 3F 第一會議室 (台中市中區平等街 139 號)",
+   "credits": 0.5,
+   "credits_raw": "泌尿科(0.5點)",
+   "credits_pending": false,
+   "region": "中部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4084",
+   "categories": [
+    "結石與內視鏡"
+   ],
    "online": false,
    "badges": []
   },
@@ -1014,12 +1135,12 @@
    "date": "2026-12-19",
    "title": "TUA 12月南區月會",
    "end_date": "",
-   "time": "13:00 ~ 17:00",
+   "time": "12:00 ~ 18:00",
    "organizer": "高雄長庚醫院、TUA",
-   "location": "地點待公布",
-   "credits": null,
-   "credits_raw": "泌尿科(申請中)、外科積分(申請中)",
-   "credits_pending": true,
+   "location": "H2O 水京棧國際酒店",
+   "credits": 2.0,
+   "credits_raw": "泌尿科(2點)、外科積分(申請中)",
+   "credits_pending": false,
    "region": "南部",
    "kind": "cme",
    "source": "台灣泌尿科醫學會",
