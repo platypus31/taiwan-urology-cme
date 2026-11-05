@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-04T09:46:03+08:00",
+ "updated_at": "2026-11-05T09:54:13+08:00",
  "count": 58,
  "counts": {
   "cme": 27,
@@ -962,10 +962,10 @@
   },
   {
    "date": "2026-11-29",
-   "title": "台灣創新微創泌尿內視鏡學會第三屆結石論壇",
+   "title": "台灣泌尿內視鏡協會TIMES第三屆結石論壇",
    "end_date": "",
    "time": "13:00 ~ 17:30",
-   "organizer": "台灣創新微創泌尿內視鏡學會",
+   "organizer": "台灣泌尿內視鏡協會TIMES",
    "location": "台大國際會議中心202教室",
    "credits": 2.0,
    "credits_raw": "泌尿科(2點)",
@@ -975,8 +975,7 @@
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4081",
    "categories": [
-    "結石與內視鏡",
-    "機器手臂與微創"
+    "結石與內視鏡"
    ],
    "online": false,
    "badges": []
