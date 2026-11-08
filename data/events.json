@@ -1,9 +1,9 @@
 {
- "updated_at": "2026-11-07T09:25:46+08:00",
- "count": 55,
+ "updated_at": "2026-11-08T08:59:17+08:00",
+ "count": 58,
  "counts": {
   "cme": 27,
-  "meeting": 28
+  "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
@@ -28,16 +28,14 @@
   },
   "台灣泌尿腫瘤醫學會": {
    "kind": "meeting",
-   "count": 0
+   "count": 3
   },
   "台灣泌尿科醫學會 高杏場次": {
    "kind": "meeting",
    "count": 3
   }
  },
- "errors": [
-  "台灣泌尿腫瘤醫學會：活動訊息頁找不到任何活動卡片，來源可能已改版"
- ],
+ "errors": [],
  "feeds": {
   "cme": {
    "": "cme.ics",
@@ -73,6 +71,26 @@
    "url": "https://www.tea2024.org.tw/news/20241221.html",
    "categories": [
     "結石與內視鏡"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2025-02-22",
+   "title": "台灣泌尿腫瘤醫學會年會暨學術演講及2nd PCUC",
+   "end_date": "2025-02-23",
+   "time": "",
+   "organizer": "台灣泌尿腫瘤醫學會",
+   "location": "高雄日航酒店3F宴會廳(高雄市前鎮區林森四路268號3F)",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "南部",
+   "kind": "meeting",
+   "source": "台灣泌尿腫瘤醫學會",
+   "url": "https://tuoa.org.tw/info_detail.php?p=17",
+   "categories": [
+    "泌尿腫瘤"
    ],
    "online": false,
    "badges": []
@@ -291,6 +309,26 @@
    "badges": []
   },
   {
+   "date": "2026-01-31",
+   "title": "台灣泌尿腫瘤醫學會年會暨3rd PCUC",
+   "end_date": "2026-02-01",
+   "time": "",
+   "organizer": "台灣泌尿腫瘤醫學會",
+   "location": "臺北文創大樓六樓多功能廳D+E",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "北部",
+   "kind": "meeting",
+   "source": "台灣泌尿腫瘤醫學會",
+   "url": "https://tuoa.org.tw/info_detail.php?p=18",
+   "categories": [
+    "泌尿腫瘤"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
    "date": "2026-02-28",
    "title": "USANZ 2026",
    "end_date": "2026-03-03",
@@ -475,6 +513,26 @@
    "kind": "meeting",
    "source": "台灣泌尿內視鏡醫學會",
    "url": "https://www.tea2024.org.tw/news/0725-26.pdf",
+   "categories": [
+    "泌尿腫瘤"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-08-01",
+   "title": "台灣泌尿腫瘤醫學會半年會暨學術研討會",
+   "end_date": "",
+   "time": "",
+   "organizer": "台灣泌尿腫瘤醫學會",
+   "location": "長庚國際會議中心3F國際會議廳 (桃園市龜山區復興街7號3樓)",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "北部",
+   "kind": "meeting",
+   "source": "台灣泌尿腫瘤醫學會",
+   "url": "https://tuoa.org.tw/info_detail.php?p=14",
    "categories": [
     "泌尿腫瘤"
    ],
