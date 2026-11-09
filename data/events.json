@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-11-08T08:59:17+08:00",
- "count": 58,
+ "updated_at": "2026-11-09T09:18:22+08:00",
+ "count": 57,
  "counts": {
-  "cme": 27,
+  "cme": 26,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 27
+   "count": 26
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -626,26 +626,6 @@
    "source": "台灣泌尿科醫學會 國際會議",
    "url": "https://www.tua.org.tw/tua/tw/latest-news/events/86-international-meeting/2627-2026-international-meeting",
    "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-11-07",
-   "title": "2026 Oncology Day",
-   "end_date": "2026-11-08",
-   "time": "15:00 ~ 18:15",
-   "organizer": "中華民國癌症醫學會、台灣癌症研究學會",
-   "location": "南港六福萬怡酒店 7F-超新星廳",
-   "credits": 1.0,
-   "credits_raw": "泌尿科(1點)",
-   "credits_pending": false,
-   "region": "其他",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4069",
-   "categories": [
-    "泌尿腫瘤"
-   ],
    "online": false,
    "badges": []
   },
