@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-11-09T09:18:22+08:00",
- "count": 57,
+ "updated_at": "2026-11-10T11:53:55+08:00",
+ "count": 58,
  "counts": {
-  "cme": 26,
+  "cme": 27,
   "meeting": 31
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 26
+   "count": 27
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -798,6 +798,26 @@
    "url": "https://eschool.tua.org.tw/conference/4075",
    "categories": [
     "男性學與性功能"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-11-15",
+   "title": "2026移植年會",
+   "end_date": "",
+   "time": "08:30 ~ 16:00",
+   "organizer": "台灣移植醫學學會",
+   "location": "台北喜來登大飯店",
+   "credits": 2.0,
+   "credits_raw": "泌尿科(2點)",
+   "credits_pending": false,
+   "region": "北部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4085",
+   "categories": [
+    "腎臟移植"
    ],
    "online": false,
    "badges": []
