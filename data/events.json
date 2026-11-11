@@ -1,9 +1,9 @@
 {
- "updated_at": "2026-11-10T11:53:55+08:00",
- "count": 58,
+ "updated_at": "2026-11-11T09:35:19+08:00",
+ "count": 59,
  "counts": {
   "cme": 27,
-  "meeting": 31
+  "meeting": 32
  },
  "sources": {
   "台灣泌尿科醫學會": {
@@ -12,7 +12,7 @@
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
-   "count": 3
+   "count": 4
   },
   "台灣泌尿科醫學會 國際會議": {
    "kind": "meeting",
@@ -289,6 +289,24 @@
    "badges": [
     "高杏協辦"
    ]
+  },
+  {
+   "date": "2026-01-16",
+   "title": "2027 TUA Mid-year Meeting",
+   "end_date": "",
+   "time": "09:00-17:30",
+   "organizer": "台灣泌尿科醫學會",
+   "location": "",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "meeting",
+   "source": "台灣泌尿科醫學會 年會／半年會",
+   "url": "https://eschool.tua.org.tw/p/2027mid_conference",
+   "categories": [],
+   "online": false,
+   "badges": []
   },
   {
    "date": "2026-01-24",
