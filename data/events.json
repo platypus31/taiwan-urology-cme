@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-11T09:35:19+08:00",
+ "updated_at": "2026-11-12T10:36:25+08:00",
  "count": 59,
  "counts": {
   "cme": 27,
@@ -296,7 +296,7 @@
    "end_date": "",
    "time": "09:00-17:30",
    "organizer": "台灣泌尿科醫學會",
-   "location": "",
+   "location": "新光醫院-友誼大樓",
    "credits": null,
    "credits_raw": "",
    "credits_pending": false,
@@ -879,26 +879,6 @@
    "badges": []
   },
   {
-   "date": "2026-11-20",
-   "title": "國軍機械手臂輔助手術論壇",
-   "end_date": "",
-   "time": "09:00 ~ 16:00",
-   "organizer": "國防醫學大學外科學科、台灣胸腔外科醫學會",
-   "location": "國防醫學大學 3 樓 31 教室",
-   "credits": 0.5,
-   "credits_raw": "泌尿科(0.5點)",
-   "credits_pending": false,
-   "region": "其他",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4079",
-   "categories": [
-    "機器手臂與微創"
-   ],
-   "online": false,
-   "badges": []
-  },
-  {
    "date": "2026-11-21",
    "title": "TUA北區月會暨Urothelial CarcinomaTransformation Summit",
    "end_date": "2026-11-22",
@@ -934,6 +914,26 @@
    "url": "https://eschool.tua.org.tw/conference/4080",
    "categories": [
     "腎臟移植"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-11-22",
+   "title": "國軍機械手臂輔助手術論壇",
+   "end_date": "",
+   "time": "09:00 ~ 16:00",
+   "organizer": "國防醫學大學外科學科、台灣胸腔外科醫學會",
+   "location": "國防醫學大學 3 樓 31 教室",
+   "credits": 0.5,
+   "credits_raw": "泌尿科(0.5點)",
+   "credits_pending": false,
+   "region": "其他",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4079",
+   "categories": [
+    "機器手臂與微創"
    ],
    "online": false,
    "badges": []
