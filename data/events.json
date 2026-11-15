@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-11-14T09:54:54+08:00",
- "count": 57,
+ "updated_at": "2026-11-15T09:26:21+08:00",
+ "count": 53,
  "counts": {
-  "cme": 25,
+  "cme": 21,
   "meeting": 32
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 25
+   "count": 21
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -682,85 +682,6 @@
    "categories": [],
    "online": false,
    "badges": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "2026臺中榮民總醫院國際醫學研討會Advancing Pediatric Minimal Invasive Surgery by Robotic-Assisted Surgery/機械手臂輔助手術於兒童外科微創手術Advancing Functional Preserving Gynecologic Surgery with Robotic-Assisted Surgery/機械手臂輔助手術於婦科功能保留手術之發展",
-   "end_date": "",
-   "time": "09:00 ~ 16:30",
-   "organizer": "臺中榮民總醫院",
-   "location": "臺中榮民總醫院第二醫療大樓2樓第8會議室",
-   "credits": 0.5,
-   "credits_raw": "泌尿科(0.5點)",
-   "credits_pending": false,
-   "region": "中部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4074",
-   "categories": [
-    "機器手臂與微創",
-    "小兒泌尿"
-   ],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "RWE forum: A Sustainable Path to Meaningful Survival in HSPC",
-   "end_date": "",
-   "time": "14:00 ~ 17:30",
-   "organizer": "台灣安斯泰來Astellas Taiwan",
-   "location": "台北JR東日本飯店",
-   "credits": 1.5,
-   "credits_raw": "泌尿科(1.5點)",
-   "credits_pending": false,
-   "region": "北部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4077",
-   "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "TUA 11月桃竹苗區雙月會",
-   "end_date": "",
-   "time": "17:00 ~ 20:00",
-   "organizer": "天晟醫療體系泌尿科、中國醫藥大學附設醫院新竹分院泌尿科、TUA",
-   "location": "田川餐廳(桃園市桃園區溫州一路 36 號)",
-   "credits": 1.0,
-   "credits_raw": "泌尿科(1點)",
-   "credits_pending": false,
-   "region": "北部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/3849",
-   "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-11-14",
-   "title": "肥胖、代謝失衡與性健康(台中場)",
-   "end_date": "",
-   "time": "13:30 ~ 17:00",
-   "organizer": "台灣男性學暨性醫學醫學會、台灣性功能障礙諮詢暨訓練委員會",
-   "location": "中國醫藥大學水湳校本部卓越大樓2樓史丹佛講堂(台中市北屯區經貿路一段100號)",
-   "credits": 1.0,
-   "credits_raw": "泌尿科(1點)、家醫科、內科、一般科及藥師積分",
-   "credits_pending": false,
-   "region": "中部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4063",
-   "categories": [
-    "男性學與性功能"
-   ],
-   "online": false,
-   "badges": [
-    "有錄影"
-   ]
   },
   {
    "date": "2026-11-15",
