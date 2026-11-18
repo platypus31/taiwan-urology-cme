@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-11-17T12:15:32+08:00",
- "count": 53,
+ "updated_at": "2026-11-18T11:13:54+08:00",
+ "count": 56,
  "counts": {
-  "cme": 21,
-  "meeting": 32
+  "cme": 23,
+  "meeting": 33
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 21
+   "count": 23
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -28,7 +28,7 @@
   },
   "台灣泌尿腫瘤醫學會": {
    "kind": "meeting",
-   "count": 3
+   "count": 4
   },
   "台灣泌尿科醫學會 高杏場次": {
    "kind": "meeting",
@@ -860,6 +860,24 @@
    "badges": []
   },
   {
+   "date": "2026-12-03",
+   "title": "【🎬線上】GU horizon academy",
+   "end_date": "",
+   "time": "19:00 ~ 20:35",
+   "organizer": "TUA泌腫委員會",
+   "location": "線上會議",
+   "credits": 1.0,
+   "credits_raw": "泌尿科(1點)",
+   "credits_pending": false,
+   "region": "線上",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4110",
+   "categories": [],
+   "online": true,
+   "badges": []
+  },
+  {
    "date": "2026-12-04",
    "title": "實體+【🎬線上】關「心」不「攝」限：Optimizing mCSPC Management : Effective Disease Control with Treatment Flexibility",
    "end_date": "",
@@ -953,6 +971,24 @@
    "url": "https://eschool.tua.org.tw/conference/3848",
    "categories": [],
    "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-12-18",
+   "title": "實體+【🎬線上】裕利-GSK-Duodart 15周年系列活動3 - Fifteen years on 5-ARI",
+   "end_date": "",
+   "time": "19:00 ~ 20:00",
+   "organizer": "裕利股份有限公司",
+   "location": "台北士林萬麗酒店 2F 龍井廳",
+   "credits": 1.0,
+   "credits_raw": "泌尿科(1點)",
+   "credits_pending": false,
+   "region": "北部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4111",
+   "categories": [],
+   "online": true,
    "badges": []
   },
   {
@@ -1067,6 +1103,26 @@
    "url": "https://eschool.tua.org.tw/conference/4109",
    "categories": [
     "結石與內視鏡"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2027-02-20",
+   "title": "2027台灣泌尿腫瘤醫學會年會暨第四屆PCUC 第九屆理監事選舉",
+   "end_date": "",
+   "time": "",
+   "organizer": "台灣泌尿腫瘤醫學會",
+   "location": "高雄洲際酒店三樓宴會廳 (高雄市前鎮區意誠里新光路33號3F)",
+   "credits": null,
+   "credits_raw": "",
+   "credits_pending": false,
+   "region": "南部",
+   "kind": "meeting",
+   "source": "台灣泌尿腫瘤醫學會",
+   "url": "https://tuoa.org.tw/info_detail.php?p=19",
+   "categories": [
+    "泌尿腫瘤"
    ],
    "online": false,
    "badges": []
