@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-11-18T11:13:54+08:00",
- "count": 56,
+ "updated_at": "2026-11-19T10:53:38+08:00",
+ "count": 58,
  "counts": {
-  "cme": 23,
+  "cme": 25,
   "meeting": 33
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 23
+   "count": 25
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -1064,6 +1064,48 @@
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/3853",
    "categories": [],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-12-19",
+   "title": "台灣泌尿內視鏡醫學會暨進階達文西腹腔鏡手術討論會",
+   "end_date": "",
+   "time": "08:50 ~ 12:00",
+   "organizer": "台灣泌尿內視鏡醫學會",
+   "location": "H2O 水京棧國際酒店 (高雄市鼓山區明華路366號)",
+   "credits": 1.5,
+   "credits_raw": "泌尿科(1.5點)",
+   "credits_pending": false,
+   "region": "南部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4112",
+   "categories": [
+    "結石與內視鏡",
+    "機器手臂與微創"
+   ],
+   "online": false,
+   "badges": []
+  },
+  {
+   "date": "2026-12-20",
+   "title": "The Full Spectrum of Urology Care and Cutting-Edge Solutions",
+   "end_date": "",
+   "time": "09:00 ~ 12:10",
+   "organizer": "台灣泌尿內視鏡醫學會",
+   "location": "H2O 水京棧國際酒店 (高雄市鼓山區明華路366)",
+   "credits": 1.5,
+   "credits_raw": "泌尿科(1.5點)",
+   "credits_pending": false,
+   "region": "南部",
+   "kind": "cme",
+   "source": "台灣泌尿科醫學會",
+   "url": "https://eschool.tua.org.tw/conference/4113",
+   "categories": [
+    "結石與內視鏡",
+    "感染與性傳染病"
+   ],
    "online": false,
    "badges": []
   },
