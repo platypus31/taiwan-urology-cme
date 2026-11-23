@@ -1,14 +1,14 @@
 {
- "updated_at": "2026-11-22T09:45:56+08:00",
- "count": 58,
+ "updated_at": "2026-11-23T10:04:30+08:00",
+ "count": 55,
  "counts": {
-  "cme": 22,
+  "cme": 19,
   "meeting": 36
  },
  "sources": {
   "台灣泌尿科醫學會": {
    "kind": "cme",
-   "count": 22
+   "count": 19
   },
   "台灣泌尿科醫學會 年會／半年會": {
    "kind": "meeting",
@@ -702,66 +702,6 @@
    "source": "台灣泌尿科醫學會 國際會議",
    "url": "https://www.eventscribe.com/2020/WCET2020/",
    "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-11-21",
-   "title": "TUA北區月會暨Urothelial CarcinomaTransformation Summit",
-   "end_date": "2026-11-22",
-   "time": "13:30 ~ 19:05",
-   "organizer": "台北榮總、台灣泌尿科醫學會",
-   "location": "台北遠東香格里拉 2F 香格里拉宴會廳",
-   "credits": 2.5,
-   "credits_raw": "泌尿科(2.5點)、外科積分(申請中)",
-   "credits_pending": false,
-   "region": "北部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/3845",
-   "categories": [
-    "泌尿腫瘤"
-   ],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-11-22",
-   "title": "國軍機械手臂輔助手術論壇",
-   "end_date": "",
-   "time": "09:00 ~ 16:00",
-   "organizer": "國防醫學大學外科學科、台灣胸腔外科醫學會",
-   "location": "國防醫學大學 3 樓 31 教室",
-   "credits": 0.5,
-   "credits_raw": "泌尿科(0.5點)",
-   "credits_pending": false,
-   "region": "其他",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4079",
-   "categories": [
-    "機器手臂與微創"
-   ],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-11-22",
-   "title": "達文西手術系統能力培訓計畫(學習護照) da Vinci Competency Program (DVCP) – Xi System Stage 1|Table Surgeon Course",
-   "end_date": "",
-   "time": "08:30 ~ 17:00",
-   "organizer": "TUA機器手臂暨腹腔鏡手術委員會",
-   "location": "臺北市信義區松仁路100號38樓",
-   "credits": 2.0,
-   "credits_raw": "泌尿科(2點)",
-   "credits_pending": false,
-   "region": "北部",
-   "kind": "cme",
-   "source": "台灣泌尿科醫學會",
-   "url": "https://eschool.tua.org.tw/conference/4071",
-   "categories": [
-    "機器手臂與微創"
-   ],
    "online": false,
    "badges": []
   },
