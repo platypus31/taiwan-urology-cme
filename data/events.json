@@ -1,9 +1,9 @@
 {
- "updated_at": "2026-11-27T11:52:29+08:00",
- "count": 55,
+ "updated_at": "2026-11-28T11:38:44+08:00",
+ "count": 43,
  "counts": {
   "cme": 19,
-  "meeting": 36
+  "meeting": 24
  },
  "sources": {
   "台灣泌尿科醫學會": {
@@ -24,7 +24,7 @@
   },
   "台灣泌尿內視鏡醫學會": {
    "kind": "meeting",
-   "count": 12
+   "count": 0
   },
   "台灣泌尿腫瘤醫學會": {
    "kind": "meeting",
@@ -35,7 +35,9 @@
    "count": 3
   }
  },
- "errors": [],
+ "errors": [
+  "台灣泌尿內視鏡醫學會：學術活動頁找不到任何日期開頭的連結，來源可能已改版"
+ ],
  "feeds": {
   "cme": {
    "": "cme.ics",
@@ -54,26 +56,6 @@
   }
  },
  "events": [
-  {
-   "date": "2024-12-21",
-   "title": "台灣泌尿內視鏡醫學會學術研討會",
-   "end_date": "",
-   "time": "",
-   "organizer": "台灣泌尿內視鏡醫學會",
-   "location": "台北JR東日本大飯店2F牡丹廳",
-   "credits": null,
-   "credits_raw": "",
-   "credits_pending": false,
-   "region": "北部",
-   "kind": "meeting",
-   "source": "台灣泌尿內視鏡醫學會",
-   "url": "https://www.tea2024.org.tw/news/20241221.html",
-   "categories": [
-    "結石與內視鏡"
-   ],
-   "online": false,
-   "badges": []
-  },
   {
    "date": "2025-02-22",
    "title": "台灣泌尿腫瘤醫學會年會暨學術演講及2nd PCUC",
@@ -95,26 +77,6 @@
    "badges": []
   },
   {
-   "date": "2025-03-08",
-   "title": "台灣泌尿內視鏡醫學會研討會",
-   "end_date": "",
-   "time": "13:30~18:00",
-   "organizer": "台灣泌尿內視鏡醫學會",
-   "location": "台中林酒店 7F 上海廳",
-   "credits": null,
-   "credits_raw": "",
-   "credits_pending": false,
-   "region": "中部",
-   "kind": "meeting",
-   "source": "台灣泌尿內視鏡醫學會",
-   "url": "https://www.tea2024.org.tw/news/20250308.html",
-   "categories": [
-    "結石與內視鏡"
-   ],
-   "online": false,
-   "badges": []
-  },
-  {
    "date": "2025-05-03",
    "title": "第24屆第3次理監事會議",
    "end_date": "",
@@ -129,26 +91,6 @@
    "source": "台灣泌尿科醫學會 理監事會議",
    "url": "https://www.tua.org.tw/tua/tw/latest-news/announcement/2348-2025-calendar",
    "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2025-07-12",
-   "title": "2025年 台灣泌尿內視鏡醫學會年會",
-   "end_date": "2025-07-13",
-   "time": "13:50~17:50",
-   "organizer": "台灣泌尿內視鏡醫學會",
-   "location": "嘉義長榮文苑 (二樓 A廳)",
-   "credits": null,
-   "credits_raw": "",
-   "credits_pending": false,
-   "region": "南部",
-   "kind": "meeting",
-   "source": "台灣泌尿內視鏡醫學會",
-   "url": "https://www.tea2024.org.tw/news/20250712.html",
-   "categories": [
-    "結石與內視鏡"
-   ],
    "online": false,
    "badges": []
   },
@@ -189,44 +131,6 @@
    "badges": []
   },
   {
-   "date": "2025-09-06",
-   "title": "2025年健康台灣 Health Taiw",
-   "end_date": "",
-   "time": "",
-   "organizer": "台灣泌尿內視鏡醫學會",
-   "location": "",
-   "credits": null,
-   "credits_raw": "",
-   "credits_pending": false,
-   "region": "其他",
-   "kind": "meeting",
-   "source": "台灣泌尿內視鏡醫學會",
-   "url": "https://www.tea2024.org.tw/news/20250906.html",
-   "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2025-09-20",
-   "title": "台灣泌尿內視鏡暨尿路結石委員會秋季研討會",
-   "end_date": "",
-   "time": "12:50~17:00",
-   "organizer": "台灣泌尿內視鏡醫學會、尿路結石委員會",
-   "location": "台北六福萬怡酒店 7F 風光廳",
-   "credits": null,
-   "credits_raw": "",
-   "credits_pending": false,
-   "region": "北部",
-   "kind": "meeting",
-   "source": "台灣泌尿內視鏡醫學會",
-   "url": "https://www.tea2024.org.tw/news/20250920.html",
-   "categories": [
-    "結石與內視鏡"
-   ],
-   "online": false,
-   "badges": []
-  },
-  {
    "date": "2025-11-22",
    "title": "2025 TUA南區月會暨高杏泌尿論壇",
    "end_date": "",
@@ -245,48 +149,6 @@
    "badges": [
     "高杏主辦"
    ]
-  },
-  {
-   "date": "2025-12-10",
-   "title": "基隆長庚醫院民眾衛教活動-了解微創攝護腺拉開手術最新治療資訊",
-   "end_date": "",
-   "time": "",
-   "organizer": "台灣泌尿內視鏡醫學會",
-   "location": "",
-   "credits": null,
-   "credits_raw": "",
-   "credits_pending": false,
-   "region": "其他",
-   "kind": "meeting",
-   "source": "台灣泌尿內視鏡醫學會",
-   "url": "https://www.tea2024.org.tw/news/20251210agenda.pdf",
-   "categories": [
-    "泌尿腫瘤",
-    "機器手臂與微創"
-   ],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2025-12-13",
-   "title": "台灣泌尿內視鏡醫學會暨進階達文西腹腔鏡手術討論會",
-   "end_date": "",
-   "time": "08:50~18:30",
-   "organizer": "台灣泌尿內視鏡醫學會",
-   "location": "高雄漢來大飯店 會展廳",
-   "credits": null,
-   "credits_raw": "",
-   "credits_pending": false,
-   "region": "南部",
-   "kind": "meeting",
-   "source": "台灣泌尿內視鏡醫學會",
-   "url": "https://www.tea2024.org.tw/news/20251213.html",
-   "categories": [
-    "結石與內視鏡",
-    "機器手臂與微創"
-   ],
-   "online": false,
-   "badges": []
   },
   {
    "date": "2025-12-20",
@@ -421,26 +283,6 @@
    "badges": []
   },
   {
-   "date": "2026-04-18",
-   "title": "台灣泌尿內視鏡醫學會",
-   "end_date": "",
-   "time": "13:00~18:00",
-   "organizer": "台灣泌尿內視鏡醫學會",
-   "location": "長庚國際會議中心2樓 討論室A、D",
-   "credits": null,
-   "credits_raw": "",
-   "credits_pending": false,
-   "region": "其他",
-   "kind": "meeting",
-   "source": "台灣泌尿內視鏡醫學會",
-   "url": "https://www.tea2024.org.tw/news/20260418.html",
-   "categories": [
-    "結石與內視鏡"
-   ],
-   "online": false,
-   "badges": []
-  },
-  {
    "date": "2026-04-23",
    "title": "JUA 2026",
    "end_date": "2026-04-26",
@@ -518,46 +360,6 @@
    "badges": []
   },
   {
-   "date": "2026-06-27",
-   "title": "台灣泌尿內視鏡醫學會年會",
-   "end_date": "",
-   "time": "",
-   "organizer": "台灣泌尿內視鏡醫學會",
-   "location": "",
-   "credits": null,
-   "credits_raw": "",
-   "credits_pending": false,
-   "region": "其他",
-   "kind": "meeting",
-   "source": "台灣泌尿內視鏡醫學會",
-   "url": "https://www.tea2024.org.tw/news/20260627.jpg",
-   "categories": [
-    "結石與內視鏡"
-   ],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-07-25",
-   "title": "泌尿腫瘤夏季研討會",
-   "end_date": "2026-07-26",
-   "time": "",
-   "organizer": "台灣泌尿內視鏡醫學會",
-   "location": "",
-   "credits": null,
-   "credits_raw": "",
-   "credits_pending": false,
-   "region": "其他",
-   "kind": "meeting",
-   "source": "台灣泌尿內視鏡醫學會",
-   "url": "https://www.tea2024.org.tw/news/0725-26.pdf",
-   "categories": [
-    "泌尿腫瘤"
-   ],
-   "online": false,
-   "badges": []
-  },
-  {
    "date": "2026-08-01",
    "title": "台灣泌尿腫瘤醫學會半年會暨學術研討會",
    "end_date": "",
@@ -610,26 +412,6 @@
    "source": "台灣泌尿科醫學會 理監事會議",
    "url": "https://www.tua.org.tw/tua/tw/latest-news/announcement/2599-2026-calendar",
    "categories": [],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-10-03",
-   "title": "TEA Urolithiasis Symposium",
-   "end_date": "",
-   "time": "",
-   "organizer": "台灣泌尿內視鏡醫學會",
-   "location": "",
-   "credits": null,
-   "credits_raw": "",
-   "credits_pending": false,
-   "region": "其他",
-   "kind": "meeting",
-   "source": "台灣泌尿內視鏡醫學會",
-   "url": "https://www.tea2024.org.tw/Academic%20activities.html",
-   "categories": [
-    "結石與內視鏡"
-   ],
    "online": false,
    "badges": []
   },
@@ -801,7 +583,7 @@
   },
   {
    "date": "2026-12-04",
-   "title": "實體+【🎬線上】關「心」不「攝」限線上講座系列｜ Treat PC patients from the HEART: Managing CV Risk and DDIs to Support Long-Term Treatment in Prostate Cancer Patients",
+   "title": "實體+【🎬線上】關「心」不「攝」限線上講座系列｜ Treat PC patients from the HEART : Managing CV Risk and DDIs to Support Long-Term Treatment in Prostate Cancer Patients",
    "end_date": "",
    "time": "19:00 ~ 20:20",
    "organizer": "台灣拜耳股份有限公司",
@@ -1003,27 +785,6 @@
    "kind": "cme",
    "source": "台灣泌尿科醫學會",
    "url": "https://eschool.tua.org.tw/conference/4112",
-   "categories": [
-    "結石與內視鏡",
-    "機器手臂與微創"
-   ],
-   "online": false,
-   "badges": []
-  },
-  {
-   "date": "2026-12-19",
-   "title": "台灣泌尿內視鏡醫學會暨進階達文西腹腔鏡手術討論會",
-   "end_date": "",
-   "time": "",
-   "organizer": "台灣泌尿內視鏡醫學會",
-   "location": "",
-   "credits": null,
-   "credits_raw": "",
-   "credits_pending": false,
-   "region": "其他",
-   "kind": "meeting",
-   "source": "台灣泌尿內視鏡醫學會",
-   "url": "https://www.tea2024.org.tw/Academic%20activities.html",
    "categories": [
     "結石與內視鏡",
     "機器手臂與微創"
